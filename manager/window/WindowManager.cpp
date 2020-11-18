@@ -1,5 +1,5 @@
 #include "WindowManager.h"
-#include "./ui_windowmanager.h"
+#include "./ui_WindowManager.h"
 
 WindowManager::WindowManager(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::WindowManager) {
