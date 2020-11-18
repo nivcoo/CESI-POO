@@ -1,6 +1,11 @@
-#include <iostream>
+#include "manager/window/WindowManager.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    WindowManager w;
+    w.show();
     return 0;
 }
