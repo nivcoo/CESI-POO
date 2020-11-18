@@ -2,14 +2,11 @@
 #include "./ui_windowmanager.h"
 
 WindowManager::WindowManager(QWidget *parent)
-        : QMainWindow(parent)
-        , ui(new Ui::WindowManager)
-{
+        : QMainWindow(parent), ui(new Ui::WindowManager) {
     ui->setupUi(this);
 }
 
-WindowManager::~WindowManager()
-{
+WindowManager::~WindowManager() {
     delete ui;
 }
 

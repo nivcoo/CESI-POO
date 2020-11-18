@@ -1,4 +1,4 @@
-#include "manager/window/WindowManager.h"
+#include "WindowManager.h"
 
 #include <QApplication>
 
@@ -7,5 +7,5 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     WindowManager w;
     w.show();
-    return 0;
+    return a.exec();
 }
