@@ -1,4 +1,4 @@
-#include "WindowManager.h"
+#include "manager/window/WindowManager.h"
 
 #include <QApplication>
 

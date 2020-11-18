@@ -16,7 +16,7 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
-add_executable(CESI_POO main.cpp WindowManager.cpp
-        WindowManager.h
-        WindowManager.ui)
+add_executable(CESI_POO main.cpp manager/window/WindowManager.cpp
+        manager/window/WindowManager.h
+        manager/window/WindowManager.ui)
 target_link_libraries(CESI_POO PRIVATE Qt5::Widgets)
