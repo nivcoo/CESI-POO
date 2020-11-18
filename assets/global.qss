@@ -1,0 +1,93 @@
+QMainWindow
+{
+	color: #ececec;
+	background-color: #393e46;
+}
+
+/*QWidget {
+	color: #BFBFBF;
+	background-color: #222831;
+}
+QWidget#StaffTab {
+	color: #BFBFBF;
+	background-color: #d65a31;
+}*/
+
+
+QWidget::item:hover
+{
+    background-color: #5285A6;
+    color: #FFFFFF;
+}
+
+/*---------------------------------------------------------*/
+QPushButton
+{
+    border-radius: 3px;
+	min-width: 4em;
+	min-height: 2em;
+	color:white;
+	background-color: #d65a31;
+}
+QPushButton:hover
+{
+    background-color: #d65a31;
+}
+QPushButton:pressed{
+
+    background-color: #5285A6;
+}
+
+/*-------------------------------------------------------------*/
+QTabWidget
+{
+	border: 1px transparent black;
+	background-color: #d65a31;
+	/*padding:20px;*/
+
+}
+QTabWidget::pane {
+    background-color: #222831;
+    border: none;
+    margin:0px 10px 10px 10px;
+    padding:40px;
+    color: #ececec;
+/* The tab widget frame */
+}
+
+QLabel {
+    color: #ececec;
+}
+
+
+QTabWidget::tab-bar {
+
+}
+
+QTabBar::tab:first {
+
+    margin:10px 0px 0px 10px;
+}
+QTabBar::tab {
+
+    margin:10px 0px 0px 0px;
+    padding: 5px;
+    min-width: 18ex;
+}
+
+QTabBar::tab:!selected:hover {
+    color:white;
+    background: #d06f4f;
+}
+
+QTabBar::tab:selected {
+	color: #ececec;
+    background: #d65a31;
+}
+
+QTabBar::tab:!selected {
+	background: #222831;
+	color:#ececec;
+}
+
+
