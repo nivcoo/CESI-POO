@@ -5,9 +5,10 @@
 #ifndef MAIN_CPP_DATABASE_H
 #define MAIN_CPP_DATABASE_H
 
-
 class DataBase {
 
+public:
+    DataBase();
 };
 
 

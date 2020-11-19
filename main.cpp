@@ -1,9 +1,9 @@
 #include "window/main/MainWindow.h"
-
-#include <QApplication>
-#include <QFile>
+#include "ihm/IHM.h"
 
 int main(int argc, char *argv[]) {
+
+
     QApplication a(argc, argv);
     QCoreApplication::setOrganizationName("CESI");
     QCoreApplication::setApplicationName("CESI");
@@ -13,9 +13,8 @@ int main(int argc, char *argv[]) {
         a.setStyleSheet(StyleSheet);
 
     }
+    new IHM();
     MainWindow w;
-
     w.show();
-
     return a.exec();
 }

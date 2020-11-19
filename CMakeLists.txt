@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(MYSQL_DIR "C:\\Program Files\\MariaDB\\mariadb-connector-cpp-last")
 
 find_package(Qt5 COMPONENTS Widgets Gui Core OpenGL REQUIRED)
-
-add_executable(CESI_POO main.cpp
+add_executable(${PROJECT_NAME} main.cpp
         model/history/HistoryOrder.cpp model/history/HistoryOrder.h
         model/Customer.cpp model/Customer.h
         model/Staff.cpp model/Staff.h
@@ -20,6 +20,15 @@ add_executable(CESI_POO main.cpp
         window/content/TabManager.cpp window/content/TabManager.h
         window/content/StaffTab.cpp window/content/StaffTab.h
         window/content/OrderTab.cpp window/content/OrderTab.h
-        assets/resources.qrc)
+        assets/resources.qrc model/ModelManager.cpp model/ModelManager.h ihm/IHM.cpp ihm/IHM.h)
 
-target_link_libraries(CESI_POO PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
+
+
+target_include_directories(
+        ${PROJECT_NAME}
+        PUBLIC
+        ${MYSQL_DIR}/include
+)
+find_library(MYSQL NAMES mariadbcpp PATHS ${MYSQL_DIR}/libmariadb)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${MYSQL})
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
