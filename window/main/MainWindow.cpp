@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
-        ui(new Ui::MainWindow),
+        ui(new Ui::mainwindow),
         tabManager(new TabManager) {
     ui->setupUi(this);
     setWindowTitle("Test");

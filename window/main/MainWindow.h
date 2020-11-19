@@ -12,7 +12,7 @@
 #include "../content/TabManager.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class mainwindow; }
 QT_END_NAMESPACE
 
 
@@ -27,7 +27,7 @@ public:
 private:
     TabManager *tabManager;
 
-    Ui::MainWindow *ui;
+    Ui::mainwindow *ui;
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H
