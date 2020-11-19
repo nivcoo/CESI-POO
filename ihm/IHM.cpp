@@ -21,7 +21,7 @@ IHM::~IHM() {
 
 void IHM::initDB() {
 
-    db = new DataBase();
+    db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     modelManager = new ModelManager(db);
 
 

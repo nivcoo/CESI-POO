@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(MYSQL_DIR "C:\\Program Files\\MariaDB\\mariadb-connector-cpp-last")
+set(SQLAPI_DIR "libs/SQLAPI")
 
 find_package(Qt5 COMPONENTS Widgets Gui Core OpenGL REQUIRED)
 add_executable(${PROJECT_NAME} main.cpp
@@ -27,8 +27,8 @@ add_executable(${PROJECT_NAME} main.cpp
 target_include_directories(
         ${PROJECT_NAME}
         PUBLIC
-        ${MYSQL_DIR}/include
+        ${SQLAPI_DIR}/include
 )
-find_library(MYSQL NAMES mariadbcpp PATHS ${MYSQL_DIR}/libmariadb)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${MYSQL})
+find_library(SQLAPI NAMES sqlapi PATHS ${SQLAPI_DIR}/lib)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SQLAPI})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)

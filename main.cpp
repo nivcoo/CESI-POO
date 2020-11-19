@@ -1,6 +1,7 @@
 #include "window/main/MainWindow.h"
 #include "ihm/IHM.h"
 
+
 int main(int argc, char *argv[]) {
 
 

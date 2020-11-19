@@ -5,8 +5,6 @@
 #ifndef MAIN_CPP_IHM_H
 #define MAIN_CPP_IHM_H
 
-#include <QtWidgets/QApplication>
-#include <QtCore/QFile>
 #include "../utils/DataBase.h"
 #include "../model/ModelManager.h"
 class IHM {
