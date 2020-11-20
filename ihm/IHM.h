@@ -15,13 +15,17 @@ public:
 
     ~IHM();
 
-    static IHM &get();
+    IHM(const IHM &other) = delete;
 
-    ModelManager *getModelManager();
+    static IHM * get();
+
+    ModelManager ** getModelManager();
+
 
 private:
-    static IHM INSTANCE;
+    static IHM * INSTANCE;
     ModelManager *_modelManager;
+
     void initDB();
 };
 

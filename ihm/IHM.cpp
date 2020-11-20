@@ -5,11 +5,12 @@
 
 #include "IHM.h"
 
-IHM IHM::INSTANCE = IHM();
+IHM * IHM::INSTANCE = nullptr;
 
 
 IHM::IHM() {
-    //INSTANCE = this;
+    INSTANCE = this;
+
     initDB();
 }
 
@@ -19,11 +20,11 @@ void IHM::initDB() {
 }
 
 
-ModelManager * IHM::getModelManager() {
-    return _modelManager;
+ModelManager ** IHM::getModelManager() {
+    return &_modelManager;
 }
 
-IHM &IHM::get() {
+IHM * IHM::get() {
     return INSTANCE;
 }
 
