@@ -19,7 +19,7 @@ void ModelManager::initDB() {
 
     QString allSQL = QLatin1String(sql.readAll());
     SAString allSQLStr = SAString(allSQL.toLatin1());
-    DataBase * db = IHM::get()->getDataBase();
+    DataBase *db = IHM::get()->getDataBase();
     SACommand cmd;
     cmd.setCommandText(allSQLStr);
     db->connectAndExecuteCommand(&cmd);
@@ -29,9 +29,15 @@ void ModelManager::initDB() {
 
 void ModelManager::initItemModel() {
 
+    _customerModel = new CustomerModel();
+    _customerModel->updateByID(2, "gty", "rth", SADateTime(2000,10,1));
+    //_customerModel->deleteCustomerByID(1);
+
 }
 
 ModelManager::~ModelManager() {
+
+    delete _customerModel;
 
 }
 

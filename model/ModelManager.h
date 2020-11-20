@@ -9,6 +9,7 @@
 #include "../utils/DataBase.h"
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
+#include "CustomerModel.h"
 
 class ModelManager {
 
@@ -20,6 +21,8 @@ public:
 private:
 
     void initItemModel();
+
+    CustomerModel * _customerModel;
 
     void initDB();
 };
