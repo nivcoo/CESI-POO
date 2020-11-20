@@ -520,7 +520,7 @@
 #define CS_LOOP_DELAY 		(CS_INT)9174
 
 /*
-** Properties for Security services support 
+** Properties for Security service support
 */
 #define CS_SEC_NETWORKAUTH	(CS_INT)9175
 #define CS_SEC_DELEGATION	(CS_INT)9176
@@ -559,7 +559,7 @@
 #define CS_BEHAVIOR		(CS_INT)9197
 
 /*
-** Property for Directory services. (belongs with CS_DS_* above) 
+** Property for Directory service. (belongs with CS_DS_* above)
 ** Added at LDAP implementation time.
 */
 #define CS_DS_PASSWORD		(CS_INT)9198

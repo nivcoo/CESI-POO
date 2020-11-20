@@ -7,6 +7,8 @@
 
 
 #include "../utils/DataBase.h"
+#include <QtCore/qfile.h>
+#include <QtCore/qtextstream.h>
 
 class ModelManager {
 

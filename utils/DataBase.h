@@ -31,7 +31,7 @@ private:
     SAString _db;
     SAString _user;
     SAString _pass;
-
+    void displayDBError(SAException &error);
 };
 
 

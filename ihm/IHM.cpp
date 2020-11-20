@@ -4,6 +4,7 @@
 
 
 #include "IHM.h"
+#include "../window/main/MainWindow.h"
 
 IHM *IHM::INSTANCE = nullptr;
 
@@ -33,6 +34,7 @@ IHM *IHM::get() {
 }
 
 IHM::~IHM() {
+    delete INSTANCE;
     delete _db;
     delete _modelManager;
 }

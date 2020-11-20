@@ -1934,7 +1934,7 @@ sword OCIDurationBegin(    OCIEnv *env, OCIError *err, const OCISvcCtx *svc,
    NAME: OCIDurationBegin - OCI DURATION BEGIN
    PARAMETERS:
         env  (IN/OUT) - OCI environment handle initialized in object mode
-                        This should be passed NULL, when cartridge services
+                        This should be passed NULL, when cartridge service
                         are to be used.
         err  (IN/OUT) - error handle. If there is an error, it is
                         recorded in 'err' and this function returns OCI_ERROR.
@@ -1945,8 +1945,8 @@ sword OCIDurationBegin(    OCIEnv *env, OCIError *err, const OCISvcCtx *svc,
         dur     (OUT) - newly created user duration 
    REQUIRES:
         - a valid OCI environment handle must be given for non-cartridge
-          services.
-        - For cartridge services, NULL should be given for environment handle
+          service.
+        - For cartridge service, NULL should be given for environment handle
         - A valid service handle must be given in all cases.
    DESCRIPTION:
         This function starts a new user duration.  A user can have multiple
@@ -1976,11 +1976,11 @@ sword OCIDurationBegin(    OCIEnv *env, OCIError *err, const OCISvcCtx *svc,
              user duration is call, then the memory allocated with the user
              duration will also come from the PGA heap.
 
-        This function can be used as both part of cartridge services as well 
-        as without cartridge services.
+        This function can be used as both part of cartridge service as well
+        as without cartridge service.
         The difference in the function in the case of cartridge and 
-        non-cartridge services is:
-                In case of cartridge services, as descibed above a new user
+        non-cartridge service is:
+                In case of cartridge service, as descibed above a new user
         duration is created as a child of the "parent" duration.
                 But when used for non-cartridge purposes, when a pre-defined
         duration is passed in as parent, it is mapped to the cache duration
@@ -2001,7 +2001,7 @@ sword OCIDurationEnd(    OCIEnv *env, OCIError *err, const OCISvcCtx *svc,
    NAME: OCIDurationEnd - OCI DURATION END
    PARAMETERS:
         env  (IN/OUT) - OCI environment handle initialized in object mode
-                        This should be passed NULL, when cartridge services
+                        This should be passed NULL, when cartridge service
                         are to be used.
         err  (IN/OUT) - error handle. If there is an error, it is
                         recorded in 'err' and this function returns OCI_ERROR.
@@ -2012,26 +2012,26 @@ sword OCIDurationEnd(    OCIEnv *env, OCIError *err, const OCISvcCtx *svc,
                         OCIDurationBegin()
    REQUIRES:
         - a valid OCI environment handle must be given for non-cartridge
-          services.
-        - For cartridge services, NULL should be given for environment handle
+          service.
+        - For cartridge service, NULL should be given for environment handle
         - A valid service handle must be given in all cases.
    DESCRIPTION:
         This function terminates a user duration.  All memory allocated for
         this duration is freed.
 
-        This function can be used as both part of cartridge services as well 
-        as without cartridge services.  In both cased, the heap duration
+        This function can be used as both part of cartridge service as well
+        as without cartridge service.  In both cased, the heap duration
         is freed and all the allocated memory for that duration is freed.
         The difference in the function in the case of cartridge and 
-        non-cartridge services is:
-                In case of non-cartridge services, if the duration is pre-
+        non-cartridge service is:
+                In case of non-cartridge service, if the duration is pre-
         defined, the associated cache duration (see OCIDurationBegin())
         is also terminated and the following is done.
           1) The child durations are terminated.
           2) All objects pinned for this duration are unpinned.
           3) All instances allocated for this duration are freed.
 
-                In case of cartridge services, only the heap duration is
+                In case of cartridge service, only the heap duration is
         freed.  All the context entries allocated for that duration are 
         freed from the context hash table..
 

@@ -685,7 +685,7 @@ All rights reserved.*/
    nmallava    12/17/97 - Add ilob open and close apis
    rkasamse    12/03/97 - Change some of the function names for pickler cartrid
    nramakri    11/12/97 - add OCIExtract prototypes
-   rkasamse    11/21/97 - add prototypes for memory cartridge services and cont
+   rkasamse    11/21/97 - add prototypes for memory cartridge service and cont
    rkasamse    11/03/97 - Add pickler cartridge interfaces.
    jiyang      11/11/97 - Add NLS service for cartridge
    tanguyen    08/19/97 -

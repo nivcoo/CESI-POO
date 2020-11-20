@@ -2571,7 +2571,7 @@ sqlaintp_api(msgbuf,bufsize,linesize, \
 ** truncated.
 ** 
 ** -1
-** Insufficient memory available for message formatting services to
+** Insufficient memory available for message formatting service to
 ** function. The requested message is not returned.
 ** 
 ** -2
@@ -2686,7 +2686,7 @@ SQL_API_RC SQL_API_FN                      /* Get Error Message               */
 ** truncated.
 ** 
 ** -1
-** Insufficient memory available for message formatting services to
+** Insufficient memory available for message formatting service to
 ** function. The requested message is not returned.
 ** 
 ** -2

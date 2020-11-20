@@ -8,7 +8,9 @@
 DataBase::DataBase(SAString server, SAString db, SAString user, SAString pass) : _server(server), _db(db),
                                                                                  _user(user), _pass(pass) {
 
-    /**connectIfNot();
+    /**
+     *
+     * This is an example
     SACommand cmd;
 
     cmd.setCommandText("SELECT cuntest FROM test WHERE cuntest = :1");
@@ -28,7 +30,7 @@ void DataBase::connectIfNot() {
             cout << "We are connected!" << endl;
         }
         catch (SAException &x) {
-            cout << "Database ERROR " << endl << x.ErrText().GetMultiByteChars() << endl;
+            displayDBError(x);
             _con.Rollback();
         }
     }
@@ -45,12 +47,23 @@ void DataBase::closeConnection() {
 
 void DataBase::connectAndExecuteCommand(SACommand *saCommand) {
     connectIfNot();
-    saCommand->setConnection(&_con);
-    saCommand->Execute();
+    try {
+        saCommand->setConnection(&_con);
+        saCommand->Execute();
+    }
+    catch (SAException &x) {
+        displayDBError(x);
+        _con.Rollback();
+    }
 }
 
 DataBase::~DataBase() {
     closeConnection();
+}
+
+
+void DataBase::displayDBError(SAException &error) {
+    cout << "Database ERROR :" << endl << error.ErrText().GetMultiByteChars() << endl;
 }
 
 

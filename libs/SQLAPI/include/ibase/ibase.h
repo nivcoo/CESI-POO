@@ -2362,7 +2362,7 @@ BSTREAM   ISC_FAR * ISC_EXPORT Bopen2();
 #define isc_info_svc_get_license      51 /* Retrieves all license keys and IDs from the license file */
 #define isc_info_svc_get_license_mask 52 /* Retrieves a bitmask representing licensed options on the server */ 
 #define isc_info_svc_get_config       53 /* Retrieves the parameters and values for IB_CONFIG */ 
-#define isc_info_svc_version          54 /* Retrieves the version of the services manager */ 
+#define isc_info_svc_version          54 /* Retrieves the version of the service manager */
 #define isc_info_svc_server_version   55 /* Retrieves the version of the InterBase server */ 
 #define isc_info_svc_implementation   56 /* Retrieves the implementation of the InterBase server */ 
 #define isc_info_svc_capabilities     57 /* Retrieves a bitmask representing the server's capabilities */ 

@@ -538,10 +538,10 @@ All rights reserved.*/
    jiyang      12/18/97 - Add OCI_NLS_MAX_BUFSZ
    rhwu        12/02/97 - move oci1.h up
    ewaugh      12/15/97 - Add short names for the OCIFormat package.
-   rkasamse    12/02/97 - Add a constant for memory cartridge services -- OCI_M
+   rkasamse    12/02/97 - Add a constant for memory cartridge service -- OCI_M
    nmallava    12/31/97 - open/close for internal lobs
    khnguyen    11/27/97 - add OCI_ATTR_LFPRECISION, OCI_ATTR_FSPRECISION
-   rkasamse    11/03/97 - add types for pickler cartridge services
+   rkasamse    11/03/97 - add types for pickler cartridge service
    mluong      11/20/97 - changed ubig_ora to ub4 per skotsovo
    ssamu       11/14/97 - add oci1.h
    jiyang      11/13/97 - Add NLS service for cartridge
