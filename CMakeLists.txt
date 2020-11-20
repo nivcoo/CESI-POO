@@ -6,7 +6,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(SQLAPI_DIR "libs/SQLAPI")
+
+
+if (WIN32)
+    set(SQLAPI_DIR "libs/SQLAPI/win32")
+elseif (UNIX)
+    set(SQLAPI_DIR "libs/SQLAPI/unix")
+endif ()
+
 
 find_package(Qt5 COMPONENTS Widgets Gui Core OpenGL REQUIRED)
 add_executable(${PROJECT_NAME} main.cpp
@@ -23,12 +30,14 @@ add_executable(${PROJECT_NAME} main.cpp
         assets/resources.qrc model/ModelManager.cpp model/ModelManager.h ihm/IHM.cpp ihm/IHM.h)
 
 
-
 target_include_directories(
         ${PROJECT_NAME}
         PUBLIC
         ${SQLAPI_DIR}/include
 )
+
+
 find_library(SQLAPI NAMES sqlapi PATHS ${SQLAPI_DIR}/lib)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SQLAPI})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
