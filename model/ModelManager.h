@@ -20,7 +20,7 @@ public:
 
 private:
 
-    void initItemModel();
+    void initModel();
 
     CustomerModel * _customerModel;
 

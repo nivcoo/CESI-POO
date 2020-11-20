@@ -9,7 +9,7 @@
 
 ModelManager::ModelManager() {
     initDB();
-    initItemModel();
+    initModel();
 }
 
 void ModelManager::initDB() {
@@ -27,7 +27,7 @@ void ModelManager::initDB() {
     sql.close();
 }
 
-void ModelManager::initItemModel() {
+void ModelManager::initModel() {
 
     _customerModel = new CustomerModel();
     _customerModel->updateByID(2, "gty", "rth", SADateTime(2000,10,1));
