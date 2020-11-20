@@ -13,6 +13,8 @@ public:
     void insert(string firstname, string lastname, SADateTime birthDate);
     void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
     void deleteByID(int id);
+private:
+    void send(SACommand * cmd);
 };
 
 

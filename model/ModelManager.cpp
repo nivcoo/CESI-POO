@@ -30,7 +30,7 @@ void ModelManager::initDB() {
 void ModelManager::initModel() {
 
     _customerModel = new CustomerModel();
-    _customerModel->updateByID(2, "gty", "rth", SADateTime(2000,10,1));
+    _customerModel->updateByID(2, "gtyrthrt", "rth", SADateTime(2000,10,1));
     //_customerModel->deleteCustomerByID(1);
 
 }
