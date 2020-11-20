@@ -11,7 +11,10 @@
 class ModelManager {
 
 public:
-    explicit ModelManager(DataBase *db);
+    ModelManager(DataBase * db);
+    ~ModelManager();
+
+    DataBase * getDataBase();
 
 
 private:

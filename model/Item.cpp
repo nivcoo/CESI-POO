@@ -3,3 +3,9 @@
 //
 
 #include "Item.h"
+#include "../ihm/IHM.h"
+
+Item::Item() {
+
+    //IHM::get()->getModelManager()->getDataBase();
+}

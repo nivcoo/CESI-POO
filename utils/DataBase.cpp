@@ -3,10 +3,10 @@
 //
 
 #include "DataBase.h"
+#include "../ihm/IHM.h"
 
 DataBase::DataBase(SAString server, SAString db, SAString user, SAString pass) : _server(server), _db(db),
                                                                                  _user(user), _pass(pass) {
-
 
     /**connectIfNot();
     SACommand cmd;
@@ -43,9 +43,7 @@ void DataBase::closeConnection() {
 }
 
 
-
-
-SACommand * DataBase::connectAndExecuteCommand(SACommand * saCommand) {
+SACommand *DataBase::connectAndExecuteCommand(SACommand *saCommand) {
     connectIfNot();
     saCommand->setConnection(&_con);
     saCommand->Execute();

@@ -7,14 +7,21 @@
 
 #include "../utils/DataBase.h"
 #include "../model/ModelManager.h"
+
 class IHM {
 
 public:
     IHM();
+
     ~IHM();
+
+    static IHM &get();
+
+    ModelManager *getModelManager();
+
 private:
-    ModelManager * modelManager;
-    DataBase * db;
+    static IHM INSTANCE;
+    ModelManager *_modelManager;
     void initDB();
 };
 

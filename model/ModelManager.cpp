@@ -3,21 +3,31 @@
 //
 
 #include "ModelManager.h"
-
-ModelManager::ModelManager(DataBase *db): _db(db) {
-
+#include "../ihm/IHM.h"
+#include "Item.h"
+ModelManager::ModelManager(DataBase * db) : _db(db)  {
     initDB();
     initItemModel();
+    //IHM::get().getModelManager()->getDataBase();
 
 }
 
 void ModelManager::initDB() {
 
-    _db;
+    new Item();
+
 }
 
 void ModelManager::initItemModel() {
 
+}
+
+DataBase * ModelManager::getDataBase() {
+    return _db;
+}
+
+ModelManager::~ModelManager() {
+    delete _db;
 }
 
 

@@ -8,6 +8,9 @@
 
 class Item {
 
+public:
+    Item();
+
 };
 
 
