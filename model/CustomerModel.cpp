@@ -40,6 +40,5 @@ void CustomerModel::deleteByID(int id) {
 void CustomerModel::send(SACommand * cmd) {
     DataBase *db = IHM::get()->getDataBase();
     db->connectAndExecuteCommand(cmd);
-    db->closeConnection();
 }
 

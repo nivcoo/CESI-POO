@@ -55,6 +55,7 @@ void DataBase::connectAndExecuteCommand(SACommand *saCommand) {
         displayDBError(x);
         _con.Rollback();
     }
+    closeConnection();
 }
 
 DataBase::~DataBase() {
@@ -63,7 +64,7 @@ DataBase::~DataBase() {
 
 
 void DataBase::displayDBError(SAException &error) {
-    cout << "Database ERROR :" << endl << error.ErrText().GetMultiByteChars() << endl;
+    cerr << "Database ERROR :" << endl << error.ErrText().GetMultiByteChars() << endl;
 }
 
 
