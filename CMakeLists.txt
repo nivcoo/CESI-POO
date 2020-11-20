@@ -8,11 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 
-if (WIN32)
-    set(SQLAPI_DIR "libs/SQLAPI/win32")
-elseif (UNIX)
-    set(SQLAPI_DIR "libs/SQLAPI/unix")
-endif ()
+set(SQLAPI_DIR "libs/SQLAPI/")
 
 
 find_package(Qt5 COMPONENTS Widgets Gui Core OpenGL REQUIRED)
@@ -36,8 +32,10 @@ target_include_directories(
         ${SQLAPI_DIR}/include
 )
 
-
-find_library(SQLAPI NAMES sqlapi PATHS ${SQLAPI_DIR}/lib)
-
+if (WIN32)
+    find_library(SQLAPI NAMES sqlapi PATHS ${SQLAPI_DIR}/win32/lib)
+elseif (UNIX)
+    find_library(SQLAPI NAMES sqlapi PATHS ${SQLAPI_DIR}/unix/lib)
+endif ()
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SQLAPI})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
