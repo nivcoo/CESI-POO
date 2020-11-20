@@ -17,16 +17,19 @@ public:
 
     IHM(const IHM &other) = delete;
 
-    static IHM * get();
+    static IHM *get();
 
-    ModelManager ** getModelManager();
+    ModelManager *getModelManager();
+
+    DataBase *getDataBase();
 
 
 private:
-    static IHM * INSTANCE;
-    ModelManager *_modelManager;
-
+    static IHM *INSTANCE;
     void initDB();
+    ModelManager *_modelManager;
+    DataBase *_db;
+
 };
 
 

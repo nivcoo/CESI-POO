@@ -8,6 +8,6 @@
 Item::Item() {
 
 
-
+    IHM::get()->getDataBase()->connectIfNot();
     //IHM::get()->getModelManager()->getDataBase();
 }

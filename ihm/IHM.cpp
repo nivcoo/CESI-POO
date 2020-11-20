@@ -5,29 +5,34 @@
 
 #include "IHM.h"
 
-IHM * IHM::INSTANCE = nullptr;
+IHM *IHM::INSTANCE = nullptr;
 
 
 IHM::IHM() {
     INSTANCE = this;
-
     initDB();
 }
 
 void IHM::initDB() {
-    DataBase * db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
-    _modelManager = new ModelManager(db);
+    _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
+    _modelManager = new ModelManager();
 }
 
 
-ModelManager ** IHM::getModelManager() {
-    return &_modelManager;
+ModelManager *IHM::getModelManager() {
+
+    return _modelManager;
 }
 
-IHM * IHM::get() {
+DataBase *IHM::getDataBase() {
+    return _db;
+}
+
+IHM *IHM::get() {
     return INSTANCE;
 }
 
 IHM::~IHM() {
+    delete _db;
     delete _modelManager;
 }

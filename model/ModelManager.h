@@ -11,15 +11,11 @@
 class ModelManager {
 
 public:
-    ModelManager(DataBase * db);
+    ModelManager();
     ~ModelManager();
-
-    DataBase * getDataBase();
 
 
 private:
-
-    DataBase *_db;
 
     void initItemModel();
 
