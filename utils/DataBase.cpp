@@ -43,11 +43,10 @@ void DataBase::closeConnection() {
 }
 
 
-SACommand *DataBase::connectAndExecuteCommand(SACommand *saCommand) {
+void DataBase::connectAndExecuteCommand(SACommand *saCommand) {
     connectIfNot();
     saCommand->setConnection(&_con);
     saCommand->Execute();
-    return saCommand;
 }
 
 DataBase::~DataBase() {
