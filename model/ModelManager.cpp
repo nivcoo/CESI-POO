@@ -37,6 +37,7 @@ void ModelManager::initModel() {
     _customerModel = new CustomerModel;
     _itemModel = new ItemModel;
     _staffModel = new StaffModel;
+    //_customerAddressModel->insert(2,1);
     //_addressModel->insert(1, "41 rue de lassun", "64800", "Montaut", false);
     //_customerModel->deleteCustomerByID(1);
 

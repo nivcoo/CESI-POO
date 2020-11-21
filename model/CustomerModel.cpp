@@ -24,7 +24,7 @@ void CustomerModel::updateByID(int id, string firstname, string lastname, SADate
     cmd.Param(1).setAsString() = _TSA(firstname).c_str();
     cmd.Param(2).setAsString() = _TSA(lastname).c_str();
     cmd.Param(3).setAsDateTime() = _TSA(birthDate);
-    cmd.Param(4).setAsLong() = _TSA(id);
+    cmd.Param(4).setAsInt64() = _TSA(id);
     this->send(&cmd);
 
 }
@@ -32,7 +32,7 @@ void CustomerModel::updateByID(int id, string firstname, string lastname, SADate
 void CustomerModel::deleteByID(int id) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `customer` WHERE `id` = :1;");
-    cmd.Param(1).setAsLong() = _TSA(id);
+    cmd.Param(1).setAsInt64() = _TSA(id);
     this->send(&cmd);
 
 }

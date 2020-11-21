@@ -27,7 +27,7 @@ void AddressModel::updateByID(int id, int type, string addressLine, string posta
     cmd.Param(3).setAsString() = _TSA(postalCode).c_str();
     cmd.Param(4).setAsString() = _TSA(city).c_str();
     cmd.Param(5).setAsBool() = _TSA(archived);
-    cmd.Param(6).setAsLong() = _TSA(id);
+    cmd.Param(6).setAsInt64() = _TSA(id);
     this->send(&cmd);
 }
 
@@ -35,7 +35,7 @@ void AddressModel::updateByID(int id, int type, string addressLine, string posta
 void AddressModel::deleteByID(int id) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `address` WHERE `id` = :1;");
-    cmd.Param(1).setAsLong() = _TSA(id);
+    cmd.Param(1).setAsInt64() = _TSA(id);
     this->send(&cmd);
 
 }
