@@ -13,7 +13,7 @@ void CustomerModel::insert(string firstname, string lastname, SADateTime birthDa
     cmd.Param(2).setAsString() = _TSA(firstname).c_str();
     cmd.Param(3).setAsString() = _TSA(lastname).c_str();
     cmd.Param(4).setAsDateTime() = _TSA(birthDate);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
@@ -25,7 +25,7 @@ void CustomerModel::updateByID(int id, string firstname, string lastname, SADate
     cmd.Param(2).setAsString() = _TSA(lastname).c_str();
     cmd.Param(3).setAsDateTime() = _TSA(birthDate);
     cmd.Param(4).setAsInt64() = _TSA(id);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
@@ -33,12 +33,8 @@ void CustomerModel::deleteByID(int id) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `customer` WHERE `id` = :1;");
     cmd.Param(1).setAsInt64() = _TSA(id);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
-void CustomerModel::send(SACommand *cmd) {
-    DataBase *db = IHM::get()->getDataBase();
-    db->connectAndExecuteCommand(cmd);
-}
 

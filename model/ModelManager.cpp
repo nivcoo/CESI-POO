@@ -5,6 +5,7 @@
 
 #include "ModelManager.h"
 #include "../ihm/IHM.h"
+#include "../service/CustomerService.h"
 
 
 ModelManager::ModelManager() {
@@ -37,16 +38,76 @@ void ModelManager::initModel() {
     _customerModel = new CustomerModel;
     _itemModel = new ItemModel;
     _staffModel = new StaffModel;
+    CustomerService *test = new CustomerService();
+    //int customerID = test->addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
+    /**test->addAddressToCustomerID(customerID, 1, "41 rue", "64800", "okkk");
+    test->addAddressToCustomerID(customerID, 2, "78 rue", "64000", "uyk");**/
+    //test->addCustomer();
     //_customerAddressModel->insert(2,1);
     //_addressModel->insert(1, "41 rue de lassun", "64800", "Montaut", false);
     //_customerModel->deleteCustomerByID(1);
 
 }
 
+
+OrderHistoryModel *ModelManager::getOrderHistoryModel() {
+    return _orderHistoryModel;
+}
+
+OrderItemModel *ModelManager::getOrderItemModel() {
+    return _orderItemModel;
+}
+
+OrderPaymentModel *ModelManager::getOrderPaymentModel() {
+    return _orderPaymentModel;
+}
+
+AddressModel *ModelManager::getAddressModel() {
+    return _addressModel;
+}
+
+CustomerAddressModel *ModelManager::getCustomerAddressModel() {
+    return _customerAddressModel;
+}
+
+CustomerModel *ModelManager::getCustomerModel() {
+    return _customerModel;
+}
+
+ItemModel *ModelManager::getItemModel() {
+    return _itemModel;
+}
+
+StaffModel *ModelManager::getStaffModel() {
+    return _staffModel;
+}
+
+
 ModelManager::~ModelManager() {
 
+    delete _orderHistoryModel;
+    delete _orderItemModel;
+    delete _orderPaymentModel;
+    delete _addressModel;
+    delete _customerAddressModel;
     delete _customerModel;
+    delete _itemModel;
+    delete _staffModel;
 
+}
+
+int ModelManager::getLastInsertID() {
+    SACommand cmd;
+    cmd.setCommandText("SELECT LAST_INSERT_ID();");
+    this->sendCMD(&cmd);
+
+    return cmd.Field(1).asInt64();
+    //this->sendCMD(&cmd);
+}
+
+void ModelManager::sendCMD(SACommand *cmd) {
+    DataBase *db = IHM::get()->getDataBase();
+    db->connectAndExecuteCommand(cmd);
 }
 
 

@@ -14,10 +14,6 @@ public:
 
     void deleteByID(int idCustomer, int idAddress);
 
-private:
-
-    void send(SACommand *cmd);
-
 };
 
 

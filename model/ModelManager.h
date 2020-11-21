@@ -22,23 +22,45 @@ class ModelManager {
 
 public:
     ModelManager();
+
     ~ModelManager();
 
+
+    CustomerModel *getCustomerModel();
+
+    int getLastInsertID();
+
+    void sendCMD(SACommand *cmd);
 
 private:
 
     void initModel();
 
-    OrderHistoryModel * _orderHistoryModel;
-    OrderItemModel * _orderItemModel;
-    OrderPaymentModel * _orderPaymentModel;
-    AddressModel * _addressModel;
-    CustomerAddressModel * _customerAddressModel;
-    CustomerModel * _customerModel;
-    ItemModel * _itemModel;
-    StaffModel * _staffModel;
+    OrderHistoryModel *_orderHistoryModel;
+    OrderItemModel *_orderItemModel;
+    OrderPaymentModel *_orderPaymentModel;
+    AddressModel *_addressModel;
+    CustomerAddressModel *_customerAddressModel;
+    CustomerModel *_customerModel;
+    ItemModel *_itemModel;
+    StaffModel *_staffModel;
 
     void initDB();
+
+    StaffModel *getStaffModel();
+
+    ItemModel *getItemModel();
+
+    CustomerAddressModel *getCustomerAddressModel();
+
+    AddressModel *getAddressModel();
+
+    OrderPaymentModel *getOrderPaymentModel();
+
+    OrderItemModel *getOrderItemModel();
+
+    OrderHistoryModel *getOrderHistoryModel();
+
 };
 
 

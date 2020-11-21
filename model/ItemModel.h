@@ -15,9 +15,6 @@ public:
     void archiveByID(string reference);
 
     void deleteByID(string reference);
-
-private:
-    void send(SACommand *cmd);
 };
 
 

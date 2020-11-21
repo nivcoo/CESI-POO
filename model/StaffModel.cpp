@@ -15,7 +15,7 @@ void StaffModel::insert(string firstname, string lastname, SADateTime hireDate, 
     cmd.Param(4).setAsDateTime() = _TSA(hireDate);
     cmd.Param(5).setAsInt64() = _TSA(idAddress);
     cmd.Param(6).setAsInt64() = _TSA(idSuperior);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
@@ -30,7 +30,7 @@ StaffModel::updateById(int id, string firstname, string lastname, SADateTime hir
     cmd.Param(4).setAsInt64() = _TSA(idAddress);
     cmd.Param(5).setAsInt64() = _TSA(idSuperior);
     cmd.Param(6).setAsInt64() = _TSA(id);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
@@ -39,11 +39,6 @@ void StaffModel::deleteById(int id) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `staff` WHERE `id` = :1;");
     cmd.Param(1).setAsInt64() = _TSA(id);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
-}
-
-void StaffModel::send(SACommand *cmd) {
-    DataBase *db = IHM::get()->getDataBase();
-    db->connectAndExecuteCommand(cmd);
 }

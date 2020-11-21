@@ -17,8 +17,6 @@ public:
 
     void deleteByID(int id);
 
-private:
-    void send(SACommand *cmd);
 };
 
 

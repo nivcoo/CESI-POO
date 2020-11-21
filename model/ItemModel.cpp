@@ -15,8 +15,7 @@ void ItemModel::insert(string reference, string name, int resuplyThreshold, int 
     cmd.Param(5).setAsDouble() = _TSA(priceHt);
     cmd.Param(6).setAsInt64() = _TSA(vat);
     cmd.Param(7).setAsBool() = _TSA(false);
-    this->send(&cmd);
-
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 }
 
 void ItemModel::archiveByID(string reference) {
@@ -24,7 +23,7 @@ void ItemModel::archiveByID(string reference) {
     cmd.setCommandText("UPDATE `item` SET `archived`=:1 WHERE `reference`=:2;");
     cmd.Param(1).setAsBool() = _TSA(true);
     cmd.Param(2).setAsString() = _TSA(reference).c_str();
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }
 
@@ -32,11 +31,7 @@ void ItemModel::deleteByID(string reference) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `customer` WHERE `reference` = :1;");
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
-    this->send(&cmd);
+    //this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
-}
-
-void ItemModel::send(SACommand *cmd) {
-    DataBase *db = IHM::get()->getDataBase();
-    db->connectAndExecuteCommand(cmd);
 }

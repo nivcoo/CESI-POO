@@ -14,7 +14,7 @@ void AddressModel::insert(int type, string addressLine, string postalCode, strin
     cmd.Param(4).setAsString() = _TSA(postalCode).c_str();
     cmd.Param(5).setAsString() = _TSA(city).c_str();
     cmd.Param(6).setAsBool() = _TSA(archived);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 }
 
 void AddressModel::updateByID(int id, int type, string addressLine, string postalCode, string city, bool archived) {
@@ -28,7 +28,7 @@ void AddressModel::updateByID(int id, int type, string addressLine, string posta
     cmd.Param(4).setAsString() = _TSA(city).c_str();
     cmd.Param(5).setAsBool() = _TSA(archived);
     cmd.Param(6).setAsInt64() = _TSA(id);
-    this->send(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 }
 
 
@@ -36,13 +36,6 @@ void AddressModel::deleteByID(int id) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `address` WHERE `id` = :1;");
     cmd.Param(1).setAsInt64() = _TSA(id);
-    this->send(&cmd);
-
-}
-
-void AddressModel::send(SACommand *cmd) {
-
-    DataBase *db = IHM::get()->getDataBase();
-    db->connectAndExecuteCommand(cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd);
 
 }

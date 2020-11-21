@@ -15,10 +15,6 @@ public:
     void updateById(int id, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
     void deleteById(int id);
-
-private:
-
-    void send(SACommand *cmd);
 };
 
 
