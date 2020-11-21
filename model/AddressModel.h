@@ -18,7 +18,7 @@ public:
 
     static void deleteByID(int id);
 
-    static void archiveAllType(int id, int type);
+    static void archiveAllType(int type);
 };
 
 
