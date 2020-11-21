@@ -6,14 +6,21 @@
 #include "../ihm/IHM.h"
 
 
-void CustomerModel::insert(string firstname, string lastname, SADateTime birthDate) {
+int CustomerModel::insert(string firstname, string lastname, SADateTime birthDate) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `customer` VALUES (:1, :2, :3, :4);");
+    cmd.setCommandText("INSERT INTO `customer` VALUES (:1, :2, :3, :4); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsNull();
     cmd.Param(2).setAsString() = _TSA(firstname).c_str();
     cmd.Param(3).setAsString() = _TSA(lastname).c_str();
     cmd.Param(4).setAsDateTime() = _TSA(birthDate);
-    IHM::get()->getModelManager()->sendCMD(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd, false);
+    cmd.FetchNext();
+    int id = cmd[1].asInt64();
+    IHM::get()->getDataBase()->closeConnection();
+    return id;
+
+    //cout <<  cmd[1].asString().GetMultiByteChars() << endl;
+
 
 }
 

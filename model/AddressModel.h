@@ -12,7 +12,7 @@ class AddressModel {
 
 
 public:
-    void insert(int type, string addressLine, string postalCode, string city, bool archived);
+    int insert(int type, string addressLine, string postalCode, string city, bool archived);
 
     void updateByID(int id, int type, string addressLine, string postalCode, string city, bool archived);
 

@@ -5,7 +5,7 @@
 #include "StaffModel.h"
 #include "../ihm/IHM.h"
 
-void StaffModel::insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior) {
+int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior) {
 
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `staff` VALUES (:1, :2, :3, :4, :5, :6);");
@@ -15,7 +15,11 @@ void StaffModel::insert(string firstname, string lastname, SADateTime hireDate, 
     cmd.Param(4).setAsDateTime() = _TSA(hireDate);
     cmd.Param(5).setAsInt64() = _TSA(idAddress);
     cmd.Param(6).setAsInt64() = _TSA(idSuperior);
-    IHM::get()->getModelManager()->sendCMD(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd, false);
+    cmd.FetchNext();
+    int id = cmd[1].asInt64();
+    IHM::get()->getDataBase()->closeConnection();
+    return id;
 
 }
 

@@ -4,7 +4,9 @@
 
 #ifndef MAIN_CPP_CUSTOMERSERVICE_H
 #define MAIN_CPP_CUSTOMERSERVICE_H
-#include "../ihm/IHM.h"
+#include <iostream>
+#include <SQLAPI.h>
+using namespace std;
 class CustomerService {
 
 public:

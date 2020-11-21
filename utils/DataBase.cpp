@@ -55,7 +55,6 @@ void DataBase::connectAndExecuteCommand(SACommand *saCommand) {
         displayDBError(x);
         _con.Rollback();
     }
-    closeConnection();
 }
 
 DataBase::~DataBase() {

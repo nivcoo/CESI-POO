@@ -11,7 +11,7 @@
 class CustomerModel {
 
 public:
-    void insert(string firstname, string lastname, SADateTime birthDate);
+    int insert(string firstname, string lastname, SADateTime birthDate);
 
     void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
 

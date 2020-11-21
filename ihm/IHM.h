@@ -7,6 +7,7 @@
 
 #include "../utils/DataBase.h"
 #include "../model/ModelManager.h"
+#include "../service/CustomerService.h"
 
 class IHM {
 
@@ -27,9 +28,10 @@ public:
 private:
     static IHM *INSTANCE;
     void initDB();
+    void initServices();
     ModelManager *_modelManager;
     DataBase *_db;
-
+    CustomerService *_customerService;
 };
 
 

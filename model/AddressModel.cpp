@@ -5,7 +5,7 @@
 #include "AddressModel.h"
 #include "../ihm/IHM.h"
 
-void AddressModel::insert(int type, string addressLine, string postalCode, string city, bool archived) {
+int AddressModel::insert(int type, string addressLine, string postalCode, string city, bool archived) {
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `address` VALUES (:1, :2, :3, :4, :5, :6);");
     cmd.Param(1).setAsNull();
@@ -14,7 +14,11 @@ void AddressModel::insert(int type, string addressLine, string postalCode, strin
     cmd.Param(4).setAsString() = _TSA(postalCode).c_str();
     cmd.Param(5).setAsString() = _TSA(city).c_str();
     cmd.Param(6).setAsBool() = _TSA(archived);
-    IHM::get()->getModelManager()->sendCMD(&cmd);
+    IHM::get()->getModelManager()->sendCMD(&cmd, false);
+    cmd.FetchNext();
+    int id = cmd[1].asInt64();
+    IHM::get()->getDataBase()->closeConnection();
+    return id;
 }
 
 void AddressModel::updateByID(int id, int type, string addressLine, string postalCode, string city, bool archived) {

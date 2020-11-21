@@ -10,7 +10,7 @@
 class CustomerAddressModel {
 public:
 
-    void insert(int idCustomer, int idAddress);
+    int insert(int idCustomer, int idAddress);
 
     void deleteByID(int idCustomer, int idAddress);
 

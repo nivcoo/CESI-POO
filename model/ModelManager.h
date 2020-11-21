@@ -28,9 +28,9 @@ public:
 
     CustomerModel *getCustomerModel();
 
-    int getLastInsertID();
-
     void sendCMD(SACommand *cmd);
+
+    void sendCMD(SACommand *cmd, bool close);
 
 private:
 

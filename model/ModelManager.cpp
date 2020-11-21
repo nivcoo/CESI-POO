@@ -38,8 +38,6 @@ void ModelManager::initModel() {
     _customerModel = new CustomerModel;
     _itemModel = new ItemModel;
     _staffModel = new StaffModel;
-    CustomerService *test = new CustomerService();
-    //int customerID = test->addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
     /**test->addAddressToCustomerID(customerID, 1, "41 rue", "64800", "okkk");
     test->addAddressToCustomerID(customerID, 2, "78 rue", "64000", "uyk");**/
     //test->addCustomer();
@@ -96,18 +94,15 @@ ModelManager::~ModelManager() {
 
 }
 
-int ModelManager::getLastInsertID() {
-    SACommand cmd;
-    cmd.setCommandText("SELECT LAST_INSERT_ID();");
-    this->sendCMD(&cmd);
-
-    return cmd.Field(1).asInt64();
-    //this->sendCMD(&cmd);
+void ModelManager::sendCMD(SACommand *cmd) {
+    sendCMD(cmd, true);
 }
 
-void ModelManager::sendCMD(SACommand *cmd) {
+void ModelManager::sendCMD(SACommand *cmd, bool close) {
     DataBase *db = IHM::get()->getDataBase();
     db->connectAndExecuteCommand(cmd);
+    if(close)
+        db->closeConnection();
 }
 
 

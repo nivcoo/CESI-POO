@@ -10,7 +10,7 @@
 
 class StaffModel {
 public:
-    void insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+    int insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
     void updateById(int id, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
