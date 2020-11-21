@@ -10,11 +10,11 @@
 
 class ItemModel {
 public:
-    void insert(string reference, string name, int resuply_threshold, int quantity, int price_ht, int vat);
+    void insert(string reference, string name, int resuply_threshold, int quantity, double price_ht, double vat);
 
     void archiveByID(string reference);
 
-    void deleteByID(int id);
+    void deleteByID(string reference);
 
 private:
     void send(SACommand *cmd);
