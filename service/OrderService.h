@@ -6,7 +6,7 @@
 #define MAIN_CPP_ODERSERVICE_H
 
 
-class OderService {
+class OrderService {
 
 };
 
