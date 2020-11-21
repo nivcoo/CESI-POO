@@ -28,7 +28,7 @@ public:
 
     static std::vector<Customer> getAllCustomers();
 
-    vector<Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
+    static vector<Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
 };
 
 

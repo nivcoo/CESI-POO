@@ -16,3 +16,16 @@ CustomerService::addAddressToCustomerID(int customerID, int type, string address
     CustomerAddressModel::insert(customerID, addressID);
 }
 
+CustomerModel::Customer CustomerService::getCustomerByID(int id) {
+    return CustomerModel::getCustomerByID(id);
+}
+
+std::vector<CustomerModel::Customer> CustomerService::getAllCustomers() {
+    return CustomerModel::getAllCustomers();
+}
+
+vector<CustomerModel::Customer> CustomerService::getAllCustomersByFirstAndLastName(string firstname, string lastname) {
+    return CustomerModel::getAllCustomersByFirstAndLastName(firstname, lastname);
+}
+
+
