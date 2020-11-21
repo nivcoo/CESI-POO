@@ -101,7 +101,7 @@ void ModelManager::sendCMD(SACommand *cmd) {
 void ModelManager::sendCMD(SACommand *cmd, bool close) {
     DataBase *db = IHM::get()->getDataBase();
     db->connectAndExecuteCommand(cmd);
-    if(close)
+    if (close)
         db->closeConnection();
 }
 

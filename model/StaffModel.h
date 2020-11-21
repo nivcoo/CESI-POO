@@ -12,9 +12,9 @@ class StaffModel {
 public:
     int insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
-    void updateById(int id, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+    void updateById(int idStaff, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
-    void deleteById(int id);
+    void deleteById(int idStaff);
 };
 
 
