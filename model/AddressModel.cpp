@@ -7,7 +7,7 @@
 
 int AddressModel::insert(int type, string addressLine, string postalCode, string city, bool archived) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `address` VALUES (:1, :2, :3, :4, :5, :6);");
+    cmd.setCommandText("INSERT INTO `address` VALUES (:1, :2, :3, :4, :5, :6); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsNull();
     cmd.Param(2).setAsInt64() = _TSA(type);
     cmd.Param(3).setAsString() = _TSA(addressLine).c_str();

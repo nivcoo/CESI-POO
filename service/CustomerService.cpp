@@ -12,7 +12,13 @@ int CustomerService::addCustomer(string firstname, string lastname, SADateTime b
     return customerID;
 }
 
-void CustomerService::addAddressToCustomerID(int id, int type, string addressLine, string postalCode, string city) {
+void CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city) {
+
+    ModelManager * mm = IHM::get()->getModelManager();
+
+    int addressID = mm->getAddressModel()->insert(type, addressLine, postalCode, city, false);
+    mm->getCustomerAddressModel()->insert(customerID, addressID);
+
 
 
 }

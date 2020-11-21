@@ -11,7 +11,7 @@ class CustomerService {
 
 public:
     int addCustomer(string firstname, string lastname, SADateTime birthDate);
-    void addAddressToCustomerID(int id, int type, string addressLine, string postalCode, string city);
+    void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
 
 };
 

@@ -32,6 +32,10 @@ public:
 
     void sendCMD(SACommand *cmd, bool close);
 
+    AddressModel *getAddressModel();
+
+    CustomerAddressModel *getCustomerAddressModel();
+
 private:
 
     void initModel();
@@ -50,10 +54,6 @@ private:
     StaffModel *getStaffModel();
 
     ItemModel *getItemModel();
-
-    CustomerAddressModel *getCustomerAddressModel();
-
-    AddressModel *getAddressModel();
 
     OrderPaymentModel *getOrderPaymentModel();
 

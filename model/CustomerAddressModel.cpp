@@ -7,7 +7,7 @@
 
 int CustomerAddressModel::insert(int idCustomer, int idAddress) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `customer_address` VALUES (:1, :2);");
+    cmd.setCommandText("INSERT INTO `customer_address` VALUES (:1, :2); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsInt64() = _TSA(idCustomer);
     cmd.Param(2).setAsInt64()  = _TSA(idAddress);
     IHM::get()->getModelManager()->sendCMD(&cmd, false);

@@ -7,7 +7,7 @@
 
 int ItemModel::insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `item` VALUES (:1, :2, :3, :4, :5, :6, :7);");
+    cmd.setCommandText("INSERT INTO `item` VALUES (:1, :2, :3, :4, :5, :6, :7); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
     cmd.Param(2).setAsString() = _TSA(name).c_str();
     cmd.Param(3).setAsInt64() = _TSA(resuplyThreshold);

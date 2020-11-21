@@ -8,7 +8,7 @@
 int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior) {
 
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `staff` VALUES (:1, :2, :3, :4, :5, :6);");
+    cmd.setCommandText("INSERT INTO `staff` VALUES (:1, :2, :3, :4, :5, :6); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsNull();
     cmd.Param(2).setAsString() = _TSA(firstname).c_str();
     cmd.Param(3).setAsString() = _TSA(lastname).c_str();
