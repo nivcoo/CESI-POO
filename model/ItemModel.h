@@ -10,7 +10,7 @@
 
 class ItemModel {
 public:
-    void insert(string reference, string name, int resuply_threshold, int quantity, double price_ht, double vat);
+    void insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
 
     void archiveByID(string reference);
 
