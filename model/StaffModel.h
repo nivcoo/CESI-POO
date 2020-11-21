@@ -6,8 +6,19 @@
 #define MAIN_CPP_STAFFMODEL_H
 
 
-class StaffModel {
+#include "../utils/DataBase.h"
 
+class StaffModel {
+public:
+    void insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+
+    void updateById(int id, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+
+    void deleteById(int id);
+
+private:
+
+    void send(SACommand *cmd);
 };
 
 
