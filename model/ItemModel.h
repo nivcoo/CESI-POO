@@ -6,8 +6,18 @@
 #define MAIN_CPP_ITEMMODEL_H
 
 
-class ItemModel {
+#include "../utils/DataBase.h"
 
+class ItemModel {
+public:
+    void insert(string reference, string name, int resuply_threshold, int quantity, int price_ht, int vat);
+
+    void archiveByID(string reference);
+
+    void deleteByID(int id);
+
+private:
+    void send(SACommand *cmd);
 };
 
 
