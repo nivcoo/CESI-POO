@@ -20,10 +20,6 @@ int CustomerModel::insert(string firstname, string lastname, SADateTime birthDat
     int id = cmd[1].asInt64();
     IHM::get()->getDataBase()->closeConnection();
     return id;
-
-    //cout <<  cmd[1].asString().GetMultiByteChars() << endl;
-
-
 }
 
 void CustomerModel::updateByID(int id, string firstname, string lastname, SADateTime birthDate) {
@@ -52,7 +48,7 @@ CustomerModel::Customer CustomerModel::getCustomerByID(int id) {
     cmd.Param(1).setAsInt64() = id;
     ModelManager::sendCMD(&cmd, false);
 
-    while(cmd.FetchNext()) {
+    while (cmd.FetchNext()) {
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
@@ -70,7 +66,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomers() {
 
     vector<CustomerModel::Customer> customers;
 
-    while(cmd.FetchNext()) {
+    while (cmd.FetchNext()) {
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
@@ -89,7 +85,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomersByFirstAndLastName
     cmd.Param(2).setAsString() = lastname.c_str();
     ModelManager::sendCMD(&cmd, false);
     vector<CustomerModel::Customer> customers;
-    while(cmd.FetchNext()) {
+    while (cmd.FetchNext()) {
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
