@@ -6,7 +6,7 @@
 #define MAIN_CPP_ODERPAYMENTMODEL_H
 
 
-class OderPaymentModel {
+class OrderPaymentModel {
 
 };
 

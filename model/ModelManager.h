@@ -10,6 +10,13 @@
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
 #include "CustomerModel.h"
+#include "AddressModel.h"
+#include "order/OrderItemModel.h"
+#include "order/OrderHistoryModel.h"
+#include "order/OrderPaymentModel.h"
+#include "ItemModel.h"
+#include "CustomerAddressModel.h"
+#include "StaffModel.h"
 
 class ModelManager {
 
@@ -22,7 +29,14 @@ private:
 
     void initModel();
 
+    OrderHistoryModel * _orderHistoryModel;
+    OrderItemModel * _orderItemModel;
+    OrderPaymentModel * _orderPaymentModel;
+    AddressModel * _addressModel;
+    CustomerAddressModel * _customerAddressModel;
     CustomerModel * _customerModel;
+    ItemModel * _itemModel;
+    StaffModel * _staffModel;
 
     void initDB();
 };

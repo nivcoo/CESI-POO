@@ -29,8 +29,15 @@ void ModelManager::initDB() {
 
 void ModelManager::initModel() {
 
-    _customerModel = new CustomerModel();
-    _customerModel->updateByID(2, "gtyrthrt", "rth", SADateTime(2000,10,1));
+    _orderHistoryModel = new OrderHistoryModel;
+    _orderItemModel = new OrderItemModel;
+    _orderPaymentModel = new OrderPaymentModel;
+    _addressModel = new AddressModel;
+    _customerAddressModel = new CustomerAddressModel;
+    _customerModel = new CustomerModel;
+    _itemModel = new ItemModel;
+    _staffModel = new StaffModel;
+    //_addressModel->insert(1, "41 rue de lassun", "64800", "Montaut", false);
     //_customerModel->deleteCustomerByID(1);
 
 }
