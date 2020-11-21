@@ -11,11 +11,11 @@
 class CustomerModel {
 
 public:
-    int insert(string firstname, string lastname, SADateTime birthDate);
+    static int insert(string firstname, string lastname, SADateTime birthDate);
 
-    void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
+    static void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
 
-    void deleteByID(int id);
+    static void deleteByID(int id);
 
 };
 

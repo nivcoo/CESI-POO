@@ -10,9 +10,9 @@
 class CustomerAddressModel {
 public:
 
-    int insert(int idCustomer, int idAddress);
+    static int insert(int idCustomer, int idAddress);
 
-    void deleteByID(int idCustomer, int idAddress);
+    static void deleteByID(int idCustomer, int idAddress);
 
 };
 

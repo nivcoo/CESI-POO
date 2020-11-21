@@ -5,16 +5,17 @@
 #ifndef MAIN_CPP_STAFFMODEL_H
 #define MAIN_CPP_STAFFMODEL_H
 
-
-#include "../utils/DataBase.h"
+#include <iostream>
+#include <SQLAPI.h>
+using namespace std;
 
 class StaffModel {
 public:
-    int insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+    static int insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
-    void updateById(int idStaff, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+    static void updateById(int idStaff, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
-    void deleteById(int idStaff);
+    static void deleteById(int idStaff);
 };
 
 

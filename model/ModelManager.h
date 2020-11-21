@@ -26,40 +26,12 @@ public:
     ~ModelManager();
 
 
-    CustomerModel *getCustomerModel();
+    static void sendCMD(SACommand *cmd);
 
-    void sendCMD(SACommand *cmd);
-
-    void sendCMD(SACommand *cmd, bool close);
-
-    AddressModel *getAddressModel();
-
-    CustomerAddressModel *getCustomerAddressModel();
+    static void sendCMD(SACommand *cmd, bool close);
 
 private:
-
-    void initModel();
-
-    OrderHistoryModel *_orderHistoryModel;
-    OrderItemModel *_orderItemModel;
-    OrderPaymentModel *_orderPaymentModel;
-    AddressModel *_addressModel;
-    CustomerAddressModel *_customerAddressModel;
-    CustomerModel *_customerModel;
-    ItemModel *_itemModel;
-    StaffModel *_staffModel;
-
     void initDB();
-
-    StaffModel *getStaffModel();
-
-    ItemModel *getItemModel();
-
-    OrderPaymentModel *getOrderPaymentModel();
-
-    OrderItemModel *getOrderItemModel();
-
-    OrderHistoryModel *getOrderHistoryModel();
 
 };
 

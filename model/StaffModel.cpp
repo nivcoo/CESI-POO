@@ -3,6 +3,7 @@
 //
 
 #include "StaffModel.h"
+
 #include "../ihm/IHM.h"
 
 int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior) {
@@ -15,7 +16,7 @@ int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, i
     cmd.Param(4).setAsDateTime() = _TSA(hireDate);
     cmd.Param(5).setAsInt64() = _TSA(idAddress);
     cmd.Param(6).setAsInt64() = _TSA(idSuperior);
-    IHM::get()->getModelManager()->sendCMD(&cmd, false);
+    ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
     IHM::get()->getDataBase()->closeConnection();
@@ -36,7 +37,7 @@ StaffModel::updateById(int idStaff, string firstname, string lastname, SADateTim
     cmd.Param(4).setAsInt64() = _TSA(idAddress);
     cmd.Param(5).setAsInt64() = _TSA(idSuperior);
     cmd.Param(6).setAsInt64() = _TSA(idStaff);
-    IHM::get()->getModelManager()->sendCMD(&cmd);
+    ModelManager::sendCMD(&cmd);
 
 }
 
@@ -45,6 +46,6 @@ void StaffModel::deleteById(int idStaff) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `staff` WHERE `id` = :1;");
     cmd.Param(1).setAsInt64() = _TSA(idStaff);
-    IHM::get()->getModelManager()->sendCMD(&cmd);
+    ModelManager::sendCMD(&cmd);
 
 }

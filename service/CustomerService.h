@@ -4,14 +4,14 @@
 
 #ifndef MAIN_CPP_CUSTOMERSERVICE_H
 #define MAIN_CPP_CUSTOMERSERVICE_H
-#include <iostream>
-#include <SQLAPI.h>
-using namespace std;
+#include "../model/CustomerModel.h"
+#include "../model/AddressModel.h"
+#include "../model/CustomerAddressModel.h"
 class CustomerService {
 
 public:
-    int addCustomer(string firstname, string lastname, SADateTime birthDate);
-    void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
+    static int addCustomer(string firstname, string lastname, SADateTime birthDate);
+    static void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
 
 };
 
