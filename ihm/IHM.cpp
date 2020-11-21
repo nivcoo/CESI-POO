@@ -16,6 +16,10 @@ IHM::IHM() {
 void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
+    /**vector<CustomerModel::Customer> cu = CustomerModel::getAllCustomers();
+    for (auto c : cu) {
+        cout << c.firstName << c.lastName << c.birthDate << endl;
+    }**/
 
     /**int customerID = _customerService->addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
     _customerService->addAddressToCustomerID(customerID, 1, "41 rue", "64800", "okkk");
