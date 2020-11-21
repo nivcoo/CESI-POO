@@ -13,6 +13,7 @@ public:
     static int addCustomer(string firstname, string lastname, SADateTime birthDate);
     static void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
 
+    static void editAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
 };
 
 

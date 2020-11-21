@@ -11,9 +11,14 @@ int CustomerService::addCustomer(string firstname, string lastname, SADateTime b
 
 void
 CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city) {
-    int addressID = AddressModel::insert(type, addressLine, postalCode, city, false);
+    int addressID = AddressModel::insert(type, addressLine, postalCode, city);
     CustomerAddressModel::insert(customerID, addressID);
+}
 
 
+void
+CustomerService::editAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city) {
+    AddressModel::archiveAllType(customerID, type);
+    addAddressToCustomerID(customerID, type, addressLine, postalCode, city);
 }
 
