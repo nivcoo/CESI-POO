@@ -30,7 +30,7 @@ void ItemModel::archiveByID(string reference) {
 
 void ItemModel::deleteByID(string reference) {
     SACommand cmd;
-    cmd.setCommandText("DELETE FROM `customer` WHERE `id` = :1;");
+    cmd.setCommandText("DELETE FROM `customer` WHERE `reference` = :1;");
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
     this->send(&cmd);
 
