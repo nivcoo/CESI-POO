@@ -26,9 +26,9 @@ void IHM::initDB() {
 void IHM::initServices() {
     _customerService = new CustomerService();
 
-    int customerID = _customerService->addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
+    /**int customerID = _customerService->addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
 
-    cout << customerID << endl;
+    cout << customerID << endl;**/
 }
 
 
@@ -49,7 +49,6 @@ IHM::~IHM() {
     delete INSTANCE;
     delete _db;
     delete _modelManager;
-
     delete _customerService;
 }
 
