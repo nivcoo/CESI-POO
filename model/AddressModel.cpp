@@ -5,6 +5,8 @@
 #include "AddressModel.h"
 #include "../ihm/IHM.h"
 
+struct AddressModel::Address address;
+
 int AddressModel::insert(int type, string addressLine, string postalCode, string city) {
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `address` VALUES (:1, :2, :3, :4, :5, :6); SELECT LAST_INSERT_ID();");
@@ -51,4 +53,24 @@ void AddressModel::archiveAllType(int type) {
     cmd.Param(2).setAsInt64() = _TSA(type);
     ModelManager::sendCMD(&cmd);
 
+}
+
+
+
+AddressModel::Address AddressModel::getAddressByID(int id) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `address` WHERE `id` = :1;");
+    cmd.Param(1).setAsInt64() = id;
+    ModelManager::sendCMD(&cmd, false);
+
+    while (cmd.FetchNext()) {
+        address.id = cmd.Field("id").asInt64();
+        address.type = cmd.Field("type").asInt64();
+        address.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
+        address.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
+        address.postalCode = cmd.Field("city").asString().GetMultiByteChars();
+        address.archived = cmd.Field("archived").asBool();
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return address;
 }

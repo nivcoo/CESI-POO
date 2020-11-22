@@ -5,6 +5,7 @@
 #ifndef MAIN_CPP_CUSTOMERADDRESSMODEL_H
 #define MAIN_CPP_CUSTOMERADDRESSMODEL_H
 
+#include <vector>
 #include "../utils/DataBase.h"
 
 class CustomerAddressModel {
@@ -14,6 +15,7 @@ public:
 
     static void deleteByID(int idCustomer, int idAddress);
 
+    static std::vector<int> getAllIDOfCustomerID(int customerID);
 };
 
 

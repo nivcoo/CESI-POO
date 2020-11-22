@@ -26,3 +26,19 @@ void CustomerAddressModel::deleteByID(int idCustomer, int idAddress) {
     ModelManager::sendCMD(&cmd);
 
 }
+
+
+vector<int> CustomerAddressModel::getAllIDOfCustomerID(int customerID) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `customer_address` WHERE `id` = :1;");
+    cmd.Param(1).setAsInt64() = customerID;
+    ModelManager::sendCMD(&cmd, false);
+
+    vector<int> ids;
+
+    while (cmd.FetchNext()) {
+        ids.push_back(cmd.Field("id_address").asInt64());
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return ids;
+}

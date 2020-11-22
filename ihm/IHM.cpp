@@ -4,6 +4,7 @@
 
 
 #include "IHM.h"
+#include "../service/CustomerService.h"
 
 IHM *IHM::INSTANCE = nullptr;
 
@@ -16,6 +17,13 @@ IHM::IHM() {
 void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
+
+    /**vector<AddressModel::Address> ad = CustomerService::getAllActiveAddressOfCustomerID(31);
+
+    for (auto c : ad) {
+        cout << c.id << c.addressLine << c.postalCode << endl;
+    }**/
+
     /**vector<CustomerModel::Customer> cu = CustomerModel::getAllCustomers();
     for (auto c : cu) {
         cout << c.firstName << c.lastName << c.birthDate << endl;

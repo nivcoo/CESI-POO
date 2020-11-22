@@ -6,12 +6,20 @@
 #define MAIN_CPP_ADDRESSMODEL_H
 
 
+#include <vector>
 #include "../utils/DataBase.h"
 
 class AddressModel {
 
 
 public:
+
+    struct Address {
+        int id, type;
+        string addressLine, postalCode, city;
+        bool archived;
+    };
+
     static int insert(int type, string addressLine, string postalCode, string city);
 
     static void updateByID(int id, int type, string addressLine, string postalCode, string city, bool archived);
@@ -19,6 +27,8 @@ public:
     static void deleteByID(int id);
 
     static void archiveAllType(int type);
+
+    static Address getAddressByID(int id);
 };
 
 
