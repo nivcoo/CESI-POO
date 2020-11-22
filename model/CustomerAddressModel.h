@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "../utils/DataBase.h"
+#include "AddressModel.h"
 
 class CustomerAddressModel {
 public:
@@ -15,7 +16,7 @@ public:
 
     static void deleteByID(int idCustomer, int idAddress);
 
-    static std::vector<int> getAllIDOfCustomerID(int customerID);
+    static vector<AddressModel::Address> getAllAddressOfCustomerID(int customerID);
 };
 
 

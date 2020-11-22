@@ -30,14 +30,8 @@ vector<CustomerModel::Customer> CustomerService::getAllCustomersByFirstAndLastNa
 
 
 vector<AddressModel::Address> CustomerService::getAllActiveAddressOfCustomerID(int customerID) {
-    AddressModel::Address address;
-    vector<AddressModel::Address> allAddress;
-    for (int id : CustomerAddressModel::getAllIDOfCustomerID(customerID)) {
-        address = AddressModel::getAddressByID(id);
-        if (!address.archived)
-            allAddress.push_back(AddressModel::getAddressByID(id));
-    }
-    return allAddress;
+    auto address = CustomerAddressModel::getAllAddressOfCustomerID(customerID);
+    return address;
 }
 
 

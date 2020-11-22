@@ -28,17 +28,25 @@ void CustomerAddressModel::deleteByID(int idCustomer, int idAddress) {
 }
 
 
-vector<int> CustomerAddressModel::getAllIDOfCustomerID(int customerID) {
+vector<AddressModel::Address> CustomerAddressModel::getAllAddressOfCustomerID(int customerID) {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `customer_address` WHERE `id` = :1;");
+    cmd.setCommandText(
+            "SELECT ad.* FROM `customer_address` ca INNER join address ad on ad.id = ca.id_address WHERE ca.id = :1;");
     cmd.Param(1).setAsInt64() = customerID;
     ModelManager::sendCMD(&cmd, false);
 
-    vector<int> ids;
-
+    AddressModel::Address address;
+    vector<AddressModel::Address> allAddress;
     while (cmd.FetchNext()) {
-        ids.push_back(cmd.Field("id_address").asInt64());
+        address.id = cmd.Field("id").asInt64();
+        address.type = cmd.Field("type").asInt64();
+        address.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
+        address.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
+        address.postalCode = cmd.Field("city").asString().GetMultiByteChars();
+        address.archived = cmd.Field("archived").asBool();
+        if (!address.archived)
+            allAddress.push_back(address);
     }
     IHM::get()->getDataBase()->closeConnection();
-    return ids;
+    return allAddress;
 }
