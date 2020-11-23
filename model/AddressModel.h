@@ -26,6 +26,8 @@ public:
 
     static void deleteByID(int id);
 
+    static void archiveByID(int id);
+
     static void archiveAllType(int type);
 
     static Address getAddressByID(int id);

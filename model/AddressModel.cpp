@@ -74,3 +74,12 @@ AddressModel::Address AddressModel::getAddressByID(int id) {
     IHM::get()->getDataBase()->closeConnection();
     return address;
 }
+
+void AddressModel::archiveByID(int id) {
+    SACommand cmd;
+    cmd.setCommandText("UPDATE TABLE `address` SET `archived` =:1 WHERE `id` = :2;");
+    cmd.Param(1).setAsBool() = true;
+    cmd.Param(2).setAsInt64() = _TSA(id);
+    ModelManager::sendCMD(&cmd);
+
+}
