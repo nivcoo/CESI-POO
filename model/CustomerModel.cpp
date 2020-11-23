@@ -10,11 +10,12 @@ struct CustomerModel::Customer customer;
 
 int CustomerModel::insert(string firstname, string lastname, SADateTime birthDate) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `customer` VALUES (:1, :2, :3, :4); SELECT LAST_INSERT_ID();");
+    cmd.setCommandText("INSERT INTO `customer` VALUES (:1, :2, :3, :4, :5); SELECT LAST_INSERT_ID();");
     cmd.Param(1).setAsNull();
     cmd.Param(2).setAsString() = _TSA(firstname.c_str());
     cmd.Param(3).setAsString() = _TSA(lastname.c_str());
     cmd.Param(4).setAsDateTime() = _TSA(birthDate);
+    cmd.Param(5).setAsBool() = false;
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();

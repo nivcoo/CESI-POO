@@ -46,15 +46,6 @@ void AddressModel::deleteByID(int id) {
 
 }
 
-void AddressModel::archiveAllType(int type) {
-    SACommand cmd;
-    cmd.setCommandText("UPDATE table SET archived = :1 WHERE `type` = :2;");
-    cmd.Param(1).setAsBool() = true;
-    cmd.Param(2).setAsInt64() = _TSA(type);
-    ModelManager::sendCMD(&cmd);
-
-}
-
 
 
 AddressModel::Address AddressModel::getAddressByID(int id) {

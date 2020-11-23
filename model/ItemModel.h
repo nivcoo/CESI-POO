@@ -24,7 +24,7 @@ public:
 
     static Item getItemByID(int id);
 
-    void deleteByID(string reference);
+    static void deleteByID(string reference);
 };
 
 

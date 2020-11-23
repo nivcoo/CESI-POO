@@ -26,8 +26,6 @@ public:
 
     static void archiveByID(int id);
 
-    static void archiveAllType(int type);
-
     static Address getAddressByID(int id);
 };
 
