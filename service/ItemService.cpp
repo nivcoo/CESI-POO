@@ -3,11 +3,17 @@
 //
 
 #include "ItemService.h"
+#include <regex>
 
-int ItemService::addItem(string reference, string name, int resuply_threshold, int quantity, double price_ht, double vat, bool isAchived = false) {
-    return ItemModel::insert(reference, name, resuplyThreshold, quantity, price_ht, vat, isAchived); //???
+string ItemService::addItem(string itemREF, string name, int resuplyThreshold, int quantity, double price_ht, double vat) {
+    return ItemModel::insert(itemREF, name, resuplyThreshold, quantity, price_ht, vat, false);
 }
 
-ItemModel::Item ItemService::getItemByID(int itemID) {
-    return ItemModel::getItemByID(itemID);
+ItemModel::Item ItemService::getItemByREF(string itemREF) {
+    return ItemModel::getItemByREF(itemREF);
+}
+
+void ItemService::archiveItemByREF(string itemREF) {
+    ItemModel::archiveByREF(itemREF);
+
 }

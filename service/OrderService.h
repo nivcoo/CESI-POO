@@ -5,8 +5,25 @@
 #ifndef MAIN_CPP_ODERSERVICE_H
 #define MAIN_CPP_ODERSERVICE_H
 
+#include "CustomerService.h"
+#include "../model/order/OrderHistoryModel.h"
+#include "../model/ItemModel.h"
+#include "../model/order/OrderItemModel.h"
+#include "../model/order/OrderPaymentModel.h"
+
 
 class OrderService {
+public:
+    static string addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID);
+
+    static void addItemToOrderREF(string orderREF, string referenceItems, int quantity);
+
+    static void addPaymentToOrderREF(string orderREF, int paymentMethod, double amount);
+
+    static OrderHistoryModel::Order getOrderByREF(string orderREF);
+
+    static vector<OrderHistoryModel::Order> getAllOrdersByCustomerID(int customerID);
+
 
 };
 

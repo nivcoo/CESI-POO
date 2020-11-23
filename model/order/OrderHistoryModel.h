@@ -8,12 +8,26 @@
 
 #include "../../utils/DataBase.h"
 
+#include <vector>
+
 class OrderHistoryModel {
 public:
-    void insert(string reference, SADateTime estimatedDeliveryDate, int idCustomer, int idStaff,
-                int idDeliveryAddress, int idBillingAddress);
+    struct Order {
+        string reference, estimatedDeliveryDate, createdAt;
+        int customerID, staffID, deliveryAddressID, billingAddressID;
+    };
 
-    void deleteById(string reference);
+
+    static string insert(string reference, SADateTime estimatedDeliveryDate, int customerID, int staffID,
+                         int deliveryAddressID, int billingAddressID);
+
+    static void deleteById(string reference);
+
+    static Order getOrderByREF(string reference);
+
+    static vector<OrderHistoryModel::Order> getAllOrdersByCustomerID(int customerID);
+
+    static vector<OrderHistoryModel::Order> getLast10Orders();
 
 };
 

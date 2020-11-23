@@ -12,19 +12,22 @@ class ItemModel {
 public:
 
     struct Item {
-        int id, quantity, resuplyThreshold;
-        double vat, priceHt;
         string reference, name;
-        bool isAchived;
+        int resuplyThreshold, quantity;
+        double priceHt, vat;
+        bool archived;
     };
 
-    static int insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat, bool isAchived = false);
+    static string insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat,
+                      bool achived);
 
-    static void archiveByID(string reference);
+    static void archiveByREF(string reference);
 
-    static Item getItemByID(int id);
+    static Item getItemByREF(string reference);
 
-    static void deleteByID(string reference);
+    static void deleteByREF(string reference);
+
+    static void updateQuantityOfItemREF(string reference, int newQuantity);
 };
 
 

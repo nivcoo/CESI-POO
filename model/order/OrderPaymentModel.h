@@ -10,9 +10,9 @@
 
 class OrderPaymentModel {
 public:
-    int insert(int payementMethod, double amount, string orderReference);
+    static int insert(int paymentMethod, double amount, string orderReference);
 
-    void deleteByID(int id);
+    static void deleteByID(int id);
 
 };
 

@@ -4,19 +4,20 @@
 
 #include "OrderHistoryModel.h"
 #include "../../ihm/IHM.h"
-
-void OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryDate, int idCustomer, int idStaff,
-                               int idDeliveryAddress, int idBillingAddress) {
+struct OrderHistoryModel::Order order;
+string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryDate, int customerID, int staffID,
+                                 int deliveryAddressID, int billingAddressID) {
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `order__history` VALUES (:1, :2, :3, :4, :5, :6, :7);");
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
     cmd.Param(2).setAsDateTime() = _TSA(estimatedDeliveryDate);
     cmd.Param(3).setAsDateTime() = SADateTime::currentDateTime();
-    cmd.Param(4).setAsInt64() = _TSA(idCustomer);
-    cmd.Param(5).setAsInt64() = _TSA(idStaff);
-    cmd.Param(6).setAsInt64() = _TSA(idDeliveryAddress);
-    cmd.Param(7).setAsInt64() = _TSA(idBillingAddress);
+    cmd.Param(4).setAsInt64() = _TSA(customerID);
+    cmd.Param(5).setAsInt64() = _TSA(staffID);
+    cmd.Param(6).setAsInt64() = _TSA(deliveryAddressID);
+    cmd.Param(7).setAsInt64() = _TSA(billingAddressID);
     ModelManager::sendCMD(&cmd);
+    return reference;
 
 }
 
@@ -26,4 +27,65 @@ void OrderHistoryModel::deleteById(string reference) {
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
     ModelManager::sendCMD(&cmd);
 
+}
+
+OrderHistoryModel::Order OrderHistoryModel::getOrderByREF(string reference) {
+
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__history` WHERE `reference` = :1;");
+    cmd.Param(1).setAsString() = _TSA(reference).c_str();
+    ModelManager::sendCMD(&cmd, false);
+
+    while (cmd.FetchNext()) {
+        order.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
+        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.customerID = cmd.Field("id").asInt64();
+        order.staffID = cmd.Field("id_staff").asInt64();
+        order.deliveryAddressID = cmd.Field("id_address").asInt64();
+        order.billingAddressID = cmd.Field("id_address_bill").asInt64();
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return order;
+}
+
+vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrdersByCustomerID(int customerID) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__history` WHERE `id` = :1;");
+    cmd.Param(1).setAsInt64() = _TSA(customerID);
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderHistoryModel::Order> orders;
+    while (cmd.FetchNext()) {
+        order.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
+        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.customerID = cmd.Field("id").asInt64();
+        order.staffID = cmd.Field("id_staff").asInt64();
+        order.deliveryAddressID = cmd.Field("id_address").asInt64();
+        order.billingAddressID = cmd.Field("id_address_bill").asInt64();
+        orders.push_back(order);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return orders;
+}
+
+vector<OrderHistoryModel::Order> OrderHistoryModel::getLast10Orders() {
+
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__history` ORDER by created_at DESC LIMIT 10;");
+    cmd.setOption(SACMD_PREFETCH_ROWS) = "10";
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderHistoryModel::Order> orders;
+    while (cmd.FetchNext()) {
+        order.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
+        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.customerID = cmd.Field("id").asInt64();
+        order.staffID = cmd.Field("id_staff").asInt64();
+        order.deliveryAddressID = cmd.Field("id_address").asInt64();
+        order.billingAddressID = cmd.Field("id_address_bill").asInt64();
+        orders.push_back(order);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return orders;
 }

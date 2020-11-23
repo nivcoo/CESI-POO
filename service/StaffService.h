@@ -9,13 +9,13 @@
 
 class StaffService {
 public:
-    int addStaff(string firstname, string lastname, SADateTime hireDate, string addressLine, string postalCode, string city, int idSuperior);
+    static int addStaff(string firstname, string lastname, SADateTime hireDate, string addressLine, string postalCode, string city, int idSuperior);
 
-    void updateStaff(int idStaff, string firstname, string lastname, SADateTime hireDate, int idSuperior);
+    static void updateStaffByID(int idStaff, string firstname, string lastname, SADateTime hireDate, int idSuperior);
 
-    void deleteStaff(int idStaff);
+    static void deleteStaffByID(int idStaff);
 
-    StaffModel::Staff getStaffById(int id);
+    static StaffModel::Staff getStaffByID(int id);
 
     static vector<StaffModel::Staff> getAllStaffs();
 

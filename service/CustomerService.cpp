@@ -10,10 +10,7 @@ int CustomerService::addCustomer(string firstname, string lastname, SADateTime b
 
 void CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine,
                                              string postalCode, string city) {
-    //AddressModel::archiveAllType(type);
-
     CustomerAddressModel::archiveAddressOfCustomerIDByType(customerID, type);
-    //CustomerAddressModel::getAllActiveAddressOfCustomerID(customerID);
     int addressID = AddressModel::insert(type, addressLine, postalCode, city);
     CustomerAddressModel::insert(customerID, addressID);
 }

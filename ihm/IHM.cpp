@@ -5,6 +5,9 @@
 
 #include "IHM.h"
 #include "../service/CustomerService.h"
+#include "../service/ItemService.h"
+#include "../service/OrderService.h"
+#include "../service/StaffService.h"
 
 IHM *IHM::INSTANCE = nullptr;
 
@@ -17,6 +20,17 @@ IHM::IHM() {
 void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
+
+
+
+    //string ref = ItemService::addItem("HYHT858GG", "tyj", 50,100, 10, 0.2);
+
+    //int id = StaffService::addStaff("salut", "salut2", SADateTime(2020,12,11), "84887 yuty", "85860", "albert", NULL);
+
+    /**string ref = OrderService::addOrder(SADateTime(2020,12,11), 4, 5);
+    OrderService::addItemToOrderREF(ref, "HYHT858GG", 10);**/
+
+    //OrderService::addPaymentToOrderREF("UJOIIDFJHBYHGH89UHU5", 1, 10);
 
 
     /**int customerID = CustomerService::addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));

@@ -12,28 +12,25 @@ int StaffService::addStaff(string firstname, string lastname, SADateTime hireDat
     return id;
 }
 
-void StaffService::updateStaff(int idStaff, string firstname, string lastname, SADateTime hireDate, int idSuperior) {
+void StaffService::updateStaffByID(int idStaff, string firstname, string lastname, SADateTime hireDate, int idSuperior) {
     StaffModel::Staff staff = StaffModel::getStaffByID(idStaff);
     StaffModel::updateById(idStaff, firstname, lastname, hireDate, staff.idAddress, idSuperior);
 }
 
-void StaffService::deleteStaff(int idStaff) {
+void StaffService::deleteStaffByID(int idStaff) {
     StaffModel::deleteById(idStaff);
 }
 
-StaffModel::Staff StaffService::getStaffById(int id) {
-    StaffModel::Staff staff = StaffModel::getStaffByID(id);
-    return staff;
+StaffModel::Staff StaffService::getStaffByID(int id) {
+    return StaffModel::getStaffByID(id);
 }
 
 vector<StaffModel::Staff> StaffService::getAllStaffs() {
-    vector<StaffModel::Staff> staffs = StaffModel::getAllStaffs();
-    return staffs;
+    return StaffModel::getAllStaffs();
 }
 
 vector<StaffModel::Staff> StaffService::getAllStaffsByFirstAndLastName(string firstname, string lastname) {
-    vector<StaffModel::Staff> staffs = StaffModel::getAllStaffsByFirstAndLastName(firstname, lastname);
-    return staffs;
+    return StaffModel::getAllStaffsByFirstAndLastName(firstname, lastname);
 }
 
 int StaffService::updateStaffAddress(int idStaff, string addressLine, string postalCode, string city) {

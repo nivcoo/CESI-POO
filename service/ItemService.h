@@ -11,8 +11,11 @@ using namespace std;
 
 class ItemService {
 public:
-    static int addItem(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat, bool isAchived = false);
-    static ItemModel::Item getItemByID(int itemID);
+    static string addItem(string itemREF, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
+
+    static ItemModel::Item getItemByREF(string itemREF);
+
+    static void archiveItemByREF(string idStaff);
 
 };
 
