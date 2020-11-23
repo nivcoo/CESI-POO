@@ -10,9 +10,19 @@
 
 class ItemModel {
 public:
+
+    struct Item {
+        int id;
+        string reference, name, birthDate;
+        int resuply_threshold, quantity;
+        float price_ht;
+    };
+
     static int insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
 
     static void archiveByID(string reference);
+
+    static Item getItemByID(int id);
 
     void deleteByID(string reference);
 };

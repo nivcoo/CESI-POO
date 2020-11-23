@@ -20,7 +20,7 @@ CustomerModel::Customer CustomerService::getCustomerByID(int customerID) {
     return CustomerModel::getCustomerByID(customerID);
 }
 
-std::vector<CustomerModel::Customer> CustomerService::getAllCustomers() {
+vector<CustomerModel::Customer> CustomerService::getAllCustomers() {
     return CustomerModel::getAllCustomers();
 }
 

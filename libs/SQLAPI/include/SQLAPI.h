@@ -545,7 +545,7 @@ public:
 	//! Returns the string length (in Unicode characters).
 	size_t GetWideCharsLength() const;
 	//! Return pointer to const multi-byte string, converts the data if needed.
-	const char* GetMultiByteChars() const;
+    const char* GetMultiByteChars() const;
 	//! Returns the string length (in multi-byte characters).
 	size_t GetMultiByteCharsLength() const;
 

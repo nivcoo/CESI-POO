@@ -5,8 +5,6 @@
 #ifndef MAIN_CPP_ADDRESSMODEL_H
 #define MAIN_CPP_ADDRESSMODEL_H
 
-
-#include <vector>
 #include "../utils/DataBase.h"
 
 class AddressModel {
