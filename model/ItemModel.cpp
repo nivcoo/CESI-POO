@@ -5,6 +5,8 @@
 #include "ItemModel.h"
 #include "../ihm/IHM.h"
 
+struct ItemModel::Item item;
+
 int ItemModel::insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat) {
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `item` VALUES (:1, :2, :3, :4, :5, :6, :7); SELECT LAST_INSERT_ID();");
@@ -37,4 +39,22 @@ void ItemModel::deleteByID(string reference) {
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
     ModelManager::sendCMD(&cmd);
 
+}
+
+ItemModel::Item ItemModel::getItemByID(int id){
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `item` WHERE `id` = :1;");
+    cmd.Param(1).setAsInt64() = id;
+    ModelManager::sendCMD(&cmd, false);
+
+    while (cmd.FetchNext()) {
+        item.id = cmd.Field("id").asInt64();
+        item.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        item.name = cmd.Field("name").asString().GetMultiByteChars();
+        item.resuply_threshold = cmd.Field("name").asString().GetMultiByteChars();
+        item.quantity = cmd.Field("resuply_threshold").asString().GetMultiByteChars();
+        item.price_ht = cmd.Field("quantity").asString().GetMultiByteChars();
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return item;
 }

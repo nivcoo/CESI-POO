@@ -5,8 +5,14 @@
 #ifndef MAIN_CPP_ITEMSERVICE_H
 #define MAIN_CPP_ITEMSERVICE_H
 
+#include "../model/ItemModel.h"
+
+using namespace std;
 
 class ItemService {
+public:
+    static int addItem(string reference, string name, int resuply_threshold, int quantity, float price_ht);
+    static ItemModel::Item getItemByID(int itemID);
 
 };
 
