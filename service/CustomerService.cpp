@@ -5,12 +5,11 @@
 #include "CustomerService.h"
 
 int CustomerService::addCustomer(string firstname, string lastname, SADateTime birthDate) {
-    int customerID = CustomerModel::insert(firstname, lastname, birthDate);
-    return customerID;
+    return CustomerModel::insert(firstname, lastname, birthDate);
 }
 
-void
-CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city) {
+void CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine,
+                                             string postalCode, string city) {
     //AddressModel::archiveAllType(type);
 
     CustomerAddressModel::archiveAddressOfCustomerIDByType(customerID, type);
