@@ -6,6 +6,8 @@
 
 #include "../ihm/IHM.h"
 
+struct StaffModel::Staff staff;
+
 int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior) {
 
     SACommand cmd;
@@ -49,3 +51,64 @@ void StaffModel::deleteById(int idStaff) {
     ModelManager::sendCMD(&cmd);
 
 }
+
+StaffModel::Staff StaffModel::getStaffByID(int id) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `staff` WHERE `id` = :1;");
+    cmd.Param(1).setAsInt64() = id;
+    ModelManager::sendCMD(&cmd, false);
+
+    while (cmd.FetchNext()) {
+        staff.id = cmd.Field("id").asInt64();
+        staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
+        staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
+        staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.idAddress = cmd.Field("id_address").asInt64();
+        staff.idSuperior = cmd.Field("id_superior").asInt64();
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return staff;
+}
+
+vector<StaffModel::Staff> StaffModel::getAllStaffs() {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `staff`");
+    ModelManager::sendCMD(&cmd, false);
+
+    vector<StaffModel::Staff> staffs;
+
+    while (cmd.FetchNext()) {
+        staff.id = cmd.Field("id").asInt64();
+        staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
+        staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
+        staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.idAddress = cmd.Field("id_address").asInt64();
+        staff.idSuperior = cmd.Field("id_superior").asInt64();
+        staffs.push_back(staff);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return staffs;
+}
+
+vector<StaffModel::Staff> StaffModel::getAllStaffsByFirstAndLastName(string firstname, string lastname) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `staff` WHERE `firstname` = :1 AND `lastname` = :2;");
+    cmd.Param(1).setAsString() = _TSA(firstname.c_str());
+    cmd.Param(2).setAsString() = _TSA(lastname.c_str());
+    ModelManager::sendCMD(&cmd, false);
+
+    vector<StaffModel::Staff> staffs;
+
+    while (cmd.FetchNext()) {
+        staff.id = cmd.Field("id").asInt64();
+        staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
+        staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
+        staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.idAddress = cmd.Field("id_address").asInt64();
+        staff.idSuperior = cmd.Field("id_superior").asInt64();
+        staffs.push_back(staff);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return staffs;
+}
+
