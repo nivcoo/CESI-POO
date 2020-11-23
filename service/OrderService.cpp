@@ -7,7 +7,7 @@
 
 string OrderService::addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID) {
 
-    string reference = "UJOIIDFJHBYHGH89UHU5";
+    string reference = "UJOIIDFJHBYHGH89UHU5"; // todo do the ref
     vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customerID);
     int deliveryAddressID = 0;
     int billingAddressID = 0;
@@ -43,4 +43,8 @@ OrderHistoryModel::Order OrderService::getOrderByREF(string orderREF) {
 
 vector<OrderHistoryModel::Order> OrderService::getAllOrdersByCustomerID(int customerID) {
     return OrderHistoryModel::getAllOrdersByCustomerID(customerID);
+}
+
+vector<OrderHistoryModel::Order> OrderService::getLast10Orders() {
+    return OrderHistoryModel::getLast10Orders();
 }
