@@ -13,7 +13,7 @@ public:
     static int addCustomer(string firstname, string lastname, SADateTime birthDate);
     static void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
     static CustomerModel::Customer getCustomerByID(int customerID);
-    static std::vector<CustomerModel::Customer> getAllCustomers();
+    static vector<CustomerModel::Customer> getAllCustomers();
     static vector<CustomerModel::Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
 
     static vector<AddressModel::Address> getAllActiveAddressOfCustomerID(int customerID);
