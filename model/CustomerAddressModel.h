@@ -16,7 +16,9 @@ public:
 
     static void deleteByID(int idCustomer, int idAddress);
 
-    static vector<AddressModel::Address> getAllAddressOfCustomerID(int customerID);
+    static vector<AddressModel::Address> getAllActiveAddressOfCustomerID(int customerID);
+
+    static void archiveAddressOfCustomerIDByType(int customerID, int type);
 };
 
 

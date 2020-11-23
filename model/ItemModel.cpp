@@ -51,9 +51,9 @@ ItemModel::Item ItemModel::getItemByID(int id){
         item.id = cmd.Field("id").asInt64();
         item.reference = cmd.Field("reference").asString().GetMultiByteChars();
         item.name = cmd.Field("name").asString().GetMultiByteChars();
-        item.resuply_threshold = cmd.Field("name").asString().GetMultiByteChars();
+        /**item.resuply_threshold = cmd.Field("name").asString().GetMultiByteChars();
         item.quantity = cmd.Field("resuply_threshold").asString().GetMultiByteChars();
-        item.price_ht = cmd.Field("quantity").asString().GetMultiByteChars();
+        item.price_ht = cmd.Field("quantity").asString().GetMultiByteChars();**/
     }
     IHM::get()->getDataBase()->closeConnection();
     return item;
