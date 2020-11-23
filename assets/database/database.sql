@@ -7,11 +7,12 @@
 # Table: customer
 #------------------------------------------------------------
 
-CREATE TABLE customer(
+CREATE TABLE IF NOT EXISTS customer(
         id         Int  Auto_increment  NOT NULL ,
         firstname  Varchar (50) NOT NULL ,
         lastname   Varchar (50) NOT NULL ,
-        birth_date Date NOT NULL
+        birth_date Date NOT NULL ,
+        archived   Bool NOT NULL
 	,CONSTRAINT customer_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
@@ -20,7 +21,7 @@ CREATE TABLE customer(
 # Table: address
 #------------------------------------------------------------
 
-CREATE TABLE address(
+CREATE TABLE IF NOT EXISTS address(
         id           Int  Auto_increment  NOT NULL ,
         type         Int NOT NULL ,
         address_line Varchar (50) NOT NULL ,
@@ -35,7 +36,7 @@ CREATE TABLE address(
 # Table: item
 #------------------------------------------------------------
 
-CREATE TABLE item(
+CREATE TABLE IF NOT EXISTS item(
         reference         Varchar (50) NOT NULL ,
         name              Varchar (50) NOT NULL ,
         resuply_threshold Int NOT NULL ,
@@ -51,7 +52,7 @@ CREATE TABLE item(
 # Table: customer_address
 #------------------------------------------------------------
 
-CREATE TABLE customer_address(
+CREATE TABLE IF NOT EXISTS customer_address(
         id         Int NOT NULL ,
         id_address Int NOT NULL
 	,CONSTRAINT customer_address_PK PRIMARY KEY (id,id_address)
@@ -62,13 +63,13 @@ CREATE TABLE customer_address(
 # Table: staff
 #------------------------------------------------------------
 
-CREATE TABLE staff(
+CREATE TABLE IF NOT EXISTS staff(
         id         Int  Auto_increment  NOT NULL ,
         firstname  Varchar (50) NOT NULL ,
         lastname   Varchar (50) NOT NULL ,
         hire_date  Date NOT NULL ,
         id_address Int NOT NULL ,
-        id_staff   Int
+        id_staff   Int NULL
 	,CONSTRAINT staff_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
@@ -77,10 +78,9 @@ CREATE TABLE staff(
 # Table: order__history
 #------------------------------------------------------------
 
-CREATE TABLE order__history(
+CREATE TABLE IF NOT EXISTS order__history(
         reference               Varchar (50) NOT NULL ,
         estimated_delivery_date Date NOT NULL ,
-        solded_at               Datetime NOT NULL ,
         created_at              Datetime NOT NULL ,
         id                      Int NOT NULL ,
         id_staff                Int NOT NULL ,
@@ -94,12 +94,11 @@ CREATE TABLE order__history(
 # Table: order__payment
 #------------------------------------------------------------
 
-CREATE TABLE order__payment(
+CREATE TABLE IF NOT EXISTS order__payment(
         id             Int  Auto_increment  NOT NULL ,
         payment_method Int NOT NULL ,
         amount         Float NOT NULL ,
-        solded_at      Datetime NOT NULL ,
-        created_at     Datetime NOT NULL ,
+        sold_at        Datetime NOT NULL ,
         reference      Varchar (50) NOT NULL
 	,CONSTRAINT order__payment_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
@@ -109,7 +108,7 @@ CREATE TABLE order__payment(
 # Table: order__item
 #------------------------------------------------------------
 
-CREATE TABLE order__item(
+CREATE TABLE IF NOT EXISTS order__item(
         reference      Varchar (50) NOT NULL ,
         reference_item Varchar (50) NOT NULL ,
         quantity       Int NOT NULL ,
