@@ -12,13 +12,13 @@ class ItemModel {
 public:
 
     struct Item {
-        int id;
-        string reference, name, birthDate;
-        int resuply_threshold, quantity;
-        float price_ht;
+        int id, quantity, resuplyThreshold;
+        double vat, priceHt;
+        string reference, name;
+        bool isAchived;
     };
 
-    static int insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
+    static int insert(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat, bool isAchived = false);
 
     static void archiveByID(string reference);
 

@@ -11,7 +11,7 @@ using namespace std;
 
 class ItemService {
 public:
-    static int addItem(string reference, string name, int resuply_threshold, int quantity, float price_ht);
+    static int addItem(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat, bool isAchived = false);
     static ItemModel::Item getItemByID(int itemID);
 
 };
