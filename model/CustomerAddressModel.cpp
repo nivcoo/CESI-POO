@@ -28,7 +28,7 @@ void CustomerAddressModel::deleteByID(int idCustomer, int idAddress) {
 }
 
 
-vector<AddressModel::Address> CustomerAddressModel::getAllAddressOfCustomerID(int customerID) {
+vector<AddressModel::Address> CustomerAddressModel::getAllActiveAddressOfCustomerID(int customerID) {
     SACommand cmd;
     cmd.setCommandText(
             "SELECT ad.* FROM `customer_address` ca INNER join address ad on ad.id = ca.id_address WHERE ca.id = :1;");
@@ -49,4 +49,15 @@ vector<AddressModel::Address> CustomerAddressModel::getAllAddressOfCustomerID(in
     }
     IHM::get()->getDataBase()->closeConnection();
     return allAddress;
+}
+
+
+void CustomerAddressModel::archiveAddressOfCustomerIDByType(int customerID, int type) {
+    SACommand cmd;
+    cmd.setCommandText(
+            "UPDATE address, customer_address SET address.archived = :1 WHERE customer_address.id_address = address.id AND customer_address.id = :2 AND address.type = :3");
+    cmd.Param(1).setAsBool() = true;
+    cmd.Param(2).setAsInt64() = customerID;
+    cmd.Param(3).setAsInt64() = type;
+    ModelManager::sendCMD(&cmd);
 }

@@ -11,7 +11,10 @@ int CustomerService::addCustomer(string firstname, string lastname, SADateTime b
 
 void
 CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city) {
-    AddressModel::archiveAllType(type);
+    //AddressModel::archiveAllType(type);
+
+    CustomerAddressModel::archiveAddressOfCustomerIDByType(customerID, type);
+    //CustomerAddressModel::getAllActiveAddressOfCustomerID(customerID);
     int addressID = AddressModel::insert(type, addressLine, postalCode, city);
     CustomerAddressModel::insert(customerID, addressID);
 }
@@ -30,8 +33,7 @@ vector<CustomerModel::Customer> CustomerService::getAllCustomersByFirstAndLastNa
 
 
 vector<AddressModel::Address> CustomerService::getAllActiveAddressOfCustomerID(int customerID) {
-    auto address = CustomerAddressModel::getAllAddressOfCustomerID(customerID);
-    return address;
+    return CustomerAddressModel::getAllActiveAddressOfCustomerID(customerID);
 }
 
 

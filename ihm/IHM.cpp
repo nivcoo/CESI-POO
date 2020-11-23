@@ -18,6 +18,20 @@ void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
 
+
+    int customerID = CustomerService::addCustomer("SALUT", "DUUUU", SADateTime(2000, 8, 02));
+    CustomerService::addAddressToCustomerID(customerID, 1, "41 rue", "64800", "okkk");
+    CustomerService::addAddressToCustomerID(customerID, 2, "78 rue", "64000", "uyk");
+
+    CustomerService::addAddressToCustomerID(customerID, 2, "88 rue", "64000", "uyk");
+
+
+    vector<AddressModel::Address> ad = CustomerService::getAllActiveAddressOfCustomerID(customerID);
+
+    for (auto c : ad) {
+        cout << c.id << c.addressLine << c.postalCode << endl;
+    }
+
     /**vector<AddressModel::Address> ad = CustomerService::getAllActiveAddressOfCustomerID(31);
 
     for (auto c : ad) {
