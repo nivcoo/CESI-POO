@@ -42,6 +42,14 @@ void CustomerModel::deleteByID(int id) {
     ModelManager::sendCMD(&cmd);
 }
 
+void CustomerModel::archivedByID(int id) {
+    SACommand cmd;
+    cmd.setCommandText("UPDATE `customer` SET `archived`=:1 WHERE `id`=:2;");
+    cmd.Param(1).setAsBool() = _TSA(true);
+    cmd.Param(2).setAsInt64() = _TSA(id);
+    ModelManager::sendCMD(&cmd);
+}
+
 
 CustomerModel::Customer CustomerModel::getCustomerByID(int id) {
     SACommand cmd;

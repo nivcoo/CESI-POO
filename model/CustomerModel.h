@@ -29,6 +29,8 @@ public:
     static std::vector<Customer> getAllCustomers();
 
     static vector<Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
+
+    static void archivedByID(int id);
 };
 
 

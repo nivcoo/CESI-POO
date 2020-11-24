@@ -11,6 +11,7 @@ class CustomerService {
 
 public:
     static int addCustomer(string firstname, string lastname, SADateTime birthDate);
+    static void archiveCustomerByID(int customerID);
     static void addAddressToCustomerID(int customerID, int type, string addressLine, string postalCode, string city);
     static CustomerModel::Customer getCustomerByID(int customerID);
     static vector<CustomerModel::Customer> getAllCustomers();
