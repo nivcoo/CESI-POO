@@ -24,12 +24,13 @@ public:
 
     ~MainWindow();
 
+    Ui::mainwindow *ui;
+
 private:
     QPushButton *_customerBtnBack;
 
     void showPOPUpMessage(bool error, string title, string message);
 
-    Ui::mainwindow *ui;
 
 private slots:
 

@@ -16,6 +16,7 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::initCustomerTab() {
+
     vector<CustomerModel::Customer> customers = CustomerService::getAllCustomers();
     for (auto customer : customers) {
         addCustomerToTable(customer);
@@ -67,7 +68,6 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
         }
 
     }
-
 
     connect(_customerBtnBack, SIGNAL(clicked()), this, SLOT(customerTabCancelEdit()));
 }
