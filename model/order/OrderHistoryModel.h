@@ -27,8 +27,9 @@ public:
 
     static vector<OrderHistoryModel::Order> getAllOrdersByCustomerID(int customerID);
 
-    static vector<OrderHistoryModel::Order> getLast10Orders();
+    static vector<OrderHistoryModel::Order> getLastOrdersByNumber(int number);
 
+    static int getOrderCountByCustomerID(int customerID);
 };
 
 

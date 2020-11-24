@@ -26,7 +26,7 @@ void IHM::initDB() {
     //string ref = ItemService::addItem("HYHT858GG", "tyj", 50,100, 10, 0.2);
 
     //int id = StaffService::addStaff("salut", "salut2", SADateTime(2020,12,11), "84887 yuty", "85860", "albert", NULL);
-
+    string ref = OrderService::addOrder(SADateTime(2020,12,11), 4, 5);
     /**string ref = OrderService::addOrder(SADateTime(2020,12,11), 4, 5);
     OrderService::addItemToOrderREF(ref, "HYHT858GG", 10);**/
 

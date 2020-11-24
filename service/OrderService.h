@@ -5,6 +5,7 @@
 #ifndef MAIN_CPP_ODERSERVICE_H
 #define MAIN_CPP_ODERSERVICE_H
 
+#include <algorithm>
 #include "CustomerService.h"
 #include "../model/order/OrderHistoryModel.h"
 #include "../model/ItemModel.h"
@@ -24,7 +25,7 @@ public:
 
     static vector<OrderHistoryModel::Order> getAllOrdersByCustomerID(int customerID);
 
-    static vector<OrderHistoryModel::Order> getLast10Orders();
+    static vector<OrderHistoryModel::Order> getLastOrdersByNumber(int number);
 
 
 };

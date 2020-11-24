@@ -59,7 +59,7 @@ AddressModel::Address AddressModel::getAddressByID(int id) {
         address.type = cmd.Field("type").asInt64();
         address.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
         address.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
-        address.postalCode = cmd.Field("city").asString().GetMultiByteChars();
+        address.city = cmd.Field("city").asString().GetMultiByteChars();
         address.archived = cmd.Field("archived").asBool();
     }
     IHM::get()->getDataBase()->closeConnection();

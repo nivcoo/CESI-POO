@@ -7,17 +7,25 @@
 
 string OrderService::addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID) {
 
-    string reference = "UJOIIDFJHBYHGH89UHU5"; // todo do the ref
+    CustomerModel::Customer customer = CustomerModel::getCustomerByID(customerID);
     vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customerID);
+    time_t now = time(NULL);
+    struct tm *timeNow = localtime(&now);
+    string reference = customer.firstname.substr(0, 2) + customer.lastname.substr(0, 2) +
+                       to_string(timeNow->tm_year + 1900);
     int deliveryAddressID = 0;
     int billingAddressID = 0;
 
     for (const auto &ad :address) {
-        if (ad.type == 1)
+        if (ad.type == 1) {
             deliveryAddressID = ad.id;
-        else if (ad.type == 2)
+            reference += ad.city.substr(0, 3);
+        } else if (ad.type == 2)
             billingAddressID = ad.id;
     }
+
+    reference += to_string((OrderHistoryModel::getOrderCountByCustomerID(customerID) + 1));
+    transform(reference.begin(), reference.end(), reference.begin(), ::toupper);
     string orderHistoryREF = OrderHistoryModel::insert(reference, estimatedDeliveryDate, customerID, staffID,
                                                        deliveryAddressID, billingAddressID);
 
@@ -45,6 +53,6 @@ vector<OrderHistoryModel::Order> OrderService::getAllOrdersByCustomerID(int cust
     return OrderHistoryModel::getAllOrdersByCustomerID(customerID);
 }
 
-vector<OrderHistoryModel::Order> OrderService::getLast10Orders() {
-    return OrderHistoryModel::getLast10Orders();
+vector<OrderHistoryModel::Order> OrderService::getLastOrdersByNumber(int number) {
+    return OrderHistoryModel::getLastOrdersByNumber(number);
 }

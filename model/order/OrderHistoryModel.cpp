@@ -69,11 +69,12 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrdersByCustomerID(int
     return orders;
 }
 
-vector<OrderHistoryModel::Order> OrderHistoryModel::getLast10Orders() {
+vector<OrderHistoryModel::Order> OrderHistoryModel::getLastOrdersByNumber(int number) {
 
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `order__history` ORDER by created_at DESC LIMIT 10;");
-    cmd.setOption(SACMD_PREFETCH_ROWS) = "10";
+    cmd.setCommandText("SELECT * FROM `order__history` ORDER by created_at DESC LIMIT :1;");
+    cmd.Param(1).setAsInt64() = _TSA(number);
+    cmd.setOption(SACMD_PREFETCH_ROWS) = number;
     ModelManager::sendCMD(&cmd, false);
     vector<OrderHistoryModel::Order> orders;
     while (cmd.FetchNext()) {
@@ -88,4 +89,15 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getLast10Orders() {
     }
     IHM::get()->getDataBase()->closeConnection();
     return orders;
+}
+
+int OrderHistoryModel::getOrderCountByCustomerID(int customerID) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT COUNT(id) FROM `order__history` WHERE id = :1;");
+    cmd.Param(1).setAsInt64() = _TSA(customerID);
+    ModelManager::sendCMD(&cmd, false);
+    cmd.FetchNext();
+    int count = cmd[1].asInt64();
+    IHM::get()->getDataBase()->closeConnection();
+    return count;
 }
