@@ -35,6 +35,8 @@ private slots:
     void customerTabArchiveButtonOnTableClicked(int customerID, int row);
 
     void initCustomerTab();
+
+    void addCustomerToTable(CustomerModel::Customer customer);
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

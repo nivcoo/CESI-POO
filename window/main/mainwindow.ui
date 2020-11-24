@@ -76,6 +76,9 @@
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
              <widget class="QTableWidget" name="customerListTable">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -96,17 +99,7 @@
               </attribute>
               <column>
                <property name="text">
-                <string>order</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>edit</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>del</string>
+                <string>actions</string>
                </property>
               </column>
               <column>

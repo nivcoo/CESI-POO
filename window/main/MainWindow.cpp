@@ -19,58 +19,11 @@ MainWindow::~MainWindow() {
 
 void MainWindow::initCustomerTab() {
 
-    QTableWidget *tableWidget = ui->customerListTable;
 
     vector<CustomerModel::Customer> customers = CustomerService::getAllCustomers();
     for (auto customer : customers) {
-        tableWidget->insertRow(tableWidget->rowCount());
-
-
-        QPushButton *btnOrder = new QPushButton("Do Order");
-        QPushButton *btnEdit = new QPushButton("Edit");
-        QPushButton *btnArchive = new QPushButton("Archive");
-        int id = customer.id;
-
-        int row = tableWidget->rowCount() - 1;
-        connect(btnOrder, &QPushButton::clicked, [this, id, row] { customerTabOrderButtonOnTableClicked(id, row); });
-        connect(btnEdit, &QPushButton::clicked, [this, id, row] { customerTabEditButtonOnTableClicked(id, row); });
-        connect(btnArchive, &QPushButton::clicked,
-                [this, id, row] { customerTabArchiveButtonOnTableClicked(id, row); });
-
-        tableWidget->setCellWidget(row, 0, btnOrder);
-        tableWidget->setCellWidget(row, 1, btnEdit);
-        tableWidget->setCellWidget(row, 2, btnArchive);
-        tableWidget->setItem(row,
-                             3,
-                             new QTableWidgetItem(customer.firstname.c_str()));
-        tableWidget->setItem(row,
-                             4,
-                             new QTableWidgetItem(customer.lastname.c_str()));
-        tableWidget->setItem(row,
-                             5,
-                             new QTableWidgetItem(customer.birthDate.c_str()));
-
-        vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
-
-
-        for (auto ad : address) {
-            if (ad.type == 2)
-                continue;
-            tableWidget->setItem(row,
-                                 6,
-                                 new QTableWidgetItem(ad.addressLine.c_str()));
-            tableWidget->setItem(row,
-                                 7,
-                                 new QTableWidgetItem(ad.postalCode.c_str()));
-            tableWidget->setItem(row,
-                                 8,
-                                 new QTableWidgetItem(ad.city.c_str()));
-            break;
-        }
-
+        addCustomerToTable(customer);
     }
-
-
     connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(customerTabButtonAddClicked()));
 
 }
@@ -107,8 +60,6 @@ void MainWindow::customerTabArchiveButtonOnTableClicked(int customerID, int row)
 }
 
 void MainWindow::customerTabButtonAddClicked() {
-
-    cout << "clicked" << endl;
     string customerFormFirstName = ui->customerFormFirstName->text().toStdString();
     string customerFormLastName = ui->customerFormLastName->text().toStdString();
     QDateEdit *customerFormBirthDate = ui->customerFormBirthDate;
@@ -139,28 +90,9 @@ void MainWindow::customerTabButtonAddClicked() {
     QTableWidget *tableWidget = ui->customerListTable;
     CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
 
-    tableWidget->insertRow(tableWidget->rowCount());
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         0,
-                         new QTableWidgetItem(customer.firstname.c_str()));
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         1,
-                         new QTableWidgetItem(customer.lastname.c_str()));
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         2,
-                         new QTableWidgetItem(customer.birthDate.c_str()));
+    addCustomerToTable(customer);
 
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         3,
-                         new QTableWidgetItem(customerFormAddressLine1.c_str()));
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         4,
-                         new QTableWidgetItem(customerFormPostalCode1.c_str()));
-    tableWidget->setItem(tableWidget->rowCount() - 1,
-                         5,
-                         new QTableWidgetItem(customerFormCity1.c_str()));
-
-    showPOPUpMessage(false, "Success !", "Adding the user is in progress!");
+    showPOPUpMessage(false, "Success !", "Adding the user with success !");
 
 
 }
@@ -181,5 +113,65 @@ void MainWindow::showPOPUpMessage(bool error, string title, string message) {
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setMinimumSize(400, 400);
     msgBox.exec();
+
+}
+
+void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
+
+    QTableWidget *tableWidget = ui->customerListTable;
+    tableWidget->resizeColumnsToContents();
+
+
+    tableWidget->insertRow(tableWidget->rowCount());
+
+
+    QPushButton *btnOrder = new QPushButton("Do Order");
+    QPushButton *btnEdit = new QPushButton("Edit");
+    QPushButton *btnArchive = new QPushButton("Archive");
+    int id = customer.id;
+
+    int row = tableWidget->rowCount() - 1;
+    connect(btnOrder, &QPushButton::clicked, [this, id, row] { customerTabOrderButtonOnTableClicked(id, row); });
+    connect(btnEdit, &QPushButton::clicked, [this, id, row] { customerTabEditButtonOnTableClicked(id, row); });
+    connect(btnArchive, &QPushButton::clicked,
+            [this, id, row] { customerTabArchiveButtonOnTableClicked(id, row); });
+
+    QWidget* actionWidget = new QWidget();
+    QHBoxLayout* pLayout = new QHBoxLayout(actionWidget);
+    pLayout->addWidget(btnOrder);
+    pLayout->addWidget(btnEdit);
+    pLayout->addWidget(btnArchive);
+    pLayout->setAlignment(Qt::AlignCenter);
+    pLayout->setContentsMargins(0, 0, 10, 0);
+    actionWidget->setLayout(pLayout);
+
+    tableWidget->setCellWidget(row, 0, actionWidget);
+    tableWidget->setItem(row,
+                         1,
+                         new QTableWidgetItem(customer.firstname.c_str()));
+    tableWidget->setItem(row,
+                         2,
+                         new QTableWidgetItem(customer.lastname.c_str()));
+    tableWidget->setItem(row,
+                         3,
+                         new QTableWidgetItem(customer.birthDate.c_str()));
+
+    vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
+
+
+    for (auto ad : address) {
+        if (ad.type == 2)
+            continue;
+        tableWidget->setItem(row,
+                             4,
+                             new QTableWidgetItem(ad.addressLine.c_str()));
+        tableWidget->setItem(row,
+                             5,
+                             new QTableWidgetItem(ad.postalCode.c_str()));
+        tableWidget->setItem(row,
+                             6,
+                             new QTableWidgetItem(ad.city.c_str()));
+        break;
+    }
 
 }
