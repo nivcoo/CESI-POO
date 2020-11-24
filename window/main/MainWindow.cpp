@@ -7,19 +7,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     initCustomerTab();
-
 }
 
-
 MainWindow::~MainWindow() {
-
     delete ui;
 }
 
 
 void MainWindow::initCustomerTab() {
-
-
     vector<CustomerModel::Customer> customers = CustomerService::getAllCustomers();
     for (auto customer : customers) {
         addCustomerToTable(customer);
@@ -27,11 +22,6 @@ void MainWindow::initCustomerTab() {
     connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(customerTabButtonAddClicked()));
 
 }
-
-
-
-
-
 
 void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
 
@@ -87,7 +77,6 @@ void MainWindow::customerTabButtonAddClicked() {
     CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2, customerFormPostalCode2,
                                             customerFormCity2);
 
-    QTableWidget *tableWidget = ui->customerListTable;
     CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
 
     addCustomerToTable(customer);
@@ -136,8 +125,8 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
     connect(btnArchive, &QPushButton::clicked,
             [this, id, row] { customerTabArchiveButtonOnTableClicked(id, row); });
 
-    QWidget* actionWidget = new QWidget();
-    QHBoxLayout* pLayout = new QHBoxLayout(actionWidget);
+    QWidget *actionWidget = new QWidget();
+    QHBoxLayout *pLayout = new QHBoxLayout(actionWidget);
     pLayout->addWidget(btnOrder);
     pLayout->addWidget(btnEdit);
     pLayout->addWidget(btnArchive);
