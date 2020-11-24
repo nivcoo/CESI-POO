@@ -7,9 +7,8 @@
 
 
 #include <QMainWindow>
-#include <QtWidgets/QPushButton>
-#include <QtCore/QItemSelection>
-#include "../content/TabManager.h"
+#include "../../service/CustomerService.h"
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainwindow; }
@@ -25,9 +24,14 @@ public:
     ~MainWindow();
 
 private:
-    TabManager *tabManager;
+    void showPOPUpMessage(bool error, string title, string message);
 
     Ui::mainwindow *ui;
+
+private slots:
+    void pushButtonAddCustomerClicked();
+
+
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

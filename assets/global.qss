@@ -4,6 +4,38 @@ QMainWindow
 	background-color: #393e46;
 }
 
+QSpinBox::up-button {width: 0;}
+QSpinBox::down-button {width: 0;}
+QDateEdit::up-button {width: 0;}
+QDateEdit::down-button {width: 0;}
+QSpinBox
+{
+	border: 2px solid #393e46;
+    border-radius: 4px;
+    padding: 1px;
+    color: #ececec;
+    background: #393e46;
+}
+
+
+
+QDateEdit
+{
+    border: 2px solid #393e46;
+    border-radius: 4px;
+    padding: 1px;
+    color: #ececec;
+    background: #393e46;
+}
+
+QLineEdit {
+    border: 2px solid #393e46;
+    border-radius: 4px;
+    color: #ececec;
+    padding: 1px;
+    background: #393e46;
+}
+
 /*QWidget {
 	color: #BFBFBF;
 	background-color: #222831;
@@ -21,6 +53,12 @@ QWidget::item:hover
 }
 
 /*---------------------------------------------------------*/
+QPushButton#pushButtonAddCustomer
+{
+    margin-top:40px;
+}
+
+
 QPushButton
 {
     border-radius: 3px;
@@ -28,6 +66,7 @@ QPushButton
 	min-height: 2em;
 	color:white;
 	background-color: #d65a31;
+	/*border: 2px solid #5285A6;*/
 }
 QPushButton:hover
 {
@@ -50,13 +89,19 @@ QTabWidget::pane {
     background-color: #222831;
     border: none;
     margin:0px 10px 10px 10px;
-    padding:40px;
+    padding:5px;
     color: #ececec;
 /* The tab widget frame */
 }
 
 QLabel {
     color: #ececec;
+}
+
+QLabel#titleCustomer {
+    border: 2px solid #393e46;
+    padding:10px;
+    border-radius: 4px;
 }
 
 
@@ -89,5 +134,112 @@ QTabBar::tab:!selected {
 	background: #222831;
 	color:#ececec;
 }
+
+
+/*QHBoxLayout
+  {
+  	border: 1px transparent black;
+  	background-color: #d65a31;
+  	padding:20px;
+
+  }
+  */
+
+
+QGroupBox {
+
+    border:none;
+
+}
+
+
+
+QHeaderView::section {
+    background-color: #646464;
+    padding: 4px;
+    border: 1px solid  #222831;
+    color: #ececec;
+    background-color: #393e46;
+}
+
+
+QTableWidget {
+    gridline-color: #222831;
+    background-color: #393e46;
+    border:none;
+    border-radius:4px;
+    color: #ececec;
+}
+
+
+QTableWidget QWidget {
+    background-color: #393e46;
+}
+
+QTableView QTableCornerButton::section {
+    gridline-color:  #222831;
+}
+
+
+
+
+QScrollBar:vertical {
+    border-color: #393e46;
+    border-width: 1px;
+    width:15px;
+    border-style: solid;
+    background-color: #222831;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #d65a31;
+    min-height: 25px;
+}
+QScrollBar::add-line:vertical {
+    width: 0px;
+}
+
+QScrollBar::sub-line:vertical {
+    width: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+}
+
+QScrollBar:horizontal {
+
+    height:15px;
+    border-color: #393e46;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #222831;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #d65a31;
+    min-width: 25px;
+}
+QScrollBar::add-line:horizontal {
+    width: 0px;
+}
+
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+     background: none;
+}
+
+QMessageBox {
+    background-color: #222831;
+    color: #ececec;
+}
+
+
+
+
+
 
 
