@@ -17,7 +17,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::initCustomerTab() {
 
-    vector<CustomerModel::Customer> customers = CustomerService::getAllCustomers();
+    auto customers = CustomerService::getAllCustomers();
     for (auto customer : customers) {
         addCustomerToTable(customer);
     }
@@ -41,7 +41,7 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
     ui->titleCustomer->setText("Edit Customer Form");
     ui->pushButtonAddCustomer->setText("Edit Customer");
 
-    CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
+    auto customer = CustomerService::getCustomerByID(customerID);
 
     string birthDate = customer.birthDate;
     QDate date;
@@ -56,7 +56,7 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
     ui->customerFormLastName->setText(customer.lastname.c_str());
     ui->customerFormBirthDate->setDate(date);
 
-    vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
+    auto address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
 
 
     for (auto ad : address) {
@@ -153,7 +153,7 @@ void MainWindow::customerTabButtonClicked() {
     CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2, customerFormPostalCode2,
                                             customerFormCity2);
 
-    CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
+    auto customer = CustomerService::getCustomerByID(customerID);
     if (!customerID) {
         addCustomerToTable(customer);
     }
@@ -221,7 +221,7 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
                          3,
                          new QTableWidgetItem(customer.birthDate.c_str()));
 
-    vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
+    auto address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
 
 
     for (auto ad : address) {
