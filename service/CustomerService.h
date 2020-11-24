@@ -18,6 +18,8 @@ public:
     static vector<CustomerModel::Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
 
     static vector<AddressModel::Address> getAllActiveAddressOfCustomerID(int customerID);
+
+    static void editCustomerByID(int customerID, string firstname, string lastname, SADateTime birthDate);
 };
 
 

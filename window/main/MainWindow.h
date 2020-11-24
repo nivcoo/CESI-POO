@@ -9,6 +9,7 @@
 #include <QMainWindow>
 #include "../../service/CustomerService.h"
 #include <QMessageBox>
+#include <sstream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainwindow; }
@@ -24,19 +25,27 @@ public:
     ~MainWindow();
 
 private:
+    QPushButton *_customerBtnBack;
+
     void showPOPUpMessage(bool error, string title, string message);
 
     Ui::mainwindow *ui;
 
 private slots:
-    void customerTabButtonAddClicked();
+
+    void customerTabButtonClicked();
+
     void customerTabOrderButtonOnTableClicked(int customerID, int row);
+
     void customerTabEditButtonOnTableClicked(int customerID, int row);
+
     void customerTabArchiveButtonOnTableClicked(int customerID, int row);
 
     void initCustomerTab();
 
     void addCustomerToTable(CustomerModel::Customer customer);
+
+    void customerTabCancelEdit();
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

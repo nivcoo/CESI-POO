@@ -17,6 +17,14 @@ QSpinBox
     background: #393e46;
 }
 
+QSpinBox#customerFormID
+{
+	width:0px;
+    height:0px;
+    border:none;
+    padding:0px;
+}
+
 
 
 QDateEdit

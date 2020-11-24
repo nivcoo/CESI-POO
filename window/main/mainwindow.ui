@@ -137,7 +137,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QGroupBox" name="">
+           <widget class="QGroupBox" name="customerFormBox">
             <property name="minimumSize">
              <size>
               <width>395</width>
@@ -154,27 +154,46 @@
              <property name="sizeConstraint">
               <enum>QLayout::SetNoConstraint</enum>
              </property>
-             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-              <widget class="QLabel" name="titleCustomer">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>MS Shell Dlg 2</family>
-                 <pointsize>10</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
+             <item>
+              <layout class="QVBoxLayout" name="customerFormTitleLayout">
+               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <widget class="QLabel" name="titleCustomer">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="accessibleName">
+                  <string>titleCustomer</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Customer Form</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="customerFormID">
+               <property name="acceptDrops">
+                <bool>false</bool>
                </property>
                <property name="accessibleName">
-                <string>titleCustomer</string>
+                <string>customerFormID</string>
                </property>
-               <property name="text">
-                <string>Add Customer Form</string>
+               <property name="styleSheet">
+                <string notr="true">width:0px;
+    height:0px;
+    border:none;</string>
                </property>
               </widget>
              </item>

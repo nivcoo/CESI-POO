@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow() {
     delete ui;
+    delete _customerBtnBack;
 }
 
 
@@ -19,7 +20,7 @@ void MainWindow::initCustomerTab() {
     for (auto customer : customers) {
         addCustomerToTable(customer);
     }
-    connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(customerTabButtonAddClicked()));
+    connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(customerTabButtonClicked()));
 
 }
 
@@ -31,10 +32,67 @@ void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int 
 
 
 void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
+    ui->customerFormID->setValue(customerID);
+    _customerBtnBack = new QPushButton("Back To Add new Customer");
+    ui->customerFormTitleLayout->addWidget(_customerBtnBack);
+    ui->titleCustomer->setText("Edit Customer Form");
+    ui->pushButtonAddCustomer->setText("Edit Customer");
 
-    cout << customerID << " " << endl;
+    CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
+
+    string birthDate = customer.birthDate;
+    QDate date;
+    date.fromString(birthDate.c_str(), "YYYY-MM-dd");
+
+    ui->customerFormFirstName->setText(customer.firstname.c_str());
+    ui->customerFormLastName->setText(customer.lastname.c_str());
+    ui->customerFormBirthDate->setDate(date);
+
+    vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
+
+
+    for (auto ad : address) {
+        stringstream postalCodeSS(ad.postalCode.c_str());
+        int postalCode = 0;
+        postalCodeSS >> postalCode;
+        if (ad.type == 1) {
+            ui->customerFormAddressLine1->setText(ad.addressLine.c_str());
+            ui->customerFormCity1->setText(ad.city.c_str());
+            ui->customerFormPostalCode1->setValue(postalCode);
+
+        } else {
+            ui->customerFormAddressLine2->setText(ad.addressLine.c_str());
+            ui->customerFormCity2->setText(ad.city.c_str());
+            ui->customerFormPostalCode2->setValue(postalCode);
+        }
+
+    }
+
+
+    connect(_customerBtnBack, SIGNAL(clicked()), this, SLOT(customerTabCancelEdit()));
+}
+
+void MainWindow::customerTabCancelEdit() {
+    ui->customerFormID->setValue(0);
+    delete _customerBtnBack;
+    ui->titleCustomer->setText("Add Customer Form");
+    ui->pushButtonAddCustomer->setText("Add Customer");
+
+
+    ui->customerFormFirstName->clear();
+    ui->customerFormLastName->clear();
+    ui->customerFormBirthDate->clear();
+
+    ui->customerFormAddressLine1->clear();
+    ui->customerFormCity1->clear();
+    ui->customerFormPostalCode1->clear();
+
+    ui->customerFormAddressLine2->clear();
+    ui->customerFormCity2->clear();
+    ui->customerFormPostalCode2->clear();
 
 }
+
 
 void MainWindow::customerTabArchiveButtonOnTableClicked(int customerID, int row) {
 
@@ -49,7 +107,9 @@ void MainWindow::customerTabArchiveButtonOnTableClicked(int customerID, int row)
 
 }
 
-void MainWindow::customerTabButtonAddClicked() {
+void MainWindow::customerTabButtonClicked() {
+
+
     string customerFormFirstName = ui->customerFormFirstName->text().toStdString();
     string customerFormLastName = ui->customerFormLastName->text().toStdString();
     QDateEdit *customerFormBirthDate = ui->customerFormBirthDate;
@@ -68,21 +128,31 @@ void MainWindow::customerTabButtonAddClicked() {
         return;
     }
 
-    int customerID = CustomerService::addCustomer(customerFormFirstName, customerFormLastName,
+
+    int customerID = ui->customerFormID->value();
+    cout << customerID << endl;
+    if (!customerID) {
+        customerID = CustomerService::addCustomer(customerFormFirstName, customerFormLastName,
                                                   SADateTime(customerFormBirthDate->date().year(),
                                                              customerFormBirthDate->date().month(),
                                                              customerFormBirthDate->date().day()));
+    } else {
+        CustomerService::editCustomerByID(customerID, customerFormFirstName, customerFormLastName,
+                                          SADateTime(customerFormBirthDate->date().year(),
+                                                     customerFormBirthDate->date().month(),
+                                                     customerFormBirthDate->date().day()));
+    }
     CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1, customerFormPostalCode1,
                                             customerFormCity1);
     CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2, customerFormPostalCode2,
                                             customerFormCity2);
 
     CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
-
-    addCustomerToTable(customer);
+    if (!customerID) {
+        addCustomerToTable(customer);
+    }
 
     showPOPUpMessage(false, "Success !", "Adding the user with success !");
-
 
 }
 
@@ -164,3 +234,4 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
     }
 
 }
+
