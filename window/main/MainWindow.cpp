@@ -190,9 +190,9 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
     tableWidget->insertRow(tableWidget->rowCount());
 
 
-    QPushButton *btnOrder = new QPushButton("Do Order");
-    QPushButton *btnEdit = new QPushButton("Edit");
-    QPushButton *btnArchive = new QPushButton("Archive");
+    auto btnOrder = new QPushButton("Do Order");
+    auto btnEdit = new QPushButton("Edit");
+    auto btnArchive = new QPushButton("Archive");
     int id = customer.id;
 
     int row = tableWidget->rowCount() - 1;
@@ -201,8 +201,8 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
     connect(btnArchive, &QPushButton::clicked,
             [this, id, row] { customerTabArchiveButtonOnTableClicked(id, row); });
 
-    QWidget *actionWidget = new QWidget();
-    QHBoxLayout *pLayout = new QHBoxLayout(actionWidget);
+    auto actionWidget = new QWidget();
+    auto pLayout = new QHBoxLayout(actionWidget);
     pLayout->addWidget(btnOrder);
     pLayout->addWidget(btnEdit);
     pLayout->addWidget(btnArchive);
