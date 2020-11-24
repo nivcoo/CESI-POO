@@ -33,6 +33,8 @@ void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int 
 
 
 void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
+    if(ui->customerFormID->value())
+        return;
     ui->customerFormID->setValue(customerID);
     _customerBtnBack = new QPushButton("Back To Add new Customer");
     ui->customerFormTitleLayout->addWidget(_customerBtnBack);
