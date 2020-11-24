@@ -8,6 +8,10 @@ int CustomerService::addCustomer(string firstname, string lastname, SADateTime b
     return CustomerModel::insert(firstname, lastname, birthDate);
 }
 
+void CustomerService::archiveCustomerByID(int customerID) {
+    CustomerModel::archivedByID(customerID);
+}
+
 void CustomerService::addAddressToCustomerID(int customerID, int type, string addressLine,
                                              string postalCode, string city) {
     CustomerAddressModel::archiveAddressOfCustomerIDByType(customerID, type);
