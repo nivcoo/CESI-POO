@@ -17,6 +17,8 @@ public:
 
     static void archiveItemByREF(string idStaff);
 
+    static void updateItemQuantityByREF(string reference, int newQuantity);
+
 };
 
 

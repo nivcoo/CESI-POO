@@ -34,10 +34,10 @@ string OrderService::addOrder(SADateTime estimatedDeliveryDate, int customerID, 
 
 
 void OrderService::addItemToOrderREF(string orderREF, string itemREF, int quantity) {
-    ItemModel::Item item = ItemModel::getItemByREF(itemREF);
+    ItemModel::Item item = ItemService::getItemByREF(itemREF);
     int newQuantity = item.quantity - quantity;
     OrderItemModel::insert(orderREF, itemREF, quantity, item.priceHt, item.vat);
-    ItemModel::updateQuantityOfItemREF(itemREF, newQuantity);
+    ItemService::updateItemQuantityByREF(itemREF, newQuantity);
 }
 
 
