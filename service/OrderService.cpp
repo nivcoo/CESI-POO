@@ -7,7 +7,7 @@
 
 string OrderService::addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID) {
 
-    CustomerModel::Customer customer = CustomerModel::getCustomerByID(customerID);
+    CustomerModel::Customer customer = CustomerService::getCustomerByID(customerID);
     vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customerID);
     time_t now = time(NULL);
     struct tm *timeNow = localtime(&now);
