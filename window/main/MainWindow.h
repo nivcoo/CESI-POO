@@ -10,6 +10,8 @@
 #include "../../service/CustomerService.h"
 #include <QMessageBox>
 #include <sstream>
+#include <algorithm>
+#include <iterator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainwindow; }

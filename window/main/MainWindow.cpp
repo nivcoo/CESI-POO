@@ -27,7 +27,7 @@ void MainWindow::initCustomerTab() {
 
 void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
 
-    cout << customerID << " " << endl;
+
 
 }
 
@@ -45,8 +45,13 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
 
     string birthDate = customer.birthDate;
     QDate date;
-    date.fromString(birthDate.c_str(), "YYYY-MM-dd");
-
+    vector<string> dateVector;
+    string dateTemp;
+    istringstream dateSS(birthDate);
+    while (getline(dateSS, dateTemp, '-')) {
+        dateVector.push_back(dateTemp);
+    }
+    date.setDate(stoi(dateVector.at(0)), stoi(dateVector.at(1)), stoi(dateVector.at(2)));
     ui->customerFormFirstName->setText(customer.firstname.c_str());
     ui->customerFormLastName->setText(customer.lastname.c_str());
     ui->customerFormBirthDate->setDate(date);
@@ -132,7 +137,6 @@ void MainWindow::customerTabButtonClicked() {
 
 
     int customerID = ui->customerFormID->value();
-    cout << customerID << endl;
     if (!customerID) {
         customerID = CustomerService::addCustomer(customerFormFirstName, customerFormLastName,
                                                   SADateTime(customerFormBirthDate->date().year(),
