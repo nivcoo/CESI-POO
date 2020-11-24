@@ -70,7 +70,8 @@ CustomerModel::Customer CustomerModel::getCustomerByID(int id) {
 
 vector<CustomerModel::Customer> CustomerModel::getAllCustomers() {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `customer`");
+    cmd.setCommandText("SELECT * FROM `customer` WHERE `archived` = :1;");
+    cmd.Param(1).setAsBool() = _TSA(false);
     ModelManager::sendCMD(&cmd, false);
 
     vector<CustomerModel::Customer> customers;
@@ -89,9 +90,10 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomers() {
 
 vector<CustomerModel::Customer> CustomerModel::getAllCustomersByFirstAndLastName(string firstname, string lastname) {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `customer` WHERE `firstname` = :1 AND `lastname` = :2;");
+    cmd.setCommandText("SELECT * FROM `customer` WHERE `firstname` = :1 AND `lastname` = :2 AND `archived` = :3;");
     cmd.Param(1).setAsString() = _TSA(firstname.c_str());
     cmd.Param(2).setAsString() = _TSA(lastname.c_str());
+    cmd.Param(3).setAsBool() = _TSA(false);
     ModelManager::sendCMD(&cmd, false);
     vector<CustomerModel::Customer> customers;
     while (cmd.FetchNext()) {

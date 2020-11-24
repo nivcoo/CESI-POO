@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>872</width>
-    <height>603</height>
+    <width>1046</width>
+    <height>642</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -54,8 +54,8 @@
        <widget class="QTabWidget" name="tabWidget">
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>1026</width>
+          <height>622</height>
          </size>
         </property>
         <property name="toolTip">
@@ -94,6 +94,21 @@
               <attribute name="verticalHeaderShowSortIndicator" stdset="0">
                <bool>false</bool>
               </attribute>
+              <column>
+               <property name="text">
+                <string>order</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>edit</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>del</string>
+               </property>
+              </column>
               <column>
                <property name="text">
                 <string>firstname</string>

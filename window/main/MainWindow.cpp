@@ -5,27 +5,49 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::mainwindow) {
     ui->setupUi(this);
-    //ui->tab_2 = new OrderTab;
 
-    //setWindowTitle("Test");
+    initCustomerTab();
 
-    ui->staffTabFirstNameInput->setText("Connrthrtect");
+}
+
+
+MainWindow::~MainWindow() {
+
+    delete ui;
+}
+
+
+void MainWindow::initCustomerTab() {
 
     QTableWidget *tableWidget = ui->customerListTable;
 
     vector<CustomerModel::Customer> customers = CustomerService::getAllCustomers();
-
-
     for (auto customer : customers) {
         tableWidget->insertRow(tableWidget->rowCount());
-        tableWidget->setItem(tableWidget->rowCount() - 1,
-                             0,
+
+
+        QPushButton *btnOrder = new QPushButton("Do Order");
+        QPushButton *btnEdit = new QPushButton("Edit");
+        QPushButton *btnArchive = new QPushButton("Archive");
+        int id = customer.id;
+
+        int row = tableWidget->rowCount() - 1;
+        connect(btnOrder, &QPushButton::clicked, [this, id, row] { customerTabOrderButtonOnTableClicked(id, row); });
+        connect(btnEdit, &QPushButton::clicked, [this, id, row] { customerTabEditButtonOnTableClicked(id, row); });
+        connect(btnArchive, &QPushButton::clicked,
+                [this, id, row] { customerTabArchiveButtonOnTableClicked(id, row); });
+
+        tableWidget->setCellWidget(row, 0, btnOrder);
+        tableWidget->setCellWidget(row, 1, btnEdit);
+        tableWidget->setCellWidget(row, 2, btnArchive);
+        tableWidget->setItem(row,
+                             3,
                              new QTableWidgetItem(customer.firstname.c_str()));
-        tableWidget->setItem(tableWidget->rowCount() - 1,
-                             1,
+        tableWidget->setItem(row,
+                             4,
                              new QTableWidgetItem(customer.lastname.c_str()));
-        tableWidget->setItem(tableWidget->rowCount() - 1,
-                             2,
+        tableWidget->setItem(row,
+                             5,
                              new QTableWidgetItem(customer.birthDate.c_str()));
 
         vector<AddressModel::Address> address = CustomerService::getAllActiveAddressOfCustomerID(customer.id);
@@ -34,14 +56,14 @@ MainWindow::MainWindow(QWidget *parent) :
         for (auto ad : address) {
             if (ad.type == 2)
                 continue;
-            tableWidget->setItem(tableWidget->rowCount() - 1,
-                                 3,
+            tableWidget->setItem(row,
+                                 6,
                                  new QTableWidgetItem(ad.addressLine.c_str()));
-            tableWidget->setItem(tableWidget->rowCount() - 1,
-                                 4,
+            tableWidget->setItem(row,
+                                 7,
                                  new QTableWidgetItem(ad.postalCode.c_str()));
-            tableWidget->setItem(tableWidget->rowCount() - 1,
-                                 5,
+            tableWidget->setItem(row,
+                                 8,
                                  new QTableWidgetItem(ad.city.c_str()));
             break;
         }
@@ -49,20 +71,42 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-    connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(pushButtonAddCustomerClicked()));
+    connect(ui->pushButtonAddCustomer, SIGNAL(clicked()), this, SLOT(customerTabButtonAddClicked()));
 
-    //_tabManager = new TabManager(this, ui);
-    //setCentralWidget(tabManager);
-    //setObjectName("tabBar");
-
-    //connect(ui->pushButton, SIGNAL (clicked()), this, SLOT (buttonProfileClicked()));
 }
 
 
-MainWindow::~MainWindow() {
+
+
+
+
+void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
+
+    cout << customerID << " " << endl;
+
 }
 
-void MainWindow::pushButtonAddCustomerClicked() {
+
+void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
+
+    cout << customerID << " " << endl;
+
+}
+
+void MainWindow::customerTabArchiveButtonOnTableClicked(int customerID, int row) {
+
+    if (!customerID) {
+        showPOPUpMessage(true, "Error line !", "The application can't access to the ID");
+        return;
+    }
+
+    CustomerService::archiveCustomerByID(customerID);
+    ui->customerListTable->removeRow(row);
+    showPOPUpMessage(false, "Success !", "The customer was archived");
+
+}
+
+void MainWindow::customerTabButtonAddClicked() {
 
     cout << "clicked" << endl;
     string customerFormFirstName = ui->customerFormFirstName->text().toStdString();
@@ -139,7 +183,3 @@ void MainWindow::showPOPUpMessage(bool error, string title, string message) {
     msgBox.exec();
 
 }
-
-
-
-

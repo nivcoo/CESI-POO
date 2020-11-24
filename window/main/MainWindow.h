@@ -29,9 +29,12 @@ private:
     Ui::mainwindow *ui;
 
 private slots:
-    void pushButtonAddCustomerClicked();
+    void customerTabButtonAddClicked();
+    void customerTabOrderButtonOnTableClicked(int customerID, int row);
+    void customerTabEditButtonOnTableClicked(int customerID, int row);
+    void customerTabArchiveButtonOnTableClicked(int customerID, int row);
 
-
+    void initCustomerTab();
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H
