@@ -56,3 +56,7 @@ vector<OrderHistoryModel::Order> OrderService::getAllOrdersByCustomerID(int cust
 vector<OrderHistoryModel::Order> OrderService::getLastOrdersByNumber(int number) {
     return OrderHistoryModel::getLastOrdersByNumber(number);
 }
+
+int OrderService::getOrderCountByCustomerID(int customerID) {
+    return OrderHistoryModel::getOrderCountByCustomerID(customerID);
+}
