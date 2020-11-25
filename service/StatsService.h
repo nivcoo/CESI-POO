@@ -11,6 +11,7 @@
 #include <vector>
 #include <list>
 #include "OrderService.h"
+#include "../model/order/OrderItemModel.h"
 
 class StatsService {
 public:
@@ -23,6 +24,10 @@ public:
     static double getCommercialValueStock();
 
     static double getBuyValueStock();
+
+    static std::vector<OrderItemModel::OrderItem> getBestSeller();
+
+    static vector<OrderItemModel::OrderItem> getLeastSeller();
 
 };
 
