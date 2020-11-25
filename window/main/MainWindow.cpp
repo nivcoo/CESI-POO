@@ -16,6 +16,24 @@ MainWindow::~MainWindow() {
     delete _staffBtnBack;
 }
 
+void MainWindow::showPOPUpMessage(bool error, string title, string message) {
+    QMessageBox msgBox;
+    if (error) {
+        msgBox.setText(title.c_str());
+        msgBox.setWindowTitle("Warning !");
+        msgBox.setIcon(QMessageBox::Warning);
+    } else {
+        msgBox.setText(title.c_str());
+        msgBox.setWindowTitle("Information !");
+        msgBox.setIcon(QMessageBox::Information);
+    }
+    msgBox.setInformativeText(message.c_str());
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setMinimumSize(400, 400);
+    msgBox.exec();
+
+}
+
 
 void MainWindow::initCustomerTab() {
     clearCustomerInput();
@@ -27,23 +45,8 @@ void MainWindow::initCustomerTab() {
 
 }
 
-void MainWindow::initStaffTab() {
-    clearStaffInput();
-
-    auto staffs = StaffService::getAllStaffs();
-    for (auto staff : staffs) {
-        addStaffToTable(staff);
-    }
-    connect(ui->pushButtonAddStaff, SIGNAL(clicked()), this, SLOT(staffTabButtonClicked()));
-
-}
-
 void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
 }
-
-void MainWindow::staffTabOrderButtonOnTableClicked(int staffID, const int i) {
-}
-
 
 void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
     if (ui->customerFormID->value())
@@ -88,50 +91,11 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
     connect(_customerBtnBack, SIGNAL(clicked()), this, SLOT(customerTabCancelEdit()));
 }
 
-void MainWindow::staffTabEditButtonOnTableClicked(int staffID, int row) {
-    if (ui->staffFormID->value())
-        return;
-    cout << "tyjty" << endl;
-    ui->staffFormID->setValue(staffID);
-    _staffBtnBack = new QPushButton("Back To Add new Staff");
-    ui->staffFormTitleLayout->addWidget(_staffBtnBack);
-    ui->titleStaff->setText("Edit Staff Form");
-    ui->pushButtonAddStaff->setText("Edit Staff");
-
-    auto staff = StaffService::getStaffByID(staffID);
-
-    SADateTime hireDate = staff.hireDate;
-    QDate date;
-
-    date.setDate(hireDate.GetYear(), hireDate.GetMonth(), hireDate.GetDay());
-    ui->staffFormFirstName->setText(staff.firstname.c_str());
-    ui->staffFormLastName->setText(staff.lastname.c_str());
-    ui->staffFormHireDate->setDate(date);
-
-    stringstream postalCodeSS(staff.postalCode.c_str());
-    int postalCode = 0;
-    postalCodeSS >> postalCode;
-
-    ui->staffFormAddressLine->setText(staff.addressLine.c_str());
-    ui->staffFormCity->setText(staff.city.c_str());
-    ui->staffFormPostalCode->setValue(postalCode);
-
-    connect(_staffBtnBack, SIGNAL(clicked()), this, SLOT(staffTabCancelEdit()));
-}
-
 void MainWindow::customerTabCancelEdit() {
     delete _customerBtnBack;
     ui->titleCustomer->setText("Add Customer Form");
     ui->pushButtonAddCustomer->setText("Add Customer");
     clearCustomerInput();
-
-}
-
-void MainWindow::staffTabCancelEdit() {
-    delete _staffBtnBack;
-    ui->titleStaff->setText("Add Staff Form");
-    ui->pushButtonAddStaff->setText("Add Staff");
-    clearStaffInput();
 
 }
 
@@ -147,20 +111,6 @@ void MainWindow::customerTabArchiveButtonOnTableClicked(int customerID, int row)
     showPOPUpMessage(false, "Success !", "The customer was archived");
 
 }
-
-void MainWindow::staffTabArchiveButtonOnTableClicked(int staffID, int row) {
-
-    if (!staffID) {
-        showPOPUpMessage(true, "Error line !", "The application can't access to the ID");
-        return;
-    }
-
-    StaffService::deleteStaffByID(staffID);
-    ui->staffListTable->removeRow(row);
-    showPOPUpMessage(false, "Success !", "The staff was deleted");
-
-}
-
 
 void MainWindow::customerTabButtonClicked() {
 
@@ -178,7 +128,8 @@ void MainWindow::customerTabButtonClicked() {
     if (empty(customerFormFirstName) || empty(customerFormLastName) ||
         empty(customerFormBirthDate->text().toStdString()) ||
         empty(customerFormAddressLine1) || empty(customerFormCity1) || empty(customerFormPostalCode1) ||
-        empty(customerFormAddressLine2) || empty(customerFormCity2) || empty(customerFormPostalCode2) || stoi(customerFormPostalCode1) < 10000 ||  stoi(customerFormPostalCode2) < 10000) {
+        empty(customerFormAddressLine2) || empty(customerFormCity2) || empty(customerFormPostalCode2) ||
+        stoi(customerFormPostalCode1) < 10000 || stoi(customerFormPostalCode2) < 10000) {
         showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
         return;
     }
@@ -219,59 +170,6 @@ void MainWindow::customerTabButtonClicked() {
 
 
 }
-
-void MainWindow::staffTabButtonClicked() {
-
-
-    string staffFormFirstName = ui->staffFormFirstName->text().toStdString();
-    string staffFormLastName = ui->staffFormLastName->text().toStdString();
-    QDateEdit *staffFormHireDate = ui->staffFormHireDate;
-    string staffFormAddressLine = ui->staffFormAddressLine->text().toStdString();
-    string staffFormCity = ui->staffFormCity->text().toStdString();
-    string staffFormPostalCode = ui->staffFormPostalCode->text().toStdString();
-
-    if (empty(staffFormFirstName) || empty(staffFormLastName) ||
-        empty(staffFormHireDate->text().toStdString()) ||
-        empty(staffFormAddressLine) || empty(staffFormCity) || empty(staffFormPostalCode) || stoi(staffFormPostalCode) < 10000) {
-        showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
-        return;
-    }
-
-
-    int staffID = ui->staffFormID->value();
-    int editMode = false;
-
-    if (!staffID) {
-        clearStaffInput();
-        staffID = StaffService::addStaff(staffFormFirstName, staffFormLastName,
-                                         SADateTime(staffFormHireDate->date().year(),
-                                                    staffFormHireDate->date().month(),
-                                                    staffFormHireDate->date().day()),
-                                         staffFormAddressLine,
-                                         staffFormPostalCode, staffFormCity, 1);
-    } else {
-        editMode = true;
-        StaffService::updateStaffByID(staffID, staffFormFirstName, staffFormLastName,
-                                      SADateTime(staffFormHireDate->date().year(),
-                                                 staffFormHireDate->date().month(),
-                                                 staffFormHireDate->date().day()), 1);
-
-        StaffService::updateStaffAddress(staffID, staffFormAddressLine, staffFormPostalCode, staffFormCity);
-    }
-
-
-    if (!editMode) {
-        auto staff = StaffService::getStaffByID(staffID);
-        addStaffToTable(staff);
-        showPOPUpMessage(false, "Success !", "Adding the staff with success !");
-        return;
-    }
-
-    showPOPUpMessage(false, "Success !", "Editing the staff with success !");
-
-
-}
-
 
 void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
 
@@ -335,6 +233,144 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
 
 }
 
+void MainWindow::clearCustomerInput() {
+
+    ui->customerFormID->setValue(0);
+
+    ui->customerFormFirstName->clear();
+    ui->customerFormLastName->clear();
+    ui->customerFormBirthDate->clear();
+
+    ui->customerFormAddressLine1->clear();
+    ui->customerFormCity1->clear();
+    ui->customerFormPostalCode1->clear();
+
+    ui->customerFormAddressLine2->clear();
+    ui->customerFormCity2->clear();
+    ui->customerFormPostalCode2->clear();
+
+}
+
+
+void MainWindow::initStaffTab() {
+    clearStaffInput();
+
+    auto staffs = StaffService::getAllStaffs();
+    for (auto staff : staffs) {
+        addStaffToTable(staff);
+    }
+    connect(ui->pushButtonAddStaff, SIGNAL(clicked()), this, SLOT(staffTabButtonClicked()));
+
+}
+
+void MainWindow::staffTabOrderButtonOnTableClicked(int staffID, const int i) {
+}
+
+void MainWindow::staffTabEditButtonOnTableClicked(int staffID, int row) {
+    if (ui->staffFormID->value())
+        return;
+    cout << "tyjty" << endl;
+    ui->staffFormID->setValue(staffID);
+    _staffBtnBack = new QPushButton("Back To Add new Staff");
+    ui->staffFormTitleLayout->addWidget(_staffBtnBack);
+    ui->titleStaff->setText("Edit Staff Form");
+    ui->pushButtonAddStaff->setText("Edit Staff");
+
+    auto staff = StaffService::getStaffByID(staffID);
+
+    SADateTime hireDate = staff.hireDate;
+    QDate date;
+
+    date.setDate(hireDate.GetYear(), hireDate.GetMonth(), hireDate.GetDay());
+    ui->staffFormFirstName->setText(staff.firstname.c_str());
+    ui->staffFormLastName->setText(staff.lastname.c_str());
+    ui->staffFormHireDate->setDate(date);
+
+    stringstream postalCodeSS(staff.postalCode.c_str());
+    int postalCode = 0;
+    postalCodeSS >> postalCode;
+
+    ui->staffFormAddressLine->setText(staff.addressLine.c_str());
+    ui->staffFormCity->setText(staff.city.c_str());
+    ui->staffFormPostalCode->setValue(postalCode);
+
+    connect(_staffBtnBack, SIGNAL(clicked()), this, SLOT(staffTabCancelEdit()));
+}
+
+void MainWindow::staffTabCancelEdit() {
+    delete _staffBtnBack;
+    ui->titleStaff->setText("Add Staff Form");
+    ui->pushButtonAddStaff->setText("Add Staff");
+    clearStaffInput();
+
+}
+
+void MainWindow::staffTabArchiveButtonOnTableClicked(int staffID, int row) {
+
+    if (!staffID) {
+        showPOPUpMessage(true, "Error line !", "The application can't access to the ID");
+        return;
+    }
+
+    StaffService::deleteStaffByID(staffID);
+    ui->staffListTable->removeRow(row);
+    showPOPUpMessage(false, "Success !", "The staff was deleted");
+
+}
+
+void MainWindow::staffTabButtonClicked() {
+
+
+    string staffFormFirstName = ui->staffFormFirstName->text().toStdString();
+    string staffFormLastName = ui->staffFormLastName->text().toStdString();
+    QDateEdit *staffFormHireDate = ui->staffFormHireDate;
+    string staffFormAddressLine = ui->staffFormAddressLine->text().toStdString();
+    string staffFormCity = ui->staffFormCity->text().toStdString();
+    string staffFormPostalCode = ui->staffFormPostalCode->text().toStdString();
+
+    if (empty(staffFormFirstName) || empty(staffFormLastName) ||
+        empty(staffFormHireDate->text().toStdString()) ||
+        empty(staffFormAddressLine) || empty(staffFormCity) || empty(staffFormPostalCode) ||
+        stoi(staffFormPostalCode) < 10000) {
+        showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
+        return;
+    }
+
+
+    int staffID = ui->staffFormID->value();
+    int editMode = false;
+
+    if (!staffID) {
+        clearStaffInput();
+        staffID = StaffService::addStaff(staffFormFirstName, staffFormLastName,
+                                         SADateTime(staffFormHireDate->date().year(),
+                                                    staffFormHireDate->date().month(),
+                                                    staffFormHireDate->date().day()),
+                                         staffFormAddressLine,
+                                         staffFormPostalCode, staffFormCity, 1);
+    } else {
+        editMode = true;
+        StaffService::updateStaffByID(staffID, staffFormFirstName, staffFormLastName,
+                                      SADateTime(staffFormHireDate->date().year(),
+                                                 staffFormHireDate->date().month(),
+                                                 staffFormHireDate->date().day()), 1);
+
+        StaffService::updateStaffAddress(staffID, staffFormAddressLine, staffFormPostalCode, staffFormCity);
+    }
+
+
+    if (!editMode) {
+        auto staff = StaffService::getStaffByID(staffID);
+        addStaffToTable(staff);
+        showPOPUpMessage(false, "Success !", "Adding the staff with success !");
+        return;
+    }
+
+    showPOPUpMessage(false, "Success !", "Editing the staff with success !");
+
+
+}
+
 void MainWindow::addStaffToTable(StaffModel::Staff staff) {
     QTableWidget *tableWidget = ui->staffListTable;
     tableWidget->resizeColumnsToContents();
@@ -382,44 +418,6 @@ void MainWindow::addStaffToTable(StaffModel::Staff staff) {
                          6,
                          new QTableWidgetItem(staff.city.c_str()));
 
-
-}
-
-
-void MainWindow::showPOPUpMessage(bool error, string title, string message) {
-    QMessageBox msgBox;
-    if (error) {
-        msgBox.setText(title.c_str());
-        msgBox.setWindowTitle("Warning !");
-        msgBox.setIcon(QMessageBox::Warning);
-    } else {
-        msgBox.setText(title.c_str());
-        msgBox.setWindowTitle("Information !");
-        msgBox.setIcon(QMessageBox::Information);
-    }
-    msgBox.setInformativeText(message.c_str());
-    msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setMinimumSize(400, 400);
-    msgBox.exec();
-
-}
-
-
-void MainWindow::clearCustomerInput() {
-
-    ui->customerFormID->setValue(0);
-
-    ui->customerFormFirstName->clear();
-    ui->customerFormLastName->clear();
-    ui->customerFormBirthDate->clear();
-
-    ui->customerFormAddressLine1->clear();
-    ui->customerFormCity1->clear();
-    ui->customerFormPostalCode1->clear();
-
-    ui->customerFormAddressLine2->clear();
-    ui->customerFormCity2->clear();
-    ui->customerFormPostalCode2->clear();
 
 }
 
