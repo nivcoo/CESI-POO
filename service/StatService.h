@@ -6,7 +6,7 @@
 #define MAIN_CPP_STATISTIQUES_H
 
 
-class Statistiques {
+class StatService {
 
 };
 
