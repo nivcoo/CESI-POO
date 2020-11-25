@@ -156,9 +156,13 @@ void MainWindow::customerTabButtonClicked() {
     auto customer = CustomerService::getCustomerByID(customerID);
     if (!customerID) {
         addCustomerToTable(customer);
+        showPOPUpMessage(false, "Success !", "Adding the user with success !");
+        return;
     }
 
-    showPOPUpMessage(false, "Success !", "Adding the user with success !");
+    showPOPUpMessage(false, "Success !", "Editing the user with success !");
+
+
 
 }
 
