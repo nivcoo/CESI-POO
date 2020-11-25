@@ -38,6 +38,25 @@ void ItemModel::deleteByREF(string reference) {
 
 }
 
+vector<ItemModel::Item> ItemModel::GetAllItems(){
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `item`");
+    ModelManager::sendCMD(&cmd, false);
+    vector<ItemModel::Item> Items;
+    while (cmd.FetchNext()) {
+        item.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        item.name = cmd.Field("name").asString().GetMultiByteChars();
+        item.resuplyThreshold = cmd.Field("resuply_threshold").asInt64();
+        item.quantity = cmd.Field("quantity").asInt64();
+        item.priceHt = cmd.Field("price_ht").asDouble();
+        item.vat = cmd.Field("vat").asDouble();
+        item.archived = cmd.Field("archived").asBool();
+        Items.push_back(item);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return Items;
+}
+
 ItemModel::Item ItemModel::getItemByREF(string reference) {
     SACommand cmd;
     cmd.setCommandText("SELECT * FROM `item` WHERE `reference` = :1;");
