@@ -24,11 +24,11 @@ double StatsService::getMonthlyEarning(SADateTime DateTime) {
     double total = 0.0;
     for (auto x : ordersListItems) {
         string ref = x.reference;
-        auto it = find_if(ordersListHistory.begin(), ordersListHistory.end(), [&ref](const StatsModel::OrderHistory& obj) {return obj.reference == ref;});
-        if (it != ordersListHistory.end())
-        {
-            auto index = std::distance(ordersListHistory.begin(), it); // element index
-        }
+      //  auto it = find_if(ordersListHistory.begin(), ordersListHistory.end(), [&ref](const StatsModel::OrderHistory& obj) {return obj.reference == ref;});
+        //  if (it != ordersListHistory.end())
+        //  {
+        //      auto index = std::distance(ordersListHistory.begin(), it); // element index
+        //  }
     }
     return total;
 }

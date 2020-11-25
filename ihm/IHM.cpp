@@ -8,6 +8,7 @@
 #include "../service/ItemService.h"
 #include "../service/OrderService.h"
 #include "../service/StaffService.h"
+#include "../service/StatsService.h"
 
 IHM *IHM::INSTANCE = nullptr;
 
@@ -21,7 +22,9 @@ void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
 
-
+    //double earn = StatsService::getMonthlyEarning(SADateTime::currentDateTime());
+   // double value = StatsService::getAvarageCartValue();
+   // cout << value << endl;
 
     //string ref = ItemService::addItem("HYHT858GG", "tyj", 50,100, 10, 0.2);
 

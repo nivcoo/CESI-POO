@@ -38,17 +38,6 @@ void MainWindow::initStaffTab() {
 
 }
 
-void MainWindow::initStaffTab() {
-    clearStaffInput();
-
-    auto staffs = StaffService::getAllStaffs();
-    for (auto staff : staffs) {
-        addStaffToTable(staff);
-    }
-    connect(ui->pushButtonAddStaff, SIGNAL(clicked()), this, SLOT(staffTabButtonClicked()));
-
-}
-
 void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
 }
 
@@ -229,18 +218,7 @@ void MainWindow::customerTabButtonClicked() {
     showPOPUpMessage(false, "Success !", "Editing the user with success !");
 
 
-    if (!editMode) {
-        auto staff = StaffService::getStaffByID(staffID);
-        addStaffToTable(staff);
-        showPOPUpMessage(false, "Success !", "Adding the staff with success !");
-        return;
-    }
-
-    showPOPUpMessage(false, "Success !", "Editing the staff with success !");
-
-
 }
-
 
 void MainWindow::staffTabButtonClicked() {
 
@@ -292,22 +270,7 @@ void MainWindow::staffTabButtonClicked() {
     showPOPUpMessage(false, "Success !", "Editing the staff with success !");
 
 
-void MainWindow::staffTabButtonClicked() {
-
-
-    string staffFormFirstName = ui->staffFormFirstName->text().toStdString();
-    string staffFormLastName = ui->staffFormLastName->text().toStdString();
-    QDateEdit *staffFormHireDate = ui->staffFormHireDate;
-    string staffFormAddressLine = ui->staffFormAddressLine->text().toStdString();
-    string staffFormCity = ui->staffFormCity->text().toStdString();
-    string staffFormPostalCode = ui->staffFormPostalCode->text().toStdString();
-
-    if (empty(staffFormFirstName) || empty(staffFormLastName) ||
-        empty(staffFormHireDate->text().toStdString()) ||
-        empty(staffFormAddressLine) || empty(staffFormCity) || empty(staffFormPostalCode) || stoi(staffFormPostalCode) < 10000) {
-        showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
-        return;
-    }
+}
 
 
 void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
@@ -457,113 +420,6 @@ void MainWindow::clearCustomerInput() {
     ui->customerFormAddressLine2->clear();
     ui->customerFormCity2->clear();
     ui->customerFormPostalCode2->clear();
-
-}
-
-void MainWindow::clearStaffInput() {
-
-    ui->staffFormID->setValue(0);
-
-    ui->staffFormFirstName->clear();
-    ui->staffFormLastName->clear();
-    ui->staffFormHireDate->clear();
-
-    ui->staffFormAddressLine->clear();
-    ui->staffFormCity->clear();
-    ui->staffFormPostalCode->clear();
-
-}
-void MainWindow::addStaffToTable(StaffModel::Staff staff) {
-    QTableWidget *tableWidget = ui->staffListTable;
-    tableWidget->resizeColumnsToContents();
-    tableWidget->insertRow(tableWidget->rowCount());
-    auto btnOrder = new QPushButton("Do Order");
-    auto btnEdit = new QPushButton("Edit");
-    auto btnDelete = new QPushButton("Delete");
-    int id = staff.id;
-    int row = tableWidget->rowCount() - 1;
-    connect(btnOrder, &QPushButton::clicked, [this, id, row] { staffTabOrderButtonOnTableClicked(id, row); });
-    connect(btnEdit, &QPushButton::clicked, [this, id, row] { staffTabEditButtonOnTableClicked(id, row); });
-    connect(btnDelete, &QPushButton::clicked,
-            [this, id, row] { staffTabArchiveButtonOnTableClicked(id, row); });
-
-    auto actionWidget = new QWidget();
-    auto pLayout = new QHBoxLayout(actionWidget);
-    pLayout->addWidget(btnOrder);
-    pLayout->addWidget(btnEdit);
-    pLayout->addWidget(btnDelete);
-    pLayout->setAlignment(Qt::AlignCenter);
-    pLayout->setContentsMargins(0, 0, 10, 0);
-    actionWidget->setLayout(pLayout);
-
-    tableWidget->setCellWidget(row, 0, actionWidget);
-    tableWidget->setItem(row,
-                         1,
-                         new QTableWidgetItem(staff.firstname.c_str()));
-    tableWidget->setItem(row,
-                         2,
-                         new QTableWidgetItem(staff.lastname.c_str()));
-    string date = to_string(staff.hireDate.GetDay()) + "-" + to_string(staff.hireDate.GetMonth()) + "-" +
-                  to_string(staff.hireDate.GetYear());
-    tableWidget->setItem(row,
-                         3,
-                         new QTableWidgetItem(date.c_str()));
-
-
-    tableWidget->setItem(row,
-                         4,
-                         new QTableWidgetItem(staff.addressLine.c_str()));
-    tableWidget->setItem(row,
-                         5,
-                         new QTableWidgetItem(staff.postalCode.c_str()));
-    tableWidget->setItem(row,
-                         6,
-                         new QTableWidgetItem(staff.city.c_str()));
-
-
-}
-
-
-    int staffID = ui->staffFormID->value();
-    int editMode = false;
-
-    if (!staffID) {
-        clearStaffInput();
-        staffID = StaffService::addStaff(staffFormFirstName, staffFormLastName,
-                                         SADateTime(staffFormHireDate->date().year(),
-                                                    staffFormHireDate->date().month(),
-                                                    staffFormHireDate->date().day()),
-                                         staffFormAddressLine,
-                                         staffFormPostalCode, staffFormCity, 1);
-    } else {
-        editMode = true;
-        StaffService::updateStaffByID(staffID, staffFormFirstName, staffFormLastName,
-                                      SADateTime(staffFormHireDate->date().year(),
-                                                 staffFormHireDate->date().month(),
-                                                 staffFormHireDate->date().day()), 1);
-
-        StaffService::updateStaffAddress(staffID, staffFormAddressLine, staffFormPostalCode, staffFormCity);
-    }
-
-
-}
-
-
-void MainWindow::clearCustomerInput() {
-
-    ui->customerFormID->setValue(0);
-
-    ui->customerFormFirstName->clear();
-    ui->customerFormLastName->clear();
-    ui->customerFormBirthDate->clear();
-
-}
-
-void MainWindow::staffTabCancelEdit() {
-    delete _staffBtnBack;
-    ui->titleStaff->setText("Add Staff Form");
-    ui->pushButtonAddStaff->setText("Add Staff");
-    clearStaffInput();
 
 }
 
