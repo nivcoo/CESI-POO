@@ -40,7 +40,8 @@ void ItemModel::deleteByREF(string reference) {
 
 vector<ItemModel::Item> ItemModel::getAllItems(){
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `item`");
+    cmd.setCommandText("SELECT * FROM `item` WHERE `archived` = :1;");
+    cmd.Param(1).setAsBool() = _TSA(false);
     ModelManager::sendCMD(&cmd, false);
     vector<ItemModel::Item> items;
     while (cmd.FetchNext()) {
@@ -88,7 +89,8 @@ vector<ItemModel::Item> ItemModel::getLowStockItems() {
 
 
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `item` WHERE item.quantity <= item.resuply_threshold;");
+    cmd.setCommandText("SELECT * FROM `item` WHERE quantity <= resuply_threshold AND archived = :1;");
+    cmd.Param(1).setAsBool() = _TSA(false);
     ModelManager::sendCMD(&cmd, false);
     vector<ItemModel::Item> items;
     while (cmd.FetchNext()) {
