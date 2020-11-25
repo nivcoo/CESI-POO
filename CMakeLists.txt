@@ -14,9 +14,9 @@ set(SQLAPI_DIR "libs/SQLAPI/")
 find_package(Qt5 COMPONENTS Widgets Gui Core OpenGL REQUIRED)
 add_executable(${PROJECT_NAME} main.cpp
         utils/DataBase.cpp utils/DataBase.h
-        service/StatService.cpp service/StatService.h
+        service/StatsService.cpp service/StatsService.h
         window/main/MainWindow.cpp window/main/MainWindow.h
-        assets/resources.qrc model/ModelManager.cpp model/ModelManager.h ihm/IHM.cpp ihm/IHM.h model/StaffModel.cpp model/StaffModel.h model/AddressModel.cpp model/AddressModel.h model/CustomerAddressModel.cpp model/CustomerAddressModel.h model/order/OrderHistoryModel.cpp model/order/OrderHistoryModel.h model/CustomerModel.cpp model/CustomerModel.h model/order/OrderItemModel.cpp model/order/OrderItemModel.h model/order/OrderPaymentModel.cpp model/order/OrderPaymentModel.h model/ItemModel.cpp model/ItemModel.h service/OrderService.cpp service/OrderService.h service/StaffService.cpp service/StaffService.h service/CustomerService.cpp service/CustomerService.h service/ItemService.cpp service/ItemService.h model/StatModel.cpp model/StatModel.h)
+        assets/resources.qrc model/ModelManager.cpp model/ModelManager.h ihm/IHM.cpp ihm/IHM.h model/StaffModel.cpp model/StaffModel.h model/AddressModel.cpp model/AddressModel.h model/CustomerAddressModel.cpp model/CustomerAddressModel.h model/order/OrderHistoryModel.cpp model/order/OrderHistoryModel.h model/CustomerModel.cpp model/CustomerModel.h model/order/OrderItemModel.cpp model/order/OrderItemModel.h model/order/OrderPaymentModel.cpp model/order/OrderPaymentModel.h model/ItemModel.cpp model/ItemModel.h service/OrderService.cpp service/OrderService.h service/StaffService.cpp service/StaffService.h service/CustomerService.cpp service/CustomerService.h service/ItemService.cpp service/ItemService.h model/StatsModel.cpp model/StatsModel.h)
 
 
 target_include_directories(
