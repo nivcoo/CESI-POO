@@ -10,7 +10,7 @@ double StatsService::getAverageCartValue() {
     int count = 0;
     double d = 0.0;
     for (auto orderItem : orderItems) {
-        double delta = (orderItem.vat * orderItem.price) - d;
+        double delta = ((1 + orderItem.vat) * orderItem.price) - d;
         d += delta / ++count;
     }
     return d;
@@ -28,7 +28,7 @@ double StatsService::getMonthlyEarning(SADateTime dateTime) {
         int currentMonth = SADateTime::currentDateTime().GetMonth();
         if (orderYear != currentYear && orderMonth != currentMonth)
             continue;
-        total += orderItem.vat * orderItem.price;
+        total += (1 + orderItem.vat) * orderItem.price;
     }
     return total;
 }
