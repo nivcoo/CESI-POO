@@ -17,11 +17,16 @@ public:
         int quantity;
         float price, vat;
     };
+
     static void insert(string orderReference, string itemReference, int quantity, double price, double vat);
 
     static void deleteById(string orderReference, string itemReference);
 
     static std::vector<OrderItem> getAllOrderItem();
+
+    static std::vector<OrderItem> getMostSellItem();
+
+    static std::vector<OrderItem> getLeastSellItem();
 };
 
 

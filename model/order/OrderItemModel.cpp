@@ -41,3 +41,39 @@ void OrderItemModel::deleteById(string orderReference, string itemReference) {
     ModelManager::sendCMD(&cmd);
 
 }
+
+vector<OrderItemModel::OrderItem> OrderItemModel::getMostSellItem() {
+    SACommand cmd;
+    cmd.setCommandText("SELECT i.reference, i.name, SUM(order__item.quantity) as sum\n"
+                       "    FROM order__item INNER JOIN item i on order__item.reference_item = i.reference\n"
+                       "    GROUP BY reference_item\n"
+                       "    ORDER BY sum DESC\n"
+                       "    LIMIT 10;");
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderItemModel::OrderItem> orders;
+    while (cmd.FetchNext()){
+        orderItem.referenceItem = cmd.Field("reference").asString().GetMultiByteChars();
+        orderItem.quantity = cmd.Field("sum").asString().GetMultiByteCharsLength();
+        orders.push_back(orderItem);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return orders;
+}
+
+vector<OrderItemModel::OrderItem> OrderItemModel::getLeastSellItem() {
+    SACommand cmd;
+    cmd.setCommandText("SELECT i.reference, i.name, SUM(order__item.quantity) as sum\n"
+                       "    FROM order__item INNER JOIN item i on order__item.reference_item = i.reference\n"
+                       "    GROUP BY reference_item\n"
+                       "    ORDER BY sum ASC\n"
+                       "    LIMIT 10;");
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderItemModel::OrderItem> orders;
+    while (cmd.FetchNext()){
+        orderItem.referenceItem = cmd.Field("reference").asString().GetMultiByteChars();
+        orderItem.quantity = cmd.Field("sum").asString().GetMultiByteCharsLength();
+        orders.push_back(orderItem);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return orders;
+}
