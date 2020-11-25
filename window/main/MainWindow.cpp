@@ -188,8 +188,9 @@ void MainWindow::customerTabButtonClicked() {
 
     int editMode = false;
 
-    clearCustomerInput();
+
     if (!customerID) {
+        clearCustomerInput();
         customerID = CustomerService::addCustomer(customerFormFirstName, customerFormLastName,
                                                   SADateTime(customerFormBirthDate->date().year(),
                                                              customerFormBirthDate->date().month(),
@@ -239,8 +240,9 @@ void MainWindow::staffTabButtonClicked() {
 
     int staffID = ui->staffFormID->value();
     int editMode = false;
-    clearStaffInput();
+
     if (!staffID) {
+        clearStaffInput();
         staffID = StaffService::addStaff(staffFormFirstName, staffFormLastName,
                                          SADateTime(staffFormHireDate->date().year(),
                                                     staffFormHireDate->date().month(),
