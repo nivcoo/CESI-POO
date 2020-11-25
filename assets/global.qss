@@ -6,8 +6,17 @@ QMainWindow
 
 QSpinBox::up-button {width: 0;}
 QSpinBox::down-button {width: 0;}
+QDoubleSpinBox::up-button {width: 0;}
+QDoubleSpinBox::down-button {width: 0;}
 QDateEdit::up-button {width: 0;}
 QDateEdit::down-button {width: 0;}
+QDoubleSpinBox
+{
+	border: 2px solid #393e46;
+    border-radius: 4px;
+    color: #ececec;
+    background: #393e46;
+}
 QSpinBox
 {
 	border: 2px solid #393e46;
@@ -55,6 +64,26 @@ QPushButton#pushButtonAddStaff
 {
     margin-top:40px;
 }
+
+QSpinBox#itemFormID
+{
+	width:0px;
+    height:0px;
+    border:none;
+    padding:0px;
+}
+
+QLabel#titleItem {
+    border: 2px solid #393e46;
+    padding:10px;
+    border-radius: 4px;
+}
+
+QPushButton#pushButtonAddItem
+{
+    margin-top:40px;
+}
+
 
 
 
