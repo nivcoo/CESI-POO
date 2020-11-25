@@ -54,7 +54,7 @@ void StaffModel::deleteById(int idStaff) {
 
 StaffModel::Staff StaffModel::getStaffByID(int id) {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `staff` WHERE `id` = :1;");
+    cmd.setCommandText("SELECT staff.*, a.address_line, a.city, a.postal_code FROM `staff` INNER JOIN address a on staff.id_address = a.id WHERE staff.id = :1;");
     cmd.Param(1).setAsInt64() = id;
     ModelManager::sendCMD(&cmd, false);
 
@@ -63,8 +63,11 @@ StaffModel::Staff StaffModel::getStaffByID(int id) {
         staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
         staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
+        staff.city = cmd.Field("city").asString().GetMultiByteChars();
+        staff.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
         staff.idAddress = cmd.Field("id_address").asInt64();
-        staff.idSuperior = cmd.Field("id_superior").asInt64();
+        staff.idSuperior = cmd.Field("id_staff").asInt64();
     }
     IHM::get()->getDataBase()->closeConnection();
     return staff;
@@ -72,18 +75,22 @@ StaffModel::Staff StaffModel::getStaffByID(int id) {
 
 vector<StaffModel::Staff> StaffModel::getAllStaffs() {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `staff`");
+    cmd.setCommandText("SELECT staff.*, a.address_line, a.city, a.postal_code FROM `staff` INNER JOIN address a on staff.id_address = a.id;");
     ModelManager::sendCMD(&cmd, false);
 
     vector<StaffModel::Staff> staffs;
 
     while (cmd.FetchNext()) {
         staff.id = cmd.Field("id").asInt64();
+
         staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
         staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
+        staff.city = cmd.Field("city").asString().GetMultiByteChars();
+        staff.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
         staff.idAddress = cmd.Field("id_address").asInt64();
-        staff.idSuperior = cmd.Field("id_superior").asInt64();
+        staff.idSuperior = cmd.Field("id_staff").asInt64();
         staffs.push_back(staff);
     }
     IHM::get()->getDataBase()->closeConnection();
@@ -92,7 +99,7 @@ vector<StaffModel::Staff> StaffModel::getAllStaffs() {
 
 vector<StaffModel::Staff> StaffModel::getAllStaffsByFirstAndLastName(string firstname, string lastname) {
     SACommand cmd;
-    cmd.setCommandText("SELECT * FROM `staff` WHERE `firstname` = :1 AND `lastname` = :2;");
+    cmd.setCommandText("SELECT staff.*, a.address_line, a.city, a.postal_code FROM `staff` INNER JOIN address a on staff.id_address = a.id WHERE staff.firstname = :1 AND staff.lastname = :2;");
     cmd.Param(1).setAsString() = _TSA(firstname.c_str());
     cmd.Param(2).setAsString() = _TSA(lastname.c_str());
     ModelManager::sendCMD(&cmd, false);
@@ -104,8 +111,11 @@ vector<StaffModel::Staff> StaffModel::getAllStaffsByFirstAndLastName(string firs
         staff.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         staff.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
         staff.hireDate = cmd.Field("hire_date").asDateTime();
+        staff.addressLine = cmd.Field("address_line").asString().GetMultiByteChars();
+        staff.city = cmd.Field("city").asString().GetMultiByteChars();
+        staff.postalCode = cmd.Field("postal_code").asString().GetMultiByteChars();
         staff.idAddress = cmd.Field("id_address").asInt64();
-        staff.idSuperior = cmd.Field("id_superior").asInt64();
+        staff.idSuperior = cmd.Field("id_staff").asInt64();
         staffs.push_back(staff);
     }
     IHM::get()->getDataBase()->closeConnection();

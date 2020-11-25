@@ -15,14 +15,15 @@ class StaffModel {
 public:
     struct Staff {
         int id;
-        string firstname, lastname;
+        string firstname, lastname, addressLine, city, postalCode;
         SADateTime hireDate;
         int idAddress, idSuperior;
     };
 
     static int insert(string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
-    static void updateById(int idStaff, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
+    static void
+    updateById(int idStaff, string firstname, string lastname, SADateTime hireDate, int idAddress, int idSuperior);
 
     static void deleteById(int idStaff);
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>642</height>
+    <width>1042</width>
+    <height>638</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -62,8 +62,18 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
+        <widget class="QWidget" name="orderTab">
+         <attribute name="title">
+          <string>Order Tab</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="itemTab">
+         <attribute name="title">
+          <string>Item Tab</string>
+         </attribute>
+        </widget>
         <widget class="QWidget" name="customerTab">
          <property name="styleSheet">
           <string notr="true"/>
@@ -73,7 +83,7 @@
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <layout class="QHBoxLayout" name="customerH1">
             <item>
              <widget class="QTableWidget" name="customerListTable">
               <property name="autoFillBackground">
@@ -192,17 +202,18 @@
                </property>
                <property name="styleSheet">
                 <string notr="true">width:0px;
-    height:0px;
-    border:none;</string>
+                                                                    height:0px;
+                                                                    border:none;
+                                                                </string>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <layout class="QHBoxLayout" name="customerH2">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <layout class="QHBoxLayout" name="customerH3">
                  <item>
-                  <widget class="QLabel" name="label_2">
+                  <widget class="QLabel" name="customerL1">
                    <property name="text">
                     <string>First Name</string>
                    </property>
@@ -218,9 +229,9 @@
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <layout class="QHBoxLayout" name="customerH4">
                  <item>
-                  <widget class="QLabel" name="label">
+                  <widget class="QLabel" name="customerL2">
                    <property name="text">
                     <string>Last Name</string>
                    </property>
@@ -234,9 +245,9 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <layout class="QHBoxLayout" name="customerH5">
                <item>
-                <widget class="QLabel" name="label_3">
+                <widget class="QLabel" name="customerL3">
                  <property name="text">
                   <string>Birth Date</string>
                  </property>
@@ -261,11 +272,11 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <layout class="QHBoxLayout" name="customerH6">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
+                <layout class="QVBoxLayout" name="customerV1">
                  <item>
-                  <widget class="QLabel" name="label_4">
+                  <widget class="QLabel" name="customerL7">
                    <property name="font">
                     <font>
                      <family>MS Shell Dlg 2</family>
@@ -280,9 +291,9 @@
                   </widget>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                  <layout class="QHBoxLayout" name="customerH7">
                    <item>
-                    <widget class="QLabel" name="label_7">
+                    <widget class="QLabel" name="customerL4">
                      <property name="text">
                       <string>Address Line</string>
                      </property>
@@ -294,11 +305,11 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <layout class="QHBoxLayout" name="customerH8">
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_16">
+                    <layout class="QHBoxLayout" name="customerH9">
                      <item>
-                      <widget class="QLabel" name="label_5">
+                      <widget class="QLabel" name="customerL5">
                        <property name="text">
                         <string>City</string>
                        </property>
@@ -310,9 +321,9 @@
                     </layout>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_17">
+                    <layout class="QHBoxLayout" name="customerH10">
                      <item>
-                      <widget class="QLabel" name="label_6">
+                      <widget class="QLabel" name="customerL6">
                        <property name="text">
                         <string>Postal code</string>
                        </property>
@@ -321,7 +332,7 @@
                      <item>
                       <widget class="QSpinBox" name="customerFormPostalCode1">
                        <property name="minimum">
-                        <number>10000</number>
+                        <number>0</number>
                        </property>
                        <property name="maximum">
                         <number>99999</number>
@@ -346,11 +357,11 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <layout class="QHBoxLayout" name="customerH11">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
+                <layout class="QVBoxLayout" name="customerV2">
                  <item>
-                  <widget class="QLabel" name="label_4">
+                  <widget class="QLabel" name="customerL11">
                    <property name="font">
                     <font>
                      <family>MS Shell Dlg 2</family>
@@ -365,9 +376,9 @@
                   </widget>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                  <layout class="QHBoxLayout" name="customerH12">
                    <item>
-                    <widget class="QLabel" name="label_7">
+                    <widget class="QLabel" name="customerL8">
                      <property name="text">
                       <string>Address Line</string>
                      </property>
@@ -379,11 +390,11 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <layout class="QHBoxLayout" name="customerH13">
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_16">
+                    <layout class="QHBoxLayout" name="customerH14">
                      <item>
-                      <widget class="QLabel" name="label_5">
+                      <widget class="QLabel" name="customerL9">
                        <property name="text">
                         <string>City</string>
                        </property>
@@ -395,9 +406,9 @@
                     </layout>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_17">
+                    <layout class="QHBoxLayout" name="customerH15">
                      <item>
-                      <widget class="QLabel" name="label_6">
+                      <widget class="QLabel" name="customerL10">
                        <property name="text">
                         <string>Postal code</string>
                        </property>
@@ -406,7 +417,7 @@
                      <item>
                       <widget class="QSpinBox" name="customerFormPostalCode2">
                        <property name="minimum">
-                        <number>10000</number>
+                        <number>0</number>
                        </property>
                        <property name="maximum">
                         <number>99999</number>
@@ -431,7 +442,7 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <layout class="QHBoxLayout" name="customerH16">
                <item>
                 <widget class="QPushButton" name="pushButtonAddCustomer">
                  <property name="cursor">
@@ -455,35 +466,308 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="orderTab">
-         <attribute name="title">
-          <string>Order Tab</string>
-         </attribute>
-        </widget>
         <widget class="QWidget" name="staffTab">
          <attribute name="title">
           <string>Staff Tab</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QHBoxLayout" name="staffH1">
             <item>
-             <widget class="QTableView" name="tableView"/>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLineEdit" name="staffTabFirstNameInput">
-              <property name="text">
-               <string>rtrthrthrth</string>
+             <widget class="QTableWidget" name="staffListTable">
+              <property name="autoFillBackground">
+               <bool>false</bool>
               </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="showGrid">
+               <bool>true</bool>
+              </property>
+              <property name="gridStyle">
+               <enum>Qt::SolidLine</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+               <bool>false</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>actions</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>firstname</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>lastname</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>hire_date</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>address_line</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>postal_code</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>city</string>
+               </property>
+              </column>
              </widget>
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QGroupBox" name="staffFormBox">
+            <property name="maximumSize">
+             <size>
+              <width>395</width>
+              <height>350</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetNoConstraint</enum>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="staffFormTitleLayout">
+               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <widget class="QLabel" name="titleStaff">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="accessibleName">
+                  <string>titlestaff</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Staff Form</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="staffFormID">
+               <property name="acceptDrops">
+                <bool>false</bool>
+               </property>
+               <property name="accessibleName">
+                <string>staffFormID</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">width:0px;
+                                                                    height:0px;
+                                                                    border:none;
+                                                                </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="staffH2">
+               <item>
+                <layout class="QHBoxLayout" name="staffH3">
+                 <item>
+                  <widget class="QLabel" name="staffL1">
+                   <property name="text">
+                    <string>First Name</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="staffFormFirstName">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="staffH4">
+                 <item>
+                  <widget class="QLabel" name="staffL2">
+                   <property name="text">
+                    <string>Last Name</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="staffFormLastName"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="staffH5">
+               <item>
+                <widget class="QLabel" name="staffL3">
+                 <property name="text">
+                  <string>Hire Date</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="staffFormHireDate">
+                 <property name="acceptDrops">
+                  <bool>false</bool>
+                 </property>
+                 <property name="accelerated">
+                  <bool>false</bool>
+                 </property>
+                 <property name="currentSection">
+                  <enum>QDateTimeEdit::DaySection</enum>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="staffH6">
+               <item>
+                <layout class="QVBoxLayout" name="staffV1">
+                 <item>
+                  <widget class="QLabel" name="staffL7">
+                   <property name="font">
+                    <font>
+                     <family>MS Shell Dlg 2</family>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Address</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="staffH7">
+                   <item>
+                    <widget class="QLabel" name="staffL4">
+                     <property name="text">
+                      <string>Address Line</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="staffFormAddressLine"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="staffH8">
+                   <item>
+                    <layout class="QHBoxLayout" name="staffH9">
+                     <item>
+                      <widget class="QLabel" name="staffL5">
+                       <property name="text">
+                        <string>City</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="staffFormCity"/>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="staffH10">
+                     <item>
+                      <widget class="QLabel" name="staffL6">
+                       <property name="text">
+                        <string>Postal code</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QSpinBox" name="staffFormPostalCode">
+                       <property name="minimum">
+                        <number>0</number>
+                       </property>
+                       <property name="maximum">
+                        <number>99999</number>
+                       </property>
+                       <property name="stepType">
+                        <enum>QAbstractSpinBox::DefaultStepType</enum>
+                       </property>
+                       <property name="value">
+                        <number>10000</number>
+                       </property>
+                       <property name="displayIntegerBase">
+                        <number>10</number>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="staffH16">
+               <item>
+                <widget class="QPushButton" name="pushButtonAddStaff">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="accessibleName">
+                  <string>pushButtonAddstaff</string>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Add staff</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
          </layout>
+        </widget>
+        <widget class="QWidget" name="statTab">
+         <attribute name="title">
+          <string>Stat Tab</string>
+         </attribute>
         </widget>
        </widget>
       </item>

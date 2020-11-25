@@ -15,7 +15,8 @@ public:
 
     struct Customer {
         int id;
-        string lastname, firstname, birthDate;
+        string lastname, firstname;
+        SADateTime birthDate;
     };
 
     static int insert(string firstname, string lastname, SADateTime birthDate);

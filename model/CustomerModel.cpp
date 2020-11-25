@@ -61,7 +61,7 @@ CustomerModel::Customer CustomerModel::getCustomerByID(int id) {
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
-        customer.birthDate = cmd.Field("birth_date").asString().GetMultiByteChars();
+        customer.birthDate = cmd.Field("birth_date").asDateTime();
     }
     IHM::get()->getDataBase()->closeConnection();
     return customer;
@@ -80,7 +80,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomers() {
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
-        customer.birthDate = cmd.Field("birth_date").asString().GetMultiByteChars();
+        customer.birthDate = cmd.Field("birth_date").asDateTime();
         customers.push_back(customer);
     }
     IHM::get()->getDataBase()->closeConnection();
@@ -100,7 +100,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomersByFirstAndLastName
         customer.id = cmd.Field("id").asInt64();
         customer.firstname = cmd.Field("firstname").asString().GetMultiByteChars();
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
-        customer.birthDate = cmd.Field("birth_date").asString().GetMultiByteChars();
+        customer.birthDate = cmd.Field("birth_date").asDateTime();
         customers.push_back(customer);
     }
     IHM::get()->getDataBase()->closeConnection();

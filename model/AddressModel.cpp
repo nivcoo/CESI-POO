@@ -47,7 +47,6 @@ void AddressModel::deleteByID(int id) {
 }
 
 
-
 AddressModel::Address AddressModel::getAddressByID(int id) {
     SACommand cmd;
     cmd.setCommandText("SELECT * FROM `address` WHERE `id` = :1;");
@@ -68,7 +67,7 @@ AddressModel::Address AddressModel::getAddressByID(int id) {
 
 void AddressModel::archiveByID(int id) {
     SACommand cmd;
-    cmd.setCommandText("UPDATE TABLE `address` SET `archived` =:1 WHERE `id` = :2;");
+    cmd.setCommandText("UPDATE `address` SET `archived` =:1 WHERE `id` = :2;");
     cmd.Param(1).setAsBool() = true;
     cmd.Param(2).setAsInt64() = _TSA(id);
     ModelManager::sendCMD(&cmd);

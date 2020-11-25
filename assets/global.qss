@@ -25,6 +25,37 @@ QSpinBox#customerFormID
     padding:0px;
 }
 
+QLabel#titleCustomer {
+    border: 2px solid #393e46;
+    padding:10px;
+    border-radius: 4px;
+}
+
+QPushButton#pushButtonAddCustomer
+{
+    margin-top:40px;
+}
+
+
+QSpinBox#staffFormID
+{
+	width:0px;
+    height:0px;
+    border:none;
+    padding:0px;
+}
+
+QLabel#titleStaff {
+    border: 2px solid #393e46;
+    padding:10px;
+    border-radius: 4px;
+}
+
+QPushButton#pushButtonAddStaff
+{
+    margin-top:40px;
+}
+
 
 
 QDateEdit
@@ -61,10 +92,6 @@ QWidget::item:hover
 }
 
 /*---------------------------------------------------------*/
-QPushButton#pushButtonAddCustomer
-{
-    margin-top:40px;
-}
 
 
 QPushButton
@@ -106,11 +133,6 @@ QLabel {
     color: #ececec;
 }
 
-QLabel#titleCustomer {
-    border: 2px solid #393e46;
-    padding:10px;
-    border-radius: 4px;
-}
 
 
 QTabWidget::tab-bar {

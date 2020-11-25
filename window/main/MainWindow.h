@@ -8,6 +8,7 @@
 
 #include <QMainWindow>
 #include "../../service/CustomerService.h"
+#include "../../service/StaffService.h"
 #include <QMessageBox>
 #include <sstream>
 #include <algorithm>
@@ -30,6 +31,7 @@ public:
 
 private:
     QPushButton *_customerBtnBack;
+    QPushButton *_staffBtnBack;
 
     void showPOPUpMessage(bool error, string title, string message);
 
@@ -49,6 +51,37 @@ private slots:
     void addCustomerToTable(CustomerModel::Customer customer);
 
     void customerTabCancelEdit();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void staffTabButtonClicked();
+
+    void staffTabOrderButtonOnTableClicked(int staffID, int row);
+
+    void staffTabEditButtonOnTableClicked(int staffID, int row);
+
+    void staffTabArchiveButtonOnTableClicked(int staffID, int row);
+
+    void initStaffTab();
+
+    void addStaffToTable(StaffModel::Staff staff);
+
+    void staffTabCancelEdit();
+
+    void clearCustomerInput();
+
+    void clearStaffInput();
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H
