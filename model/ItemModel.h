@@ -23,9 +23,11 @@ public:
 
     static void archiveByREF(string reference);
 
-    static vector<Item> GetAllItems();
+    static vector<Item> getAllItems();
 
     static Item getItemByREF(string reference);
+
+    static vector<Item> getLowStockItems();
 
     static void deleteByREF(string reference);
 

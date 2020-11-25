@@ -3,57 +3,42 @@
 //
 
 #include "StatsService.h"
-#include <vector>
 #include "../model/StatsModel.h"
-#include "OrderService.h"
 
-double StatsService::getAvarageCartValue() {
-    vector<StatsModel::OrderItem> ordersList = StatsModel::getAllOrderItem();
+
+double StatsService::getAverageCartValue() {
+    auto orderItems = OrderService::getAllOrderItem();
     int count = 0;
     double d = 0.0;
-    for (auto x : ordersList) {
-        double delta = x.orderValue() - d;
+    for (auto orderItem : orderItems) {
+        double delta = (orderItem.vat * orderItem.price) - d;
         d += delta / ++count;
     }
     return d;
 }
 
-double StatsService::getMonthlyEarning(SADateTime DateTime) {
-    vector<StatsModel::OrderItem> ordersListItems = StatsModel::getAllOrderItem();
-    vector<StatsModel::OrderHistory> ordersListHistory = StatsModel::getAllOrderHistory();
+double StatsService::getMonthlyEarning(SADateTime dateTime) {
+    auto ordersItems = OrderService::getAllOrderItem();
     double total = 0.0;
-    for (auto x : ordersListItems) {
-        string ref = x.reference;
+    for (auto orderItem : ordersItems) {
+        string ref = orderItem.reference;
         OrderHistoryModel::Order order = OrderService::getOrderByREF(ref);
-        //SADateTime hasnt a parse function
-        string orderYear = order.createdAt.substr(0, 4);
-        string orderMonth = order.createdAt.substr(5, 7);
-        string currentYear =  to_string(SADateTime::currentDateTime().GetYear());
-        string currentMonth =  to_string(SADateTime::currentDateTime().GetMonth());
-        if(orderYear != currentYear && orderMonth != currentMonth)
+        int orderYear = order.createdAt.GetYear();
+        int orderMonth = order.createdAt.GetMonth();
+        int currentYear = SADateTime::currentDateTime().GetYear();
+        int currentMonth = SADateTime::currentDateTime().GetMonth();
+        if (orderYear != currentYear && orderMonth != currentMonth)
             continue;
-        total += x.orderValue();
+        total += orderItem.vat * orderItem.price;
     }
     return total;
 }
 
-vector<ItemModel::Item> GetLowStocksItems(){
-    vector<ItemModel::Item> itemsList = ItemModel::GetAllItems();
-    //todo: voir si on peut pas faire un truc genre
-    //return itemsList.Where(x => x.quantity >= x.resuplyThreshold);
-    vector<ItemModel::Item> lowStocksList;
-    for (auto x : itemsList) {
-        if(x.quantity >= x.resuplyThreshold)
-            lowStocksList.push_back(x);
+double StatsService::getCustomerTotalPurchases(int customerID) {
+    vector<OrderHistoryModel::Order> Orders = OrderHistoryModel::getAllOrdersByCustomerID(customerID);
+    double total = 0.0;
+    for (auto order : Orders) {
+        //  order.
     }
-    return lowStocksList;
-}
-
-double StatsService::getCustomerTotalPurchases(int customerId) {
-    vector<OrderHistoryModel::Order> Orders = OrderHistoryModel::getAllOrdersByCustomerID(customerId);
-    double d = 0.0;
-    for (auto x : Orders) {
-      //  x.
-    }
-    return d;
+    return total;
 }

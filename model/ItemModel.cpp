@@ -38,11 +38,11 @@ void ItemModel::deleteByREF(string reference) {
 
 }
 
-vector<ItemModel::Item> ItemModel::GetAllItems(){
+vector<ItemModel::Item> ItemModel::getAllItems(){
     SACommand cmd;
     cmd.setCommandText("SELECT * FROM `item`");
     ModelManager::sendCMD(&cmd, false);
-    vector<ItemModel::Item> Items;
+    vector<ItemModel::Item> items;
     while (cmd.FetchNext()) {
         item.reference = cmd.Field("reference").asString().GetMultiByteChars();
         item.name = cmd.Field("name").asString().GetMultiByteChars();
@@ -51,10 +51,10 @@ vector<ItemModel::Item> ItemModel::GetAllItems(){
         item.priceHt = cmd.Field("price_ht").asDouble();
         item.vat = cmd.Field("vat").asDouble();
         item.archived = cmd.Field("archived").asBool();
-        Items.push_back(item);
+        items.push_back(item);
     }
     IHM::get()->getDataBase()->closeConnection();
-    return Items;
+    return items;
 }
 
 ItemModel::Item ItemModel::getItemByREF(string reference) {
@@ -82,4 +82,25 @@ void ItemModel::updateQuantityOfItemREF(string reference, int newQuantity) {
     cmd.Param(1).setAsInt64() = _TSA(newQuantity);
     cmd.Param(2).setAsString() = _TSA(reference).c_str();
     ModelManager::sendCMD(&cmd);
+}
+
+vector<ItemModel::Item> ItemModel::getLowStockItems() {
+
+
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `item` WHERE item.quantity <= item.resuply_threshold;");
+    ModelManager::sendCMD(&cmd, false);
+    vector<ItemModel::Item> items;
+    while (cmd.FetchNext()) {
+        item.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        item.name = cmd.Field("name").asString().GetMultiByteChars();
+        item.resuplyThreshold = cmd.Field("resuply_threshold").asInt64();
+        item.quantity = cmd.Field("quantity").asInt64();
+        item.priceHt = cmd.Field("price_ht").asDouble();
+        item.vat = cmd.Field("vat").asDouble();
+        item.archived = cmd.Field("archived").asBool();
+        items.push_back(item);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return items;
 }

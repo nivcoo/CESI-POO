@@ -19,10 +19,14 @@ void ItemService::archiveItemByREF(string itemREF) {
 
 }
 
-vector<ItemModel::Item> GetAllItems(){
-    return ItemModel::GetAllItems();
-}
-
 void ItemService::updateItemQuantityByREF(string reference, int newQuantity) {
     ItemModel::updateQuantityOfItemREF(reference, newQuantity);
+}
+
+vector<ItemModel::Item> ItemService::getLowStockItems() {
+    return ItemModel::getLowStockItems();
+}
+
+vector<ItemModel::Item> ItemService::getAllItems() {
+    return ItemModel::getAllItems();
 }

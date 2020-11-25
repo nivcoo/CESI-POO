@@ -60,3 +60,7 @@ vector<OrderHistoryModel::Order> OrderService::getLastOrdersByNumber(int number)
 int OrderService::getOrderCountByCustomerID(int customerID) {
     return OrderHistoryModel::getOrderCountByCustomerID(customerID);
 }
+
+std::vector<OrderItemModel::OrderItem> OrderService::getAllOrderItem() {
+    return OrderItemModel::getAllOrderItem();
+}

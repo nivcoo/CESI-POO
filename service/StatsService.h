@@ -8,13 +8,16 @@
 
 #include <SQLAPI.h>
 #include "../model/ItemModel.h"
+#include <vector>
+#include "OrderService.h"
 
 class StatsService {
 public:
-    static double getAvarageCartValue();
-    static double getMonthlyEarning(SADateTime);
-    static vector<ItemModel::Item> GetLowStocksItems();
-    static double getCustomerTotalPurchases(int);
+    static double getAverageCartValue();
+
+    static double getMonthlyEarning(SADateTime dateTime);
+
+    static double getCustomerTotalPurchases(int customerID);
 };
 
 

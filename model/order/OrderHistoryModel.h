@@ -7,13 +7,13 @@
 
 
 #include "../../utils/DataBase.h"
-
 #include <vector>
 
 class OrderHistoryModel {
 public:
     struct Order {
-        string reference, estimatedDeliveryDate, createdAt;
+        string reference;
+        SADateTime estimatedDeliveryDate, createdAt;
         int customerID, staffID, deliveryAddressID, billingAddressID;
     };
 
@@ -30,6 +30,8 @@ public:
     static vector<OrderHistoryModel::Order> getLastOrdersByNumber(int number);
 
     static int getOrderCountByCustomerID(int customerID);
+
+    static vector<Order> getAllOrders();
 };
 
 

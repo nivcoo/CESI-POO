@@ -38,8 +38,8 @@ OrderHistoryModel::Order OrderHistoryModel::getOrderByREF(string reference) {
 
     while (cmd.FetchNext()) {
         order.reference = cmd.Field("reference").asString().GetMultiByteChars();
-        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
-        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asDateTime();
+        order.createdAt = cmd.Field("created_at").asDateTime();
         order.customerID = cmd.Field("id").asInt64();
         order.staffID = cmd.Field("id_staff").asInt64();
         order.deliveryAddressID = cmd.Field("id_address").asInt64();
@@ -57,8 +57,8 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrdersByCustomerID(int
     vector<OrderHistoryModel::Order> orders;
     while (cmd.FetchNext()) {
         order.reference = cmd.Field("reference").asString().GetMultiByteChars();
-        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
-        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asDateTime();
+        order.createdAt = cmd.Field("created_at").asDateTime();
         order.customerID = cmd.Field("id").asInt64();
         order.staffID = cmd.Field("id_staff").asInt64();
         order.deliveryAddressID = cmd.Field("id_address").asInt64();
@@ -79,8 +79,29 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getLastOrdersByNumber(int nu
     vector<OrderHistoryModel::Order> orders;
     while (cmd.FetchNext()) {
         order.reference = cmd.Field("reference").asString().GetMultiByteChars();
-        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asString().GetMultiByteChars();;
-        order.createdAt = cmd.Field("created_at").asString().GetMultiByteChars();;
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asDateTime();
+        order.createdAt = cmd.Field("created_at").asDateTime();
+        order.customerID = cmd.Field("id").asInt64();
+        order.staffID = cmd.Field("id_staff").asInt64();
+        order.deliveryAddressID = cmd.Field("id_address").asInt64();
+        order.billingAddressID = cmd.Field("id_address_bill").asInt64();
+        orders.push_back(order);
+    }
+    IHM::get()->getDataBase()->closeConnection();
+    return orders;
+}
+
+
+vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrders() {
+
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__history`;");
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderHistoryModel::Order> orders;
+    while (cmd.FetchNext()) {
+        order.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        order.estimatedDeliveryDate = cmd.Field("estimated_delivery_date").asDateTime();
+        order.createdAt = cmd.Field("created_at").asDateTime();
         order.customerID = cmd.Field("id").asInt64();
         order.staffID = cmd.Field("id_staff").asInt64();
         order.deliveryAddressID = cmd.Field("id_address").asInt64();

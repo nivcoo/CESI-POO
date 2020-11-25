@@ -17,7 +17,9 @@ public:
 
     static void archiveItemByREF(string idStaff);
 
-    static vector<ItemModel::Item> GetAllItems();
+    static vector<ItemModel::Item> getAllItems();
+
+    static vector<ItemModel::Item> getLowStockItems();
 
     static void updateItemQuantityByREF(string reference, int newQuantity);
 
