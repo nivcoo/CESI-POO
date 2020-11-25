@@ -43,11 +43,10 @@ double StatsService::getCustomerTotalPurchases(int customerID) {
 }
 
 double StatsService::getCommercialValueStock() {
-    auto item = ItemService::getAllItems();
+    auto items = ItemService::getAllItems();
     double total;
 
-    for (auto item : ItemService::getAllItems())
-    {
+    for (auto item : items) {
         total += (item.priceHt * item.quantity) * (1 + item.vat);
     }
 
@@ -55,13 +54,12 @@ double StatsService::getCommercialValueStock() {
 }
 
 double StatsService::getBuyValueStock() {
-    auto item = ItemService::getAllItems();
+    auto items = ItemService::getAllItems();
     double total;
 
-        for (auto item: ItemService::getAllItems())
-        {
-                total += item.priceHt * item.quantity;
-        }
+    for (auto item : items) {
+        total += item.priceHt * item.quantity;
+    }
 
 
     return total;
