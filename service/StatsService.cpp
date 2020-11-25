@@ -10,7 +10,7 @@ double StatsService::getAverageCartValue() {
     int count = 0;
     double d = 0.0;
     for (auto orderItem : orderItems) {
-        double delta = ((1 + orderItem.vat) * orderItem.price) - d;
+        double delta = ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity)) - d;
         d += delta / ++count;
     }
     return d;
@@ -28,7 +28,7 @@ double StatsService::getMonthlyEarning(SADateTime dateTime) {
         int currentMonth = SADateTime::currentDateTime().GetMonth();
         if (orderYear != currentYear && orderMonth != currentMonth)
             continue;
-        total += (1 + orderItem.vat) * orderItem.price;
+        total += (1 + orderItem.vat) * (orderItem.price * orderItem.quantity);
     }
     return total;
 }
@@ -39,5 +39,30 @@ double StatsService::getCustomerTotalPurchases(int customerID) {
     for (auto order : Orders) {
         //  order.
     }
+    return total;
+}
+
+double StatsService::getCommercialValueStock() {
+    auto item = ItemService::getAllItems();
+    double total;
+
+    for (auto item : ItemService::getAllItems())
+    {
+        total += (item.priceHt * item.quantity) * (1 + item.vat);
+    }
+
+    return total;
+}
+
+double StatsService::getBuyValueStock() {
+    auto item = ItemService::getAllItems();
+    double total;
+
+        for (auto item: ItemService::getAllItems())
+        {
+                total += item.priceHt * item.quantity;
+        }
+
+
     return total;
 }

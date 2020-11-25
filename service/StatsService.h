@@ -9,6 +9,7 @@
 #include <SQLAPI.h>
 #include "../model/ItemModel.h"
 #include <vector>
+#include <list>
 #include "OrderService.h"
 
 class StatsService {
@@ -18,6 +19,11 @@ public:
     static double getMonthlyEarning(SADateTime dateTime);
 
     static double getCustomerTotalPurchases(int customerID);
+
+    static double getCommercialValueStock();
+
+    static double getBuyValueStock();
+
 };
 
 

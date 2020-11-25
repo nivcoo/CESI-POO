@@ -14,7 +14,6 @@ void OrderItemModel::insert(string orderReference, string itemReference, int qua
     cmd.Param(4).setAsDouble() = _TSA(price);
     cmd.Param(5).setAsDouble() = _TSA(vat);
     ModelManager::sendCMD(&cmd);
-
 }
 
 vector<OrderItemModel::OrderItem> OrderItemModel::getAllOrderItem() {

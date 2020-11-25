@@ -84,4 +84,3 @@ IHM::~IHM() {
     delete _modelManager;
 }
 
-
