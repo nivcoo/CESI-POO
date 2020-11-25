@@ -3,7 +3,6 @@
 //
 
 #include "StatsService.h"
-#include "../model/StatsModel.h"
 
 
 double StatsService::getAverageCartValue() {
