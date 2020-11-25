@@ -22,9 +22,9 @@ void IHM::initDB() {
     _db = new DataBase("antoinelonne.dev", "poo", "cesi", "cesi-POO");
     _modelManager = new ModelManager();
 
-    //double earn = StatsService::getMonthlyEarning(SADateTime::currentDateTime());
+   // double earn = StatsService::getMonthlyEarning(SADateTime::currentDateTime());
    // double value = StatsService::getAvarageCartValue();
-   // cout << value << endl;
+  //  cout << earn << endl;
 
     //string ref = ItemService::addItem("HYHT858GG", "tyj", 50,100, 10, 0.2);
 

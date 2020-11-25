@@ -5,7 +5,7 @@
 #ifndef MAIN_CPP_ITEMMODEL_H
 #define MAIN_CPP_ITEMMODEL_H
 
-
+#include <vector>
 #include "../utils/DataBase.h"
 
 class ItemModel {
@@ -22,6 +22,8 @@ public:
                       bool achived);
 
     static void archiveByREF(string reference);
+
+    static vector<Item> GetAllItems();
 
     static Item getItemByREF(string reference);
 
