@@ -8,12 +8,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initCustomerTab();
     initStaffTab();
+    initItemTab();
 }
 
 MainWindow::~MainWindow() {
     delete ui;
     delete _customerBtnBack;
     delete _staffBtnBack;
+    delete _itemBtnBack;
 }
 
 void MainWindow::showPOPUpMessage(bool error, string title, string message) {
@@ -137,17 +139,16 @@ void MainWindow::customerTabButtonClicked() {
 
     int customerID = ui->customerFormID->value();
 
-    int editMode = false;
+    int editMode = customerID;
 
 
-    if (!customerID) {
+    if (!editMode) {
         clearCustomerInput();
         customerID = CustomerService::addCustomer(customerFormFirstName, customerFormLastName,
                                                   SADateTime(customerFormBirthDate->date().year(),
                                                              customerFormBirthDate->date().month(),
                                                              customerFormBirthDate->date().day()));
     } else {
-        editMode = true;
         CustomerService::editCustomerByID(customerID, customerFormFirstName, customerFormLastName,
                                           SADateTime(customerFormBirthDate->date().year(),
                                                      customerFormBirthDate->date().month(),
@@ -269,7 +270,6 @@ void MainWindow::staffTabOrderButtonOnTableClicked(int staffID, const int i) {
 void MainWindow::staffTabEditButtonOnTableClicked(int staffID, int row) {
     if (ui->staffFormID->value())
         return;
-    cout << "tyjty" << endl;
     ui->staffFormID->setValue(staffID);
     _staffBtnBack = new QPushButton("Back To Add new Staff");
     ui->staffFormTitleLayout->addWidget(_staffBtnBack);
@@ -305,7 +305,7 @@ void MainWindow::staffTabCancelEdit() {
 
 }
 
-void MainWindow::staffTabArchiveButtonOnTableClicked(int staffID, int row) {
+void MainWindow::staffTabDeleteButtonOnTableClicked(int staffID, int row) {
 
     if (!staffID) {
         showPOPUpMessage(true, "Error line !", "The application can't access to the ID");
@@ -338,9 +338,9 @@ void MainWindow::staffTabButtonClicked() {
 
 
     int staffID = ui->staffFormID->value();
-    int editMode = false;
+    int editMode = staffID;
 
-    if (!staffID) {
+    if (!editMode) {
         clearStaffInput();
         staffID = StaffService::addStaff(staffFormFirstName, staffFormLastName,
                                          SADateTime(staffFormHireDate->date().year(),
@@ -349,7 +349,6 @@ void MainWindow::staffTabButtonClicked() {
                                          staffFormAddressLine,
                                          staffFormPostalCode, staffFormCity, 1);
     } else {
-        editMode = true;
         StaffService::updateStaffByID(staffID, staffFormFirstName, staffFormLastName,
                                       SADateTime(staffFormHireDate->date().year(),
                                                  staffFormHireDate->date().month(),
@@ -383,7 +382,7 @@ void MainWindow::addStaffToTable(StaffModel::Staff staff) {
     connect(btnOrder, &QPushButton::clicked, [this, id, row] { staffTabOrderButtonOnTableClicked(id, row); });
     connect(btnEdit, &QPushButton::clicked, [this, id, row] { staffTabEditButtonOnTableClicked(id, row); });
     connect(btnDelete, &QPushButton::clicked,
-            [this, id, row] { staffTabArchiveButtonOnTableClicked(id, row); });
+            [this, id, row] { staffTabDeleteButtonOnTableClicked(id, row); });
 
     auto actionWidget = new QWidget();
     auto pLayout = new QHBoxLayout(actionWidget);
@@ -432,5 +431,155 @@ void MainWindow::clearStaffInput() {
     ui->staffFormAddressLine->clear();
     ui->staffFormCity->clear();
     ui->staffFormPostalCode->clear();
+
+}
+
+
+void MainWindow::initItemTab() {
+    clearItemInput();
+
+    auto items = ItemService::getAllItems();
+    for (auto item : items) {
+        addItemToTable(item);
+    }
+    connect(ui->pushButtonAddItem, SIGNAL(clicked()), this, SLOT(itemTabButtonClicked()));
+
+}
+
+void MainWindow::itemTabEditButtonOnTableClicked(string itemREF, int row) {
+    if (ui->itemFormREFSave->text() != "")
+        return;
+    ui->itemFormREFSave->setText(itemREF.c_str());
+    _itemBtnBack = new QPushButton("Back To Add new Item");
+    ui->itemFormTitleLayout->addWidget(_itemBtnBack);
+    ui->titleItem->setText("Edit Item Form");
+    ui->pushButtonAddItem->setText("Edit Item");
+
+    auto item = ItemService::getItemByREF(itemREF);
+    ui->itemFormREF->setText(item.reference.c_str());
+    ui->itemFormName->setText(item.name.c_str());
+    ui->itemFormResuplyThreshold->setValue(item.resuplyThreshold);
+    ui->itemFormQuantity->setValue(item.quantity);
+    ui->itemFormPriceHT->setValue(item.priceHt);
+    ui->itemFormVAT->setValue(item.vat);
+
+    connect(_itemBtnBack, SIGNAL(clicked()), this, SLOT(itemTabCancelEdit()));
+}
+
+void MainWindow::itemTabCancelEdit() {
+    delete _itemBtnBack;
+    ui->titleItem->setText("Add Item Form");
+    ui->pushButtonAddItem->setText("Add Item");
+    clearItemInput();
+
+}
+
+void MainWindow::itemTabArchiveButtonOnTableClicked(string itemREF, int row) {
+
+    if (itemREF == "") {
+        showPOPUpMessage(true, "Error line !", "The application can't access to the ID");
+        return;
+    }
+
+    ItemService::archiveItemByREF(itemREF);
+    ui->itemListTable->removeRow(row);
+    showPOPUpMessage(false, "Success !", "The item was archived");
+
+}
+
+void MainWindow::itemTabButtonClicked() {
+
+    string itemFormREF = ui->itemFormREF->text().toStdString();
+    string itemFormName = ui->itemFormName->text().toStdString();
+    int itemFormResuplyThreshold = ui->itemFormResuplyThreshold->value();
+    int itemFormQuantity = ui->itemFormQuantity->value();
+    double itemFormPriceHT = ui->itemFormPriceHT->value();
+    double itemFormVAT = ui->itemFormVAT->value();
+
+    if (empty(itemFormREF) || empty(itemFormName) ||
+        itemFormResuplyThreshold < 0 || itemFormQuantity < 0 || itemFormPriceHT < 0 || itemFormVAT < 0) {
+        showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
+        return;
+    }
+
+
+    string itemREF = ui->itemFormREFSave->text().toStdString();
+    int editMode = itemREF != "";
+
+    if (!editMode) {
+        clearItemInput();
+        itemREF = ItemService::addItem(itemFormREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity,
+                                       itemFormPriceHT, itemFormVAT);
+    } else {
+        ItemService::updateItemByREF(itemREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity, itemFormPriceHT,
+                                     itemFormVAT);
+    }
+
+
+    if (!editMode) {
+        auto item = ItemService::getItemByREF(itemREF);
+        addItemToTable(item);
+        showPOPUpMessage(false, "Success !", "Adding the item with success !");
+        return;
+    }
+
+    showPOPUpMessage(false, "Success !", "Editing the item with success !");
+
+
+}
+
+void MainWindow::addItemToTable(ItemModel::Item item) {
+    QTableWidget *tableWidget = ui->itemListTable;
+    tableWidget->resizeColumnsToContents();
+    tableWidget->insertRow(tableWidget->rowCount());
+    auto btnEdit = new QPushButton("Edit");
+    auto btnArchive = new QPushButton("Archive");
+    string ref = item.reference;
+    int row = tableWidget->rowCount() - 1;
+    connect(btnEdit, &QPushButton::clicked, [this, ref, row] { itemTabEditButtonOnTableClicked(ref, row); });
+    connect(btnArchive, &QPushButton::clicked,
+            [this, ref, row] { itemTabArchiveButtonOnTableClicked(ref, row); });
+
+    auto actionWidget = new QWidget();
+    auto pLayout = new QHBoxLayout(actionWidget);
+    pLayout->addWidget(btnEdit);
+    pLayout->addWidget(btnArchive);
+    pLayout->setAlignment(Qt::AlignCenter);
+    pLayout->setContentsMargins(0, 0, 10, 0);
+    actionWidget->setLayout(pLayout);
+
+    tableWidget->setCellWidget(row, 0, actionWidget);
+    tableWidget->setItem(row,
+                         1,
+                         new QTableWidgetItem(item.reference.c_str()));
+    tableWidget->setItem(row,
+                         2,
+                         new QTableWidgetItem(item.name.c_str()));
+    tableWidget->setItem(row,
+                         3,
+                         new QTableWidgetItem(to_string(item.resuplyThreshold).c_str()));
+
+
+    tableWidget->setItem(row,
+                         4,
+                         new QTableWidgetItem(to_string(item.quantity).c_str()));
+    tableWidget->setItem(row,
+                         5,
+                         new QTableWidgetItem(to_string(item.priceHt).c_str()));
+    tableWidget->setItem(row,
+                         6,
+                         new QTableWidgetItem(to_string(item.vat).c_str()));
+
+
+}
+
+void MainWindow::clearItemInput() {
+    ui->itemFormREFSave->clear();
+    ui->itemFormREF->clear();
+    ui->itemFormName->clear();
+    ui->itemFormResuplyThreshold->clear();
+    ui->itemFormQuantity->clear();
+    ui->itemFormPriceHT->clear();
+    ui->itemFormVAT->clear();
 
 }

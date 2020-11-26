@@ -185,17 +185,12 @@
               </layout>
              </item>
              <item>
-              <widget class="QSpinBox" name="itemFormID">
-               <property name="acceptDrops">
-                <bool>false</bool>
-               </property>
-               <property name="accessibleName">
-                <string>itemFormID</string>
-               </property>
+              <widget class="QLineEdit" name="itemFormREFSave">
                <property name="styleSheet">
                 <string notr="true">width:0px;
                                                                     height:0px;
                                                                     border:none;
+                                                                
                                                                 </string>
                </property>
               </widget>
@@ -248,7 +243,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormResuplyThreshold"/>
+                  <widget class="QDoubleSpinBox" name="itemFormResuplyThreshold">
+                   <property name="maximum">
+                    <double>99999.990000000005239</double>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -262,7 +261,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormQuantity"/>
+                  <widget class="QDoubleSpinBox" name="itemFormQuantity">
+                   <property name="maximum">
+                    <double>99999.990000000005239</double>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -280,7 +283,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormPriceHT"/>
+                  <widget class="QDoubleSpinBox" name="itemFormPriceHT">
+                   <property name="maximum">
+                    <double>99999.990000000005239</double>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -294,7 +301,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormVAT"/>
+                  <widget class="QDoubleSpinBox" name="itemFormVAT">
+                   <property name="maximum">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>

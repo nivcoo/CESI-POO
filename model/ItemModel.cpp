@@ -21,6 +21,19 @@ string ItemModel::insert(string reference, string name, int resuplyThreshold, in
     return reference;
 }
 
+void ItemModel::updateByREF(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat) {
+    SACommand cmd;
+    cmd.setCommandText("UPDATE `item` SET `name`=:1,`resuply_threshold`=:2,`quantity`=:3,`price_ht`=:4,`vat`=:5 WHERE `reference`=:6;");
+    cmd.Param(1).setAsString() = _TSA(name.c_str());
+    cmd.Param(2).setAsInt64() = _TSA(resuplyThreshold);
+    cmd.Param(3).setAsInt64() = _TSA(quantity);
+    cmd.Param(4).setAsDouble() = _TSA(priceHt);
+    cmd.Param(5).setAsDouble() = _TSA(vat);
+    cmd.Param(6).setAsString() = _TSA(reference).c_str();
+    ModelManager::sendCMD(&cmd);
+
+}
+
 void ItemModel::archiveByREF(string reference) {
     SACommand cmd;
     cmd.setCommandText("UPDATE `item` SET `archived`=:1 WHERE `reference`=:2;");

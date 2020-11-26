@@ -30,3 +30,8 @@ vector<ItemModel::Item> ItemService::getLowStockItems() {
 vector<ItemModel::Item> ItemService::getAllItems() {
     return ItemModel::getAllItems();
 }
+
+void ItemService::updateItemByREF(string reference, string name, int resuplyThreshold, int quantity, double priceHt,
+                                  double vat) {
+    ItemModel::updateByREF(reference, name, resuplyThreshold, quantity, priceHt, vat);
+}

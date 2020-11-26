@@ -13,6 +13,8 @@ class ItemService {
 public:
     static string addItem(string itemREF, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
 
+    static void updateItemByREF(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat);
+
     static ItemModel::Item getItemByREF(string itemREF);
 
     static void archiveItemByREF(string idStaff);
