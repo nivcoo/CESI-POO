@@ -34,6 +34,7 @@ public:
         QSpinBox * quantity;
         QDoubleSpinBox * commercialDiscount;
     };
+
     struct OrderPaymentWidget {
         QLayout * layout;
         QComboBox * paymentSelect;
@@ -96,6 +97,8 @@ private slots:
 
     void itemTabButtonClicked();
 
+    void orderTabButtonResetOrderClicked();
+
     void itemTabEditButtonOnTableClicked(string itemREF, int row);
 
     void itemTabArchiveButtonOnTableClicked(string itemREF, int row);
@@ -113,7 +116,7 @@ private slots:
 
     void orderTabButtonClicked();
 
-    void orderTabButtonAddPaymentToOrderClicked(string type = 0, double amountVal = 0);
+    void orderTabButtonAddPaymentToOrderClicked(int type = 0, double amountVal = 0);
 
     void orderTabButtonAddItemToOrderClicked(string ref = "", int quantityVal = 0, double commercialDiscountVal = 0,
                                              double priceIT = 0);

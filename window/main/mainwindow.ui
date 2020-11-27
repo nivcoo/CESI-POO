@@ -122,6 +122,11 @@
                </column>
                <column>
                 <property name="text">
+                 <string>left_to_pay</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
                  <string>estimated_delivery_date</string>
                 </property>
                </column>
@@ -135,181 +140,21 @@
             </layout>
            </widget>
           </item>
-          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-           <widget class="QGroupBox" name="orderFormBox2">
-            <property name="minimumSize">
-             <size>
-              <width>250</width>
-              <height>250</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>250</width>
-              <height>250</height>
-             </size>
-            </property>
-            <layout class="QVBoxLayout" name="orderFormLBox2">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetNoConstraint</enum>
-             </property>
-             <item>
-              <layout class="QVBoxLayout" name="orderFormTitleLayout">
-               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                <widget class="QLabel" name="titleOrder">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>MS Shell Dlg 2</family>
-                   <pointsize>10</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="accessibleName">
-                  <string>titleorder</string>
-                 </property>
-                 <property name="text">
-                  <string>Add Order Form</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="orderFormStaffID">
-               <property name="styleSheet">
-                <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-
-                                                                </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="orderFormCustomerID">
-               <property name="styleSheet">
-                <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-
-                                                                </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH2">
-               <item>
-                <layout class="QGridLayout" name="orderH3">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="orderL1">
-                   <property name="text">
-                    <string>Please Select Customer from Customer Tab</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH4">
-               <item>
-                <layout class="QHBoxLayout" name="orderH5">
-                 <item>
-                  <widget class="QLabel" name="orderL3">
-                   <property name="text">
-                    <string>Please Select Staff from Staff Tab</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH6">
-               <item>
-                <layout class="QHBoxLayout" name="orderH7">
-                 <item>
-                  <widget class="QLabel" name="orderL5">
-                   <property name="text">
-                    <string>Estimated Delivery Date</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDateEdit" name="orderFormEstimatedDeliveryDate"/>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
-               <item>
-                <widget class="QLabel" name="orderL12">
-                 <property name="text">
-                  <string>Total Cart</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="orderFormTotalPriceCart">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::NoButtons</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH16">
-               <item>
-                <widget class="QPushButton" name="pushButtonAddOrder">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="accessibleName">
-                  <string>pushButtonAddorder</string>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Add order</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
           <item>
            <widget class="QStackedWidget" name="orderStackedWidget">
-            <widget class="QWidget" name="orderStackedWidget2" native="true">
+            <widget class="QWidget" name="orderStackedWidget2">
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                <widget class="QGroupBox" name="orderItemFormBox">
                 <property name="minimumSize">
                  <size>
-                  <width>600</width>
+                  <width>700</width>
                   <height>100</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>600</width>
+                  <width>700</width>
                   <height>100</height>
                  </size>
                 </property>
@@ -377,6 +222,9 @@
                          <property name="buttonSymbols">
                           <enum>QAbstractSpinBox::NoButtons</enum>
                          </property>
+                         <property name="maximum">
+                          <number>999999</number>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -428,6 +276,9 @@
                          <property name="specialValueText">
                           <string/>
                          </property>
+                         <property name="maximum">
+                          <double>999999.000000000000000</double>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -454,13 +305,13 @@
                <widget class="QGroupBox" name="orderPaymentFormBox">
                 <property name="minimumSize">
                  <size>
-                  <width>600</width>
+                  <width>700</width>
                   <height>100</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>600</width>
+                  <width>700</width>
                   <height>100</height>
                  </size>
                 </property>
@@ -531,6 +382,9 @@
                          <property name="buttonSymbols">
                           <enum>QAbstractSpinBox::NoButtons</enum>
                          </property>
+                         <property name="maximum">
+                          <double>999999.000000000000000</double>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -547,6 +401,176 @@
                       </layout>
                      </item>
                     </layout>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QGroupBox" name="orderFormBox2">
+                <property name="minimumSize">
+                 <size>
+                  <width>250</width>
+                  <height>250</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>250</width>
+                  <height>250</height>
+                 </size>
+                </property>
+                <layout class="QVBoxLayout" name="orderFormLBox2">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetNoConstraint</enum>
+                 </property>
+                 <item>
+                  <widget class="QSpinBox" name="orderFormStaffID">
+                   <property name="styleSheet">
+                    <string notr="true">width:0px;
+                                                                    height:0px;
+                                                                    border:none;
+
+                                                                </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="orderFormCustomerID">
+                   <property name="styleSheet">
+                    <string notr="true">width:0px;
+                                                                    height:0px;
+                                                                    border:none;
+
+                                                                </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="orderFormTitleLayout">
+                   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                    <widget class="QLabel" name="titleOrder">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="accessibleName">
+                      <string>titleorder</string>
+                     </property>
+                     <property name="text">
+                      <string>Add Order Form</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="orderH2">
+                   <item>
+                    <layout class="QGridLayout" name="orderH3">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="orderL1">
+                       <property name="text">
+                        <string>Please Select Customer from Customer Tab</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="orderH4">
+                   <item>
+                    <layout class="QHBoxLayout" name="orderH5">
+                     <item>
+                      <widget class="QLabel" name="orderL3">
+                       <property name="text">
+                        <string>Please Select Staff from Staff Tab</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="orderH6">
+                   <item>
+                    <layout class="QHBoxLayout" name="orderH7">
+                     <item>
+                      <widget class="QLabel" name="orderL5">
+                       <property name="text">
+                        <string>Estimated Delivery Date</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QDateEdit" name="orderFormEstimatedDeliveryDate"/>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLabel" name="orderL12">
+                     <property name="text">
+                      <string>Total Cart</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="orderFormTotalPriceCart">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="buttonSymbols">
+                      <enum>QAbstractSpinBox::NoButtons</enum>
+                     </property>
+                     <property name="maximum">
+                      <double>999999.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="orderH16">
+                   <item alignment="Qt::AlignVCenter">
+                    <widget class="QPushButton" name="pushButtonResetOrder">
+                     <property name="text">
+                      <string>Reset Order</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item alignment="Qt::AlignVCenter">
+                    <widget class="QPushButton" name="pushButtonAddOrder">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="accessibleName">
+                      <string>pushButtonAddorder</string>
+                     </property>
+                     <property name="autoFillBackground">
+                      <bool>false</bool>
+                     </property>
+                     <property name="text">
+                      <string>Add order</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>

@@ -73,3 +73,12 @@ vector<OrderHistoryModel::Order> OrderService::getAllOrders() {
 vector<OrderItemModel::OrderItem> OrderService::getAllOrderItemByOrderREF(string orderReference) {
     return OrderItemModel::getAllOrderItemByOrderREF(orderReference);
 }
+
+void OrderService::deleteOrderByREF(string orderREF) {
+    OrderHistoryModel::deleteByREF(orderREF);
+
+}
+
+double OrderService::getPaymentAmountForOrderByREF(string orderREF) {
+    return OrderPaymentModel::getAmountForOrderByREF(orderREF);
+}

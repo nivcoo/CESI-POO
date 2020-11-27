@@ -14,6 +14,8 @@ public:
 
     static void deleteByID(int id);
 
+    static double getAmountForOrderByREF(string ref);
+
 };
 
 

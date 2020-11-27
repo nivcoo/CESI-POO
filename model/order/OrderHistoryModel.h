@@ -21,7 +21,7 @@ public:
     static string insert(string reference, SADateTime estimatedDeliveryDate, int customerID, int staffID,
                          int deliveryAddressID, int billingAddressID);
 
-    static void deleteById(string reference);
+    static void deleteByREF(string reference);
 
     static Order getOrderByREF(string reference);
 

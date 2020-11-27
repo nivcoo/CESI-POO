@@ -28,7 +28,7 @@ QSpinBox
 
 
 
-QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID
+QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID, QSpinBox#orderFormCustomerID, QSpinBox#orderFormStaffID
 {
 	width:0px;
     height:0px;
@@ -36,7 +36,7 @@ QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID
     padding:0px;
 }
 
-QLineEdit#itemFormREFSave, QLineEdit#orderFormCustomerID, QLineEdit#orderFormStaffID
+QLineEdit#itemFormREFSave
 {
 	width:0px;
     height:0px;
@@ -50,7 +50,7 @@ QLabel#titleCustomer, QLabel#titleStaff, QLabel#titleItem, QLabel#titleOrder, QL
     border-radius: 4px;
 }
 
-QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#pushButtonAddItem, QPushButton#pushButtonAddOrder
+QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#pushButtonAddItem, QPushButton#pushButtonAddOrder, QPushButton#pushButtonResetOrder
 {
     margin-top:40px;
 }

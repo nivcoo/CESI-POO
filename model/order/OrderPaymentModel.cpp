@@ -27,3 +27,14 @@ void OrderPaymentModel::deleteByID(int id) {
     ModelManager::sendCMD(&cmd);
 
 }
+
+double OrderPaymentModel::getAmountForOrderByREF(string ref) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT SUM(amount) FROM `order__payment` WHERE `reference` = :1;");
+    cmd.Param(1).setAsString() = _TSA(ref).c_str();
+    ModelManager::sendCMD(&cmd, false);
+    cmd.FetchNext();
+    int id = cmd[1].asDouble();
+    ModelManager::get()->getDataBase()->closeConnection();
+    return id;
+}

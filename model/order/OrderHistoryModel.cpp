@@ -23,7 +23,7 @@ string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryD
 
 }
 
-void OrderHistoryModel::deleteById(string reference) {
+void OrderHistoryModel::deleteByREF(string reference) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `order__history` WHERE `reference` = :1;");
     cmd.Param(1).setAsString() = _TSA(reference).c_str();
