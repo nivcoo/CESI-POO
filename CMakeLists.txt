@@ -18,9 +18,20 @@ add_executable(${PROJECT_NAME} main.cpp
         window/main/MainWindow.cpp window/main/MainWindow.h
         assets/resources.qrc model/ModelManager.cpp model/ModelManager.h model/StaffModel.cpp model/StaffModel.h model/AddressModel.cpp model/AddressModel.h model/CustomerAddressModel.cpp model/CustomerAddressModel.h model/order/OrderHistoryModel.cpp model/order/OrderHistoryModel.h model/CustomerModel.cpp model/CustomerModel.h model/order/OrderItemModel.cpp model/order/OrderItemModel.h model/order/OrderPaymentModel.cpp model/order/OrderPaymentModel.h model/ItemModel.cpp model/ItemModel.h service/OrderService.cpp service/OrderService.h service/StaffService.cpp service/StaffService.h service/CustomerService.cpp service/CustomerService.h service/ItemService.cpp service/ItemService.h)
 
+add_executable(UNIT_TESTS unit_test/main.cpp
+        utils/DataBase.cpp utils/DataBase.h
+        service/StatsService.cpp service/StatsService.h
+        window/main/MainWindow.cpp window/main/MainWindow.h
+        assets/resources.qrc model/ModelManager.cpp model/ModelManager.h model/StaffModel.cpp model/StaffModel.h model/AddressModel.cpp model/AddressModel.h model/CustomerAddressModel.cpp model/CustomerAddressModel.h model/order/OrderHistoryModel.cpp model/order/OrderHistoryModel.h model/CustomerModel.cpp model/CustomerModel.h model/order/OrderItemModel.cpp model/order/OrderItemModel.h model/order/OrderPaymentModel.cpp model/order/OrderPaymentModel.h model/ItemModel.cpp model/ItemModel.h service/OrderService.cpp service/OrderService.h service/StaffService.cpp service/StaffService.h service/CustomerService.cpp service/CustomerService.h service/ItemService.cpp service/ItemService.h)
 
 target_include_directories(
         ${PROJECT_NAME}
+        PUBLIC
+        ${SQLAPI_DIR}/include
+)
+
+target_include_directories(
+        UNIT_TESTS
         PUBLIC
         ${SQLAPI_DIR}/include
 )
@@ -32,3 +43,6 @@ elseif (UNIX)
 endif ()
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SQLAPI})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
+
+target_link_libraries(UNIT_TESTS PRIVATE ${SQLAPI})
+target_link_libraries(UNIT_TESTS PRIVATE Qt5::Widgets Qt5::Gui Qt5::Core Qt5::OpenGL)
