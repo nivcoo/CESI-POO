@@ -62,7 +62,7 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="orderTab">
          <attribute name="title">
@@ -639,11 +639,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormResuplyThreshold">
-                   <property name="maximum">
-                    <double>99999.990000000005239</double>
-                   </property>
-                  </widget>
+                  <widget class="QSpinBox" name="itemFormResuplyThreshold"/>
                  </item>
                 </layout>
                </item>
@@ -657,11 +653,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="itemFormQuantity">
-                   <property name="maximum">
-                    <double>99999.990000000005239</double>
-                   </property>
-                  </widget>
+                  <widget class="QSpinBox" name="itemFormQuantity"/>
                  </item>
                 </layout>
                </item>
