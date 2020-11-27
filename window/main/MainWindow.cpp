@@ -654,6 +654,7 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked(string type, double amou
     ui->orderPaymentFormBox->setMinimumHeight(ui->orderPaymentFormBox->minimumHeight() + 28);
     orderPaymentWidget.paymentSelect = paymentSelect;
     orderPaymentWidget.amount = amount;
+    orderPaymentWidget.layout = mainLayout;
     _orderPaymentWidgets.push_back(orderPaymentWidget);
 
     //todo remove this debug
@@ -706,6 +707,7 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     orderItemWidget.itemSelect = itemSelect;
     orderItemWidget.quantity = quantity;
     orderItemWidget.commercialDiscount = commercialDiscount;
+    orderItemWidget.layout = mainLayout;
     _orderItemWidgets.push_back(orderItemWidget);
 
     //todo remove this debug

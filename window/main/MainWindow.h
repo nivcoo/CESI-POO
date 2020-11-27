@@ -29,11 +29,13 @@ Q_OBJECT
 public:
 
     struct OrderItemWidget {
+        QLayout * layout;
         QComboBox * itemSelect;
         QSpinBox * quantity;
         QDoubleSpinBox * commercialDiscount;
     };
     struct OrderPaymentWidget {
+        QLayout * layout;
         QComboBox * paymentSelect;
         QDoubleSpinBox * amount;
     };
