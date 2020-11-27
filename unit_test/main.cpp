@@ -1,7 +1,10 @@
-#include "../model/ModelManager.h"
+#include "CustomerTest.h"
 
+int main() {
 
-int main(int argc, char *argv[]) {
+    new ModelManager();
+    CustomerTest test = CustomerTest();
+    test.exec();
 
     return EXIT_SUCCESS;
 }
