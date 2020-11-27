@@ -1,6 +1,10 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
 
+
+struct MainWindow::OrderItemWidget orderItemWidget;
+struct MainWindow::OrderPaymentWidget orderPaymentWidget;
+
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::mainwindow) {
@@ -586,8 +590,6 @@ void MainWindow::clearItemInput() {
 }
 
 
-
-
 void MainWindow::orderTabButtonClicked() {
 
 }
@@ -606,7 +608,120 @@ void MainWindow::initOrderTab() {
     for (auto order : orders) {
         addOrderToTable(order);
     }
-    //connect(ui->pushButtonAddOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonClicked()));
+
+    orderTabAddItemsToComboBox(ui->orderFormItemSelect);
+    orderItemWidget.itemSelect = ui->orderFormItemSelect;
+    orderItemWidget.quantity = ui->orderFormItemQuantity;
+    orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
+    _orderItemWidgets.push_back(orderItemWidget);
+
+    orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
+    orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
+    orderPaymentWidget.amount = ui->orderFormPaymentAmount;
+    _orderPaymentWidgets.push_back(orderPaymentWidget);
+
+    connect(ui->pushButtonAddOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonClicked()));
+
+    connect(ui->pushButtonAddItemToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddItemToOrderClicked()));
+    connect(ui->pushButtonAddPaymentToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddPaymentToOrderClicked()));
+
+}
+
+void MainWindow::orderTabButtonAddPaymentToOrderClicked() {
+
+    if (_orderPaymentWidgets.size() >= 4) {
+        showPOPUpMessage(true, "You have reached the limit", "You can add only 4 payments to an order !");
+        return;
+    }
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    auto layout1 = new QHBoxLayout;
+    layout1->addWidget(new QLabel("Type"));
+    auto paymentSelect = new QComboBox;
+    orderTabAddPaymentsToComboBox(paymentSelect);
+    layout1->addWidget(paymentSelect);
+    auto layout2 = new QHBoxLayout;
+    layout2->addWidget(new QLabel("Amount"));
+    auto amount = new QDoubleSpinBox;
+    amount->setMaximum(999999);
+    layout2->addWidget(amount);
+    mainLayout->addLayout(layout1);
+    mainLayout->addLayout(layout2);
+    ui->orderPaymentsLayout->addLayout(mainLayout);
+    ui->orderPaymentFormBox->setMinimumHeight(ui->orderPaymentFormBox->minimumHeight() + 28);
+    orderPaymentWidget.paymentSelect = paymentSelect;
+    orderPaymentWidget.amount = amount;
+    _orderPaymentWidgets.push_back(orderPaymentWidget);
+
+    //todo remove this debug
+    for (auto test : _orderPaymentWidgets) {
+        cout << test.paymentSelect->itemData(test.paymentSelect->currentIndex()).toString().toStdString() << " "
+             << test.amount->value() << endl;
+    }
+
+}
+
+void MainWindow::orderTabButtonAddItemToOrderClicked() {
+
+    if (_orderItemWidgets.size() >= 20) {
+        showPOPUpMessage(true, "You have reached the limit", "You can add only 20 items to an order !");
+        return;
+    }
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    auto layout1 = new QHBoxLayout;
+    layout1->addWidget(new QLabel("Item"));
+    auto itemSelect = new QComboBox;
+    orderTabAddItemsToComboBox(itemSelect);
+    layout1->addWidget(itemSelect);
+    auto layout2 = new QHBoxLayout;
+    layout2->addWidget(new QLabel("Quantity"));
+    auto quantity = new QSpinBox;
+    layout2->addWidget(quantity);
+    auto layout3 = new QHBoxLayout;
+    layout3->addWidget(new QLabel("Commercial Discount"));
+    auto commercialDiscount = new QDoubleSpinBox;
+    commercialDiscount->setMaximum(1);
+    layout3->addWidget(commercialDiscount);
+    auto layout4 = new QHBoxLayout;
+    layout4->addWidget(new QLabel("Price IT"));
+    auto priceIT = new QDoubleSpinBox;
+    priceIT->setReadOnly(true);
+    layout4->addWidget(priceIT);
+    mainLayout->addLayout(layout1);
+    mainLayout->addLayout(layout2);
+    mainLayout->addLayout(layout3);
+    mainLayout->addLayout(layout4);
+    ui->orderItemsLayout->addLayout(mainLayout);
+    ui->orderItemFormBox->setMinimumHeight(ui->orderItemFormBox->minimumHeight() + 28);
+    orderItemWidget.itemSelect = itemSelect;
+    orderItemWidget.quantity = quantity;
+    orderItemWidget.commercialDiscount = commercialDiscount;
+    _orderItemWidgets.push_back(orderItemWidget);
+
+    //todo remove this debug
+    for (auto test : _orderItemWidgets) {
+        cout << test.itemSelect->itemData(test.itemSelect->currentIndex()).toString().toStdString() << " "
+             << test.quantity->value() << " " << test.commercialDiscount->value() << endl;
+    }
+}
+
+void MainWindow::orderTabAddItemsToComboBox(QComboBox *itemSelect) {
+    int index = 0;
+    for (auto item : ItemService::getAllItems()) {
+        itemSelect->addItem((item.name + " | " + to_string(item.quantity)).c_str());
+        itemSelect->setItemData(index, item.reference.c_str());
+        index++;
+    }
+}
+
+
+void MainWindow::orderTabAddPaymentsToComboBox(QComboBox *itemSelect) {
+
+    itemSelect->addItem("Bank Card");
+    itemSelect->setItemData(0, 0);
+
+    itemSelect->addItem("Coin");
+    itemSelect->setItemData(1, 1);
 
 }
 
@@ -648,7 +763,7 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
     for (auto orderItem :orderItems) {
         temp += ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity));
         temp -= temp * orderItem.commercialDiscount;
-        total+= temp;
+        total += temp;
     }
 
     tableWidget->setItem(row, 4, new QTableWidgetItem(to_string(total).c_str()));

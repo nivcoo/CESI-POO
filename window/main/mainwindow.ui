@@ -135,7 +135,7 @@
             </layout>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QGroupBox" name="orderFormBox2">
             <property name="minimumSize">
              <size>
@@ -300,7 +300,7 @@
             <widget class="QWidget" name="orderStackedWidget2" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-               <widget class="QGroupBox" name="orderFormBox3">
+               <widget class="QGroupBox" name="orderItemFormBox">
                 <property name="minimumSize">
                  <size>
                   <width>600</width>
@@ -346,95 +346,102 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="orderH17_2">
+                  <layout class="QVBoxLayout" name="orderItemsLayout">
                    <item>
-                    <layout class="QHBoxLayout" name="orderH18_2">
+                    <layout class="QHBoxLayout" name="orderHItem1">
                      <item>
-                      <widget class="QLabel" name="orderL6">
-                       <property name="text">
-                        <string>Item</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH18_2">
+                       <item>
+                        <widget class="QLabel" name="orderL6">
+                         <property name="text">
+                          <string>Item</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="orderFormItemSelect"/>
+                       </item>
+                      </layout>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="orderFormItemSelect"/>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH19_2">
-                     <item>
-                      <widget class="QLabel" name="orderL7">
-                       <property name="text">
-                        <string>Quantity</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QSpinBox" name="orderFormItemQuantity">
-                       <property name="buttonSymbols">
-                        <enum>QAbstractSpinBox::NoButtons</enum>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH21">
-                     <item>
-                      <widget class="QLabel" name="orderL10">
-                       <property name="text">
-                        <string>Commercial Discount</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH19_2">
+                       <item>
+                        <widget class="QLabel" name="orderL7">
+                         <property name="text">
+                          <string>Quantity</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QSpinBox" name="orderFormItemQuantity">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
                      <item>
-                      <widget class="QDoubleSpinBox" name="orderFormCormmercialDiscount">
-                       <property name="buttonSymbols">
-                        <enum>QAbstractSpinBox::NoButtons</enum>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH21">
+                       <item>
+                        <widget class="QLabel" name="orderL10">
+                         <property name="text">
+                          <string>Commercial Discount</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormCormmercialDiscount">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                         <property name="maximum">
+                          <double>1.000000000000000</double>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH22">
                      <item>
-                      <widget class="QLabel" name="orderL11">
-                       <property name="text">
-                        <string>Price IT</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH22">
+                       <item>
+                        <widget class="QLabel" name="orderL11">
+                         <property name="text">
+                          <string>Price IT</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormTotalPrice">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="frame">
+                          <bool>true</bool>
+                         </property>
+                         <property name="readOnly">
+                          <bool>true</bool>
+                         </property>
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                         <property name="specialValueText">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
                      <item>
-                      <widget class="QDoubleSpinBox" name="orderFormTotalPrice">
-                       <property name="enabled">
-                        <bool>true</bool>
-                       </property>
-                       <property name="frame">
-                        <bool>true</bool>
-                       </property>
-                       <property name="readOnly">
-                        <bool>true</bool>
-                       </property>
-                       <property name="buttonSymbols">
-                        <enum>QAbstractSpinBox::NoButtons</enum>
-                       </property>
-                       <property name="specialValueText">
-                        <string/>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH20_2">
-                     <item>
-                      <widget class="QPushButton" name="pushButtonAddItemToOrder">
-                       <property name="text">
-                        <string>New Items</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH20_2">
+                       <item>
+                        <widget class="QPushButton" name="pushButtonAddItemToOrder">
+                         <property name="text">
+                          <string>New Items</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
                     </layout>
                    </item>
@@ -444,7 +451,7 @@
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-               <widget class="QGroupBox" name="orderFormBox4">
+               <widget class="QGroupBox" name="orderPaymentFormBox">
                 <property name="minimumSize">
                  <size>
                   <width>600</width>
@@ -493,47 +500,51 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="orderH17">
+                  <layout class="QVBoxLayout" name="orderPaymentsLayout">
                    <item>
-                    <layout class="QHBoxLayout" name="orderH18">
+                    <layout class="QHBoxLayout" name="orderH17">
                      <item>
-                      <widget class="QLabel" name="orderL8">
-                       <property name="text">
-                        <string>Type</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH18">
+                       <item>
+                        <widget class="QLabel" name="orderL8">
+                         <property name="text">
+                          <string>Type</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                       </item>
+                      </layout>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                      <layout class="QHBoxLayout" name="orderH19">
+                       <item>
+                        <widget class="QLabel" name="orderL9">
+                         <property name="text">
+                          <string>Amount</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormPaymentAmount">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH19">
                      <item>
-                      <widget class="QLabel" name="orderL9">
-                       <property name="text">
-                        <string>Amount</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QDoubleSpinBox" name="orderFormPaymentAmount">
-                       <property name="buttonSymbols">
-                        <enum>QAbstractSpinBox::NoButtons</enum>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="orderH20">
-                     <item>
-                      <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
-                       <property name="text">
-                        <string>New Paiement</string>
-                       </property>
-                      </widget>
+                      <layout class="QHBoxLayout" name="orderH20">
+                       <item>
+                        <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
+                         <property name="text">
+                          <string>New Paiement</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
                     </layout>
                    </item>

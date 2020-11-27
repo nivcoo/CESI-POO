@@ -12,6 +12,8 @@
 #include "../../service/ItemService.h"
 #include "../../service/OrderService.h"
 #include <QMessageBox>
+#include <QComboBox>
+#include <QSpinBox>
 #include <sstream>
 #include <algorithm>
 #include <iterator>
@@ -25,6 +27,17 @@ class MainWindow : public QMainWindow {
 Q_OBJECT
 
 public:
+
+    struct OrderItemWidget {
+        QComboBox * itemSelect;
+        QSpinBox * quantity;
+        QDoubleSpinBox * commercialDiscount;
+    };
+    struct OrderPaymentWidget {
+        QComboBox * paymentSelect;
+        QDoubleSpinBox * amount;
+    };
+
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
@@ -35,6 +48,8 @@ private:
     QPushButton *_customerBtnBack;
     QPushButton *_staffBtnBack;
     QPushButton *_itemBtnBack;
+    vector<OrderItemWidget> _orderItemWidgets;
+    vector<OrderPaymentWidget> _orderPaymentWidgets;
 
     void showPOPUpMessage(bool error, string title, string message);
 
@@ -95,6 +110,15 @@ private slots:
 
 
     void orderTabButtonClicked();
+
+    void orderTabButtonAddPaymentToOrderClicked();
+
+    void orderTabButtonAddItemToOrderClicked();
+
+
+    void orderTabAddItemsToComboBox(QComboBox * itemSelect);
+
+    void orderTabAddPaymentsToComboBox(QComboBox * itemSelect);
 
     void orderTabEditButtonOnTableClicked(string orderREF, int row);
 
