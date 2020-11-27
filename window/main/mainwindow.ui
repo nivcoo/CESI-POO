@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1186</width>
-    <height>646</height>
+    <width>1210</width>
+    <height>663</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>872</width>
-    <height>603</height>
+    <width>1210</width>
+    <height>663</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="orderTab">
          <attribute name="title">
@@ -107,27 +107,27 @@
                </column>
                <column>
                 <property name="text">
-                 <string>name</string>
+                 <string>customer firstname</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>resuply_threshold</string>
+                 <string>customer lastname</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>quantity</string>
+                 <string>total</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>price_ht</string>
+                 <string>estimated_delivery_date</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>vat</string>
+                 <string>created_at</string>
                 </property>
                </column>
               </widget>
@@ -135,7 +135,7 @@
             </layout>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QGroupBox" name="orderFormBox2">
             <property name="minimumSize">
              <size>
@@ -252,6 +252,27 @@
               </layout>
              </item>
              <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLabel" name="orderL12">
+                 <property name="text">
+                  <string>Total Cart</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="orderFormTotalPriceCart">
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
               <layout class="QHBoxLayout" name="orderH16">
                <item>
                 <widget class="QPushButton" name="pushButtonAddOrder">
@@ -275,190 +296,265 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="orderFormBox3">
-            <property name="minimumSize">
-             <size>
-              <width>280</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>280</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="title">
-             <string/>
-            </property>
-            <layout class="QVBoxLayout" name="orderFormLBox3">
-             <item>
-              <layout class="QVBoxLayout" name="orderFormTitleItemLayout">
-               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                <widget class="QLabel" name="titleItemOrder">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>MS Shell Dlg 2</family>
-                   <pointsize>10</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="accessibleName">
-                  <string>titleItemOrder</string>
-                 </property>
-                 <property name="text">
-                  <string>Add Items to order</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH17_2">
-               <item>
-                <layout class="QHBoxLayout" name="orderH18_2">
+           <widget class="QStackedWidget" name="orderStackedWidget">
+            <widget class="QWidget" name="orderStackedWidget2" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QGroupBox" name="orderItemFormBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>600</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>600</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string/>
+                </property>
+                <layout class="QVBoxLayout" name="orderFormLBox3">
                  <item>
-                  <widget class="QLabel" name="orderL6">
-                   <property name="text">
-                    <string>Item</string>
-                   </property>
-                  </widget>
+                  <layout class="QVBoxLayout" name="orderFormTitleItemLayout">
+                   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                    <widget class="QLabel" name="titleItemOrder">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="accessibleName">
+                      <string>titleItemOrder</string>
+                     </property>
+                     <property name="text">
+                      <string>Add Items to order</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="orderFormItemSelect"/>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="orderH19_2">
-                 <item>
-                  <widget class="QLabel" name="orderL7">
-                   <property name="text">
-                    <string>Quantity</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="orderFormItemQuantity"/>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="orderH20_2">
-                 <item>
-                  <widget class="QPushButton" name="pushButtonAddItemToOrder">
-                   <property name="text">
-                    <string>New Items</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="orderFormBox4">
-            <property name="minimumSize">
-             <size>
-              <width>280</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>280</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="title">
-             <string/>
-            </property>
-            <layout class="QVBoxLayout" name="orderFormLBox4">
-             <item>
-              <layout class="QVBoxLayout" name="orderFormTitlePaymentLayout">
-               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                <widget class="QLabel" name="titlePaymentOrder">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>MS Shell Dlg 2</family>
-                   <pointsize>10</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="whatsThis">
-                  <string/>
-                 </property>
-                 <property name="accessibleName">
-                  <string>titlePaymentOrder</string>
-                 </property>
-                 <property name="text">
-                  <string>Add Payment to order</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="orderH17">
-               <item>
-                <layout class="QHBoxLayout" name="orderH18">
-                 <item>
-                  <widget class="QLabel" name="orderL8">
-                   <property name="text">
-                    <string>Type</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                  <layout class="QVBoxLayout" name="orderItemsLayout">
+                   <item>
+                    <layout class="QHBoxLayout" name="orderHItem1">
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH18_2">
+                       <item>
+                        <widget class="QLabel" name="orderL6">
+                         <property name="text">
+                          <string>Item</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="orderFormItemSelect"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH19_2">
+                       <item>
+                        <widget class="QLabel" name="orderL7">
+                         <property name="text">
+                          <string>Quantity</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QSpinBox" name="orderFormItemQuantity">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH21">
+                       <item>
+                        <widget class="QLabel" name="orderL10">
+                         <property name="text">
+                          <string>Commercial Discount</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormCormmercialDiscount">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                         <property name="maximum">
+                          <double>1.000000000000000</double>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH22">
+                       <item>
+                        <widget class="QLabel" name="orderL11">
+                         <property name="text">
+                          <string>Price IT</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormTotalPrice">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="frame">
+                          <bool>true</bool>
+                         </property>
+                         <property name="readOnly">
+                          <bool>true</bool>
+                         </property>
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                         <property name="specialValueText">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH20_2">
+                       <item>
+                        <widget class="QPushButton" name="pushButtonAddItemToOrder">
+                         <property name="text">
+                          <string>New Items</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="orderH19">
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+               <widget class="QGroupBox" name="orderPaymentFormBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>600</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>600</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string/>
+                </property>
+                <layout class="QVBoxLayout" name="orderFormLBox4">
                  <item>
-                  <widget class="QLabel" name="orderL9">
-                   <property name="text">
-                    <string>Amount</string>
-                   </property>
-                  </widget>
+                  <layout class="QVBoxLayout" name="orderFormTitlePaymentLayout">
+                   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                    <widget class="QLabel" name="titlePaymentOrder">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="whatsThis">
+                      <string/>
+                     </property>
+                     <property name="accessibleName">
+                      <string>titlePaymentOrder</string>
+                     </property>
+                     <property name="text">
+                      <string>Add Payment to order</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="orderFormPaymentAmount"/>
+                  <layout class="QVBoxLayout" name="orderPaymentsLayout">
+                   <item>
+                    <layout class="QHBoxLayout" name="orderH17">
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH18">
+                       <item>
+                        <widget class="QLabel" name="orderL8">
+                         <property name="text">
+                          <string>Type</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH19">
+                       <item>
+                        <widget class="QLabel" name="orderL9">
+                         <property name="text">
+                          <string>Amount</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="orderFormPaymentAmount">
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="orderH20">
+                       <item>
+                        <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
+                         <property name="text">
+                          <string>New Paiement</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="orderH20">
-                 <item>
-                  <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
-                   <property name="text">
-                    <string>New Paiement</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-            </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -639,7 +735,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="itemFormResuplyThreshold"/>
+                  <widget class="QSpinBox" name="itemFormResuplyThreshold">
+                   <property name="buttonSymbols">
+                    <enum>QAbstractSpinBox::NoButtons</enum>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -653,7 +753,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="itemFormQuantity"/>
+                  <widget class="QSpinBox" name="itemFormQuantity">
+                   <property name="buttonSymbols">
+                    <enum>QAbstractSpinBox::NoButtons</enum>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -672,6 +776,12 @@
                  </item>
                  <item>
                   <widget class="QDoubleSpinBox" name="itemFormPriceHT">
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                   <property name="buttonSymbols">
+                    <enum>QAbstractSpinBox::NoButtons</enum>
+                   </property>
                    <property name="maximum">
                     <double>99999.990000000005239</double>
                    </property>
@@ -690,6 +800,9 @@
                  </item>
                  <item>
                   <widget class="QDoubleSpinBox" name="itemFormVAT">
+                   <property name="buttonSymbols">
+                    <enum>QAbstractSpinBox::NoButtons</enum>
+                   </property>
                    <property name="maximum">
                     <double>1.000000000000000</double>
                    </property>

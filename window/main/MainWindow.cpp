@@ -1,6 +1,10 @@
 #include "MainWindow.h"
 #include "./ui_mainwindow.h"
 
+
+struct MainWindow::OrderItemWidget orderItemWidget;
+struct MainWindow::OrderPaymentWidget orderPaymentWidget;
+
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::mainwindow) {
@@ -9,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initCustomerTab();
     initStaffTab();
     initItemTab();
+    initOrderTab();
 }
 
 MainWindow::~MainWindow() {
@@ -583,3 +588,220 @@ void MainWindow::clearItemInput() {
     ui->itemFormVAT->clear();
 
 }
+
+
+void MainWindow::orderTabButtonClicked() {
+
+}
+
+void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
+
+}
+
+void MainWindow::orderTabDeleteButtonOnTableClicked(string orderREF, int row) {
+
+}
+
+void MainWindow::initOrderTab() {
+    clearCustomerInput();
+    auto orders = OrderService::getAllOrders();
+    for (auto order : orders) {
+        addOrderToTable(order);
+    }
+
+    orderTabAddItemsToComboBox(ui->orderFormItemSelect);
+    orderItemWidget.itemSelect = ui->orderFormItemSelect;
+    orderItemWidget.quantity = ui->orderFormItemQuantity;
+    orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
+    _orderItemWidgets.push_back(orderItemWidget);
+
+    orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
+    orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
+    orderPaymentWidget.amount = ui->orderFormPaymentAmount;
+    _orderPaymentWidgets.push_back(orderPaymentWidget);
+
+    connect(ui->pushButtonAddOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonClicked()));
+
+    connect(ui->pushButtonAddItemToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddItemToOrderClicked()));
+    connect(ui->pushButtonAddPaymentToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddPaymentToOrderClicked()));
+
+}
+
+void MainWindow::orderTabButtonAddPaymentToOrderClicked(string type, double amountVal) {
+
+    if (_orderPaymentWidgets.size() >= 4) {
+        showPOPUpMessage(true, "You have reached the limit", "You can add only 4 payments to an order !");
+        return;
+    }
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    auto layout1 = new QHBoxLayout;
+    layout1->addWidget(new QLabel("Type"));
+    auto paymentSelect = new QComboBox;
+    orderTabAddPaymentsToComboBox(paymentSelect);
+    int index = paymentSelect->findData(type.c_str());
+    paymentSelect->setCurrentIndex(index);
+    layout1->addWidget(paymentSelect);
+    auto layout2 = new QHBoxLayout;
+    layout2->addWidget(new QLabel("Amount"));
+    auto amount = new QDoubleSpinBox;
+    amount->setMaximum(999999);
+    amount->setValue(amountVal);
+    layout2->addWidget(amount);
+    mainLayout->addLayout(layout1);
+    mainLayout->addLayout(layout2);
+    ui->orderPaymentsLayout->addLayout(mainLayout);
+    ui->orderPaymentFormBox->setMinimumHeight(ui->orderPaymentFormBox->minimumHeight() + 28);
+    orderPaymentWidget.paymentSelect = paymentSelect;
+    orderPaymentWidget.amount = amount;
+    orderPaymentWidget.layout = mainLayout;
+    _orderPaymentWidgets.push_back(orderPaymentWidget);
+
+    //todo remove this debug
+    for (auto test : _orderPaymentWidgets) {
+        cout << test.paymentSelect->itemData(test.paymentSelect->currentIndex()).toString().toStdString() << " "
+             << test.amount->value() << endl;
+    }
+
+}
+
+void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal, double commercialDiscountVal,
+                                                     double priceITVal) {
+
+    if (_orderItemWidgets.size() >= 20) {
+        showPOPUpMessage(true, "You have reached the limit", "You can add only 20 items to an order !");
+        return;
+    }
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    auto layout1 = new QHBoxLayout;
+    layout1->addWidget(new QLabel("Item"));
+    auto itemSelect = new QComboBox;
+    orderTabAddItemsToComboBox(itemSelect);
+    int index = itemSelect->findData(ref.c_str());
+    itemSelect->setCurrentIndex(index);
+    layout1->addWidget(itemSelect);
+    auto layout2 = new QHBoxLayout;
+    layout2->addWidget(new QLabel("Quantity"));
+    auto quantity = new QSpinBox;
+    quantity->setValue(quantityVal);
+    layout2->addWidget(quantity);
+    auto layout3 = new QHBoxLayout;
+    layout3->addWidget(new QLabel("Commercial Discount"));
+    auto commercialDiscount = new QDoubleSpinBox;
+    commercialDiscount->setValue(commercialDiscountVal);
+    commercialDiscount->setMaximum(1);
+    layout3->addWidget(commercialDiscount);
+    auto layout4 = new QHBoxLayout;
+    layout4->addWidget(new QLabel("Price IT"));
+
+    auto priceIT = new QDoubleSpinBox;
+    priceIT->setValue(priceITVal);
+    priceIT->setReadOnly(true);
+    layout4->addWidget(priceIT);
+    mainLayout->addLayout(layout1);
+    mainLayout->addLayout(layout2);
+    mainLayout->addLayout(layout3);
+    mainLayout->addLayout(layout4);
+    ui->orderItemsLayout->addLayout(mainLayout);
+    ui->orderItemFormBox->setMinimumHeight(ui->orderItemFormBox->minimumHeight() + 28);
+    orderItemWidget.itemSelect = itemSelect;
+    orderItemWidget.quantity = quantity;
+    orderItemWidget.commercialDiscount = commercialDiscount;
+    orderItemWidget.layout = mainLayout;
+    _orderItemWidgets.push_back(orderItemWidget);
+
+    //todo remove this debug
+    for (auto test : _orderItemWidgets) {
+        cout << test.itemSelect->itemData(test.itemSelect->currentIndex()).toString().toStdString() << " "
+             << test.quantity->value() << " " << test.commercialDiscount->value() << endl;
+    }
+}
+
+void MainWindow::orderTabAddItemsToComboBox(QComboBox *itemSelect) {
+    int index = 0;
+    for (auto item : ItemService::getAllItems()) {
+        itemSelect->addItem((item.name + " | " + to_string(item.priceHt) + "€").c_str());
+        itemSelect->setItemData(index, item.reference.c_str());
+        index++;
+    }
+}
+
+
+void MainWindow::orderTabAddPaymentsToComboBox(QComboBox *itemSelect) {
+
+    itemSelect->addItem("Bank Card");
+    itemSelect->setItemData(0, 0);
+
+    itemSelect->addItem("Coin");
+    itemSelect->setItemData(1, 1);
+
+}
+
+
+void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
+    QTableWidget *tableWidget = ui->orderListTable;
+    tableWidget->resizeColumnsToContents();
+    tableWidget->insertRow(tableWidget->rowCount());
+    auto btnEdit = new QPushButton("Edit");
+    auto btnDelete = new QPushButton("Delete");
+    string ref = order.reference;
+    int row = tableWidget->rowCount() - 1;
+    connect(btnEdit, &QPushButton::clicked, [this, ref, row] { orderTabEditButtonOnTableClicked(ref, row); });
+    connect(btnDelete, &QPushButton::clicked,
+            [this, ref, row] { orderTabDeleteButtonOnTableClicked(ref, row); });
+
+    auto actionWidget = new QWidget();
+    auto pLayout = new QHBoxLayout(actionWidget);
+    pLayout->addWidget(btnEdit);
+    pLayout->addWidget(btnDelete);
+    pLayout->setAlignment(Qt::AlignCenter);
+    pLayout->setContentsMargins(0, 0, 10, 0);
+    actionWidget->setLayout(pLayout);
+
+    tableWidget->setCellWidget(row, 0, actionWidget);
+    tableWidget->setItem(row, 1, new QTableWidgetItem(order.reference.c_str()));
+
+    auto customer = CustomerService::getCustomerByID(order.customerID);
+
+    tableWidget->setItem(row, 2, new QTableWidgetItem(customer.firstname.c_str()));
+    tableWidget->setItem(row, 3, new QTableWidgetItem(customer.lastname.c_str()));
+
+    auto orderItems = OrderService::getAllOrderItemByOrderREF(ref);
+
+    double total = 0;
+
+    double temp = 0;
+
+    for (auto orderItem :orderItems) {
+        temp += ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity));
+        temp -= temp * orderItem.commercialDiscount;
+        total += temp;
+    }
+
+    tableWidget->setItem(row, 4, new QTableWidgetItem(to_string(total).c_str()));
+
+
+    string date =
+            to_string(order.estimatedDeliveryDate.GetDay()) + "-" +
+            to_string(order.estimatedDeliveryDate.GetMonth()) +
+            "-" +
+            to_string(order.estimatedDeliveryDate.GetYear());
+    tableWidget->setItem(row, 5, new QTableWidgetItem(date.c_str()));
+    date = to_string(order.createdAt.GetDay()) + "-" + to_string(order.createdAt.GetMonth()) + "-" +
+           to_string(order.createdAt.GetYear());
+    tableWidget->setItem(row, 6, new QTableWidgetItem(date.c_str()));
+
+
+}
+
+void MainWindow::orderTabCancelEdit() {
+
+}
+
+void MainWindow::clearOrderInput() {
+
+}
+
+
+
+

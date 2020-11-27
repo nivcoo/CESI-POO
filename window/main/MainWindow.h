@@ -10,7 +10,10 @@
 #include "../../service/CustomerService.h"
 #include "../../service/StaffService.h"
 #include "../../service/ItemService.h"
+#include "../../service/OrderService.h"
 #include <QMessageBox>
+#include <QComboBox>
+#include <QSpinBox>
 #include <sstream>
 #include <algorithm>
 #include <iterator>
@@ -24,6 +27,19 @@ class MainWindow : public QMainWindow {
 Q_OBJECT
 
 public:
+
+    struct OrderItemWidget {
+        QLayout * layout;
+        QComboBox * itemSelect;
+        QSpinBox * quantity;
+        QDoubleSpinBox * commercialDiscount;
+    };
+    struct OrderPaymentWidget {
+        QLayout * layout;
+        QComboBox * paymentSelect;
+        QDoubleSpinBox * amount;
+    };
+
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
@@ -34,6 +50,8 @@ private:
     QPushButton *_customerBtnBack;
     QPushButton *_staffBtnBack;
     QPushButton *_itemBtnBack;
+    vector<OrderItemWidget> _orderItemWidgets;
+    vector<OrderPaymentWidget> _orderPaymentWidgets;
 
     void showPOPUpMessage(bool error, string title, string message);
 
@@ -88,8 +106,34 @@ private slots:
 
     void itemTabCancelEdit();
 
-
     void clearItemInput();
+
+
+
+
+    void orderTabButtonClicked();
+
+    void orderTabButtonAddPaymentToOrderClicked(string type = 0, double amountVal = 0);
+
+    void orderTabButtonAddItemToOrderClicked(string ref = "", int quantityVal = 0, double commercialDiscountVal = 0,
+                                             double priceIT = 0);
+
+
+    void orderTabAddItemsToComboBox(QComboBox * itemSelect);
+
+    void orderTabAddPaymentsToComboBox(QComboBox * itemSelect);
+
+    void orderTabEditButtonOnTableClicked(string orderREF, int row);
+
+    void orderTabDeleteButtonOnTableClicked(string orderREF, int row);
+
+    void initOrderTab();
+
+    void addOrderToTable(OrderHistoryModel::Order order);
+
+    void orderTabCancelEdit();
+
+    void clearOrderInput();
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

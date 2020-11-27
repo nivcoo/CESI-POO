@@ -33,10 +33,11 @@ string OrderService::addOrder(SADateTime estimatedDeliveryDate, int customerID, 
 }
 
 
-void OrderService::addItemToOrderREF(string orderREF, string itemREF, int quantity) {
+void OrderService::addItemToOrderREF(string orderREF, string itemREF, int quantity, double commercialDiscount) {
     ItemModel::Item item = ItemService::getItemByREF(itemREF);
     int newQuantity = item.quantity - quantity;
-    OrderItemModel::insert(orderREF, itemREF, quantity, item.priceHt, item.vat);
+    newQuantity = (newQuantity >= 0 ? newQuantity : 0);
+    OrderItemModel::insert(orderREF, itemREF, quantity, item.priceHt, item.vat, commercialDiscount);
     ItemService::updateItemQuantityByREF(itemREF, newQuantity);
 }
 
@@ -63,4 +64,12 @@ int OrderService::getOrderCountByCustomerID(int customerID) {
 
 std::vector<OrderItemModel::OrderItem> OrderService::getAllOrderItem() {
     return OrderItemModel::getAllOrderItem();
+}
+
+vector<OrderHistoryModel::Order> OrderService::getAllOrders() {
+    return OrderHistoryModel::getAllOrders();
+}
+
+vector<OrderItemModel::OrderItem> OrderService::getAllOrderItemByOrderREF(string orderReference) {
+    return OrderItemModel::getAllOrderItemByOrderREF(orderReference);
 }
