@@ -111,9 +111,10 @@ private slots:
 
     void orderTabButtonClicked();
 
-    void orderTabButtonAddPaymentToOrderClicked();
+    void orderTabButtonAddPaymentToOrderClicked(string type = 0, double amountVal = 0);
 
-    void orderTabButtonAddItemToOrderClicked();
+    void orderTabButtonAddItemToOrderClicked(string ref = "", int quantityVal = 0, double commercialDiscountVal = 0,
+                                             double priceIT = 0);
 
 
     void orderTabAddItemsToComboBox(QComboBox * itemSelect);

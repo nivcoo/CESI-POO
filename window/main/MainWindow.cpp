@@ -627,7 +627,7 @@ void MainWindow::initOrderTab() {
 
 }
 
-void MainWindow::orderTabButtonAddPaymentToOrderClicked() {
+void MainWindow::orderTabButtonAddPaymentToOrderClicked(string type, double amountVal) {
 
     if (_orderPaymentWidgets.size() >= 4) {
         showPOPUpMessage(true, "You have reached the limit", "You can add only 4 payments to an order !");
@@ -639,11 +639,14 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked() {
     layout1->addWidget(new QLabel("Type"));
     auto paymentSelect = new QComboBox;
     orderTabAddPaymentsToComboBox(paymentSelect);
+    int index = paymentSelect->findData(type.c_str());
+    paymentSelect->setCurrentIndex(index);
     layout1->addWidget(paymentSelect);
     auto layout2 = new QHBoxLayout;
     layout2->addWidget(new QLabel("Amount"));
     auto amount = new QDoubleSpinBox;
     amount->setMaximum(999999);
+    amount->setValue(amountVal);
     layout2->addWidget(amount);
     mainLayout->addLayout(layout1);
     mainLayout->addLayout(layout2);
@@ -661,7 +664,8 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked() {
 
 }
 
-void MainWindow::orderTabButtonAddItemToOrderClicked() {
+void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal, double commercialDiscountVal,
+                                                     double priceITVal) {
 
     if (_orderItemWidgets.size() >= 20) {
         showPOPUpMessage(true, "You have reached the limit", "You can add only 20 items to an order !");
@@ -672,19 +676,25 @@ void MainWindow::orderTabButtonAddItemToOrderClicked() {
     layout1->addWidget(new QLabel("Item"));
     auto itemSelect = new QComboBox;
     orderTabAddItemsToComboBox(itemSelect);
+    int index = itemSelect->findData(ref.c_str());
+    itemSelect->setCurrentIndex(index);
     layout1->addWidget(itemSelect);
     auto layout2 = new QHBoxLayout;
     layout2->addWidget(new QLabel("Quantity"));
     auto quantity = new QSpinBox;
+    quantity->setValue(quantityVal);
     layout2->addWidget(quantity);
     auto layout3 = new QHBoxLayout;
     layout3->addWidget(new QLabel("Commercial Discount"));
     auto commercialDiscount = new QDoubleSpinBox;
+    commercialDiscount->setValue(commercialDiscountVal);
     commercialDiscount->setMaximum(1);
     layout3->addWidget(commercialDiscount);
     auto layout4 = new QHBoxLayout;
     layout4->addWidget(new QLabel("Price IT"));
+
     auto priceIT = new QDoubleSpinBox;
+    priceIT->setValue(priceITVal);
     priceIT->setReadOnly(true);
     layout4->addWidget(priceIT);
     mainLayout->addLayout(layout1);
@@ -708,7 +718,7 @@ void MainWindow::orderTabButtonAddItemToOrderClicked() {
 void MainWindow::orderTabAddItemsToComboBox(QComboBox *itemSelect) {
     int index = 0;
     for (auto item : ItemService::getAllItems()) {
-        itemSelect->addItem((item.name + " | " + to_string(item.quantity)).c_str());
+        itemSelect->addItem((item.name + " | " + to_string(item.priceHt) + "€").c_str());
         itemSelect->setItemData(index, item.reference.c_str());
         index++;
     }
