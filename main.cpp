@@ -1,6 +1,6 @@
 #include <QtWidgets/QApplication>
 #include "window/main/MainWindow.h"
-#include "ihm/IHM.h"
+#include "model/ModelManager.h"
 
 
 int main(int argc, char *argv[]) {
@@ -12,9 +12,8 @@ int main(int argc, char *argv[]) {
     if (file.open(QFile::ReadOnly)) {
         QString StyleSheet = QLatin1String(file.readAll());
         a.setStyleSheet(StyleSheet);
-
     }
-    new IHM();
+    new ModelManager();
     MainWindow w;
     w.show();
     return QApplication::exec();

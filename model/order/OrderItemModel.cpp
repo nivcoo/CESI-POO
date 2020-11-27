@@ -3,7 +3,8 @@
 //
 
 #include "OrderItemModel.h"
-#include "../../ihm/IHM.h"
+#include "../ModelManager.h"
+
 struct OrderItemModel::OrderItem orderItem;
 void OrderItemModel::insert(string orderReference, string itemReference, int quantity, double price, double vat) {
     SACommand cmd;
@@ -29,7 +30,7 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getAllOrderItem() {
         orderItem.vat = cmd.Field("vat").asDouble();
         orders.push_back(orderItem);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
 
@@ -56,7 +57,7 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getMostSellItem() {
         orderItem.quantity = cmd.Field("sum").asString().GetMultiByteCharsLength();
         orders.push_back(orderItem);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
 
@@ -74,6 +75,6 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getLeastSellItem() {
         orderItem.quantity = cmd.Field("sum").asString().GetMultiByteCharsLength();
         orders.push_back(orderItem);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }

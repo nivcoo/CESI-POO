@@ -3,7 +3,7 @@
 //
 
 #include "ItemModel.h"
-#include "../ihm/IHM.h"
+#include "ModelManager.h"
 
 struct ItemModel::Item item;
 
@@ -67,7 +67,7 @@ vector<ItemModel::Item> ItemModel::getAllItems(){
         item.archived = cmd.Field("archived").asBool();
         items.push_back(item);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return items;
 }
 
@@ -86,7 +86,7 @@ ItemModel::Item ItemModel::getItemByREF(string reference) {
         item.vat = cmd.Field("vat").asDouble();
         item.archived = cmd.Field("archived").asBool();
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return item;
 }
 
@@ -116,6 +116,6 @@ vector<ItemModel::Item> ItemModel::getLowStockItems() {
         item.archived = cmd.Field("archived").asBool();
         items.push_back(item);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return items;
 }

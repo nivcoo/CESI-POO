@@ -3,8 +3,10 @@
 //
 
 #include "OrderHistoryModel.h"
-#include "../../ihm/IHM.h"
+#include "../ModelManager.h"
+
 struct OrderHistoryModel::Order order;
+
 string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryDate, int customerID, int staffID,
                                  int deliveryAddressID, int billingAddressID) {
     SACommand cmd;
@@ -45,7 +47,7 @@ OrderHistoryModel::Order OrderHistoryModel::getOrderByREF(string reference) {
         order.deliveryAddressID = cmd.Field("id_address").asInt64();
         order.billingAddressID = cmd.Field("id_address_bill").asInt64();
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return order;
 }
 
@@ -65,7 +67,7 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrdersByCustomerID(int
         order.billingAddressID = cmd.Field("id_address_bill").asInt64();
         orders.push_back(order);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
 
@@ -87,7 +89,7 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getLastOrdersByNumber(int nu
         order.billingAddressID = cmd.Field("id_address_bill").asInt64();
         orders.push_back(order);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
 
@@ -108,7 +110,7 @@ vector<OrderHistoryModel::Order> OrderHistoryModel::getAllOrders() {
         order.billingAddressID = cmd.Field("id_address_bill").asInt64();
         orders.push_back(order);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
 
@@ -119,6 +121,6 @@ int OrderHistoryModel::getOrderCountByCustomerID(int customerID) {
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int count = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return count;
 }

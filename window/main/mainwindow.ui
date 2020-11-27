@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
-    <height>638</height>
+    <width>1186</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -62,84 +62,480 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="orderTab">
          <attribute name="title">
           <string>Order Tab</string>
          </attribute>
+         <layout class="QHBoxLayout" name="orderTabL">
+          <item>
+           <widget class="QGroupBox" name="orderFormBox1">
+            <layout class="QHBoxLayout" name="orderFormLBox1">
+             <item>
+              <widget class="QTableWidget" name="orderListTable">
+               <property name="autoFillBackground">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
+               <property name="showGrid">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>actions</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>reference</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>name</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>resuply_threshold</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>quantity</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>price_ht</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>vat</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="orderFormBox2">
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>250</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>250</width>
+              <height>250</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="orderFormLBox2">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetNoConstraint</enum>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="orderFormTitleLayout">
+               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <widget class="QLabel" name="titleOrder">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="accessibleName">
+                  <string>titleorder</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Order Form</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="orderFormStaffID">
+               <property name="styleSheet">
+                <string notr="true">width:0px;
+                                                                    height:0px;
+                                                                    border:none;
+
+                                                                </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="orderFormCustomerID">
+               <property name="styleSheet">
+                <string notr="true">width:0px;
+                                                                    height:0px;
+                                                                    border:none;
+
+                                                                </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH2">
+               <item>
+                <layout class="QGridLayout" name="orderH3">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="orderL1">
+                   <property name="text">
+                    <string>Please Select Customer from Customer Tab</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH4">
+               <item>
+                <layout class="QHBoxLayout" name="orderH5">
+                 <item>
+                  <widget class="QLabel" name="orderL3">
+                   <property name="text">
+                    <string>Please Select Staff from Staff Tab</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH6">
+               <item>
+                <layout class="QHBoxLayout" name="orderH7">
+                 <item>
+                  <widget class="QLabel" name="orderL5">
+                   <property name="text">
+                    <string>Estimated Delivery Date</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="orderFormEstimatedDeliveryDate"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH16">
+               <item>
+                <widget class="QPushButton" name="pushButtonAddOrder">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="accessibleName">
+                  <string>pushButtonAddorder</string>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Add order</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="orderFormBox3">
+            <property name="minimumSize">
+             <size>
+              <width>280</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>280</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QVBoxLayout" name="orderFormLBox3">
+             <item>
+              <layout class="QVBoxLayout" name="orderFormTitleItemLayout">
+               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <widget class="QLabel" name="titleItemOrder">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="accessibleName">
+                  <string>titleItemOrder</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Items to order</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH17_2">
+               <item>
+                <layout class="QHBoxLayout" name="orderH18_2">
+                 <item>
+                  <widget class="QLabel" name="orderL6">
+                   <property name="text">
+                    <string>Item</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="orderFormItemSelect"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="orderH19_2">
+                 <item>
+                  <widget class="QLabel" name="orderL7">
+                   <property name="text">
+                    <string>Quantity</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="orderFormItemQuantity"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="orderH20_2">
+                 <item>
+                  <widget class="QPushButton" name="pushButtonAddItemToOrder">
+                   <property name="text">
+                    <string>New Items</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="orderFormBox4">
+            <property name="minimumSize">
+             <size>
+              <width>280</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>280</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QVBoxLayout" name="orderFormLBox4">
+             <item>
+              <layout class="QVBoxLayout" name="orderFormTitlePaymentLayout">
+               <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <widget class="QLabel" name="titlePaymentOrder">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="whatsThis">
+                  <string/>
+                 </property>
+                 <property name="accessibleName">
+                  <string>titlePaymentOrder</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Payment to order</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="orderH17">
+               <item>
+                <layout class="QHBoxLayout" name="orderH18">
+                 <item>
+                  <widget class="QLabel" name="orderL8">
+                   <property name="text">
+                    <string>Type</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="orderH19">
+                 <item>
+                  <widget class="QLabel" name="orderL9">
+                   <property name="text">
+                    <string>Amount</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="orderFormPaymentAmount"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="orderH20">
+                 <item>
+                  <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
+                   <property name="text">
+                    <string>New Paiement</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
         <widget class="QWidget" name="itemTab">
          <attribute name="title">
           <string>Item Tab</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="itemTabL">
           <item>
-           <layout class="QHBoxLayout" name="itemH1">
-            <item>
-             <widget class="QTableWidget" name="itemListTable">
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
-              </property>
-              <property name="showGrid">
-               <bool>true</bool>
-              </property>
-              <property name="gridStyle">
-               <enum>Qt::SolidLine</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>actions</string>
+           <widget class="QGroupBox" name="itemFormBox1">
+            <layout class="QHBoxLayout" name="itemFormLBox1">
+             <item>
+              <widget class="QTableWidget" name="itemListTable">
+               <property name="autoFillBackground">
+                <bool>false</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>reference</string>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>name</string>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>resuply_threshold</string>
+               <property name="showGrid">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>quantity</string>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>price_ht</string>
+               <property name="sortingEnabled">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>vat</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
+               <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>actions</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>reference</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>name</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>resuply_threshold</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>quantity</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>price_ht</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>vat</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="itemFormBox">
+           <widget class="QGroupBox" name="itemFormBox2">
             <property name="minimumSize">
              <size>
               <width>400</width>
@@ -152,7 +548,7 @@
               <height>250</height>
              </size>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QVBoxLayout" name="itemFormLBox2">
              <property name="sizeConstraint">
               <enum>QLayout::SetNoConstraint</enum>
              </property>
@@ -190,7 +586,7 @@
                 <string notr="true">width:0px;
                                                                     height:0px;
                                                                     border:none;
-                                                                
+
                                                                 </string>
                </property>
               </widget>
@@ -232,9 +628,9 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="itemH2">
+              <layout class="QHBoxLayout" name="itemH5">
                <item>
-                <layout class="QHBoxLayout" name="itemH3">
+                <layout class="QHBoxLayout" name="itemH6">
                  <item>
                   <widget class="QLabel" name="itemL3">
                    <property name="text">
@@ -252,7 +648,7 @@
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="itemH4">
+                <layout class="QHBoxLayout" name="itemH7">
                  <item>
                   <widget class="QLabel" name="itemL4">
                    <property name="text">
@@ -272,9 +668,9 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="itemH2">
+              <layout class="QHBoxLayout" name="itemH8">
                <item>
-                <layout class="QHBoxLayout" name="itemH3">
+                <layout class="QHBoxLayout" name="itemH9">
                  <item>
                   <widget class="QLabel" name="itemL5">
                    <property name="text">
@@ -292,7 +688,7 @@
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="itemH4">
+                <layout class="QHBoxLayout" name="itemH10">
                  <item>
                   <widget class="QLabel" name="itemL6">
                    <property name="text">
@@ -312,7 +708,7 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="itemH16">
+              <layout class="QHBoxLayout" name="itemH11">
                <item>
                 <widget class="QPushButton" name="pushButtonAddItem">
                  <property name="cursor">
@@ -343,73 +739,75 @@
          <attribute name="title">
           <string>Customer Tab</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="customerTabL">
           <item>
-           <layout class="QHBoxLayout" name="customerH1">
-            <item>
-             <widget class="QTableWidget" name="customerListTable">
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
-              </property>
-              <property name="showGrid">
-               <bool>true</bool>
-              </property>
-              <property name="gridStyle">
-               <enum>Qt::SolidLine</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>actions</string>
+           <widget class="QGroupBox" name="customerFormBox1">
+            <layout class="QHBoxLayout" name="customerFormLBox1">
+             <item>
+              <widget class="QTableWidget" name="customerListTable">
+               <property name="autoFillBackground">
+                <bool>false</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>firstname</string>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>lastname</string>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>birth_date</string>
+               <property name="showGrid">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>address_line</string>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>postal_code</string>
+               <property name="sortingEnabled">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>city</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
+               <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>actions</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>firstname</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>lastname</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>birth_date</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>address_line</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>postal_code</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>city</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="customerFormBox">
+           <widget class="QGroupBox" name="customerFormBox2">
             <property name="minimumSize">
              <size>
               <width>400</width>
@@ -422,7 +820,7 @@
               <height>400</height>
              </size>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QVBoxLayout" name="customerFormLBox2">
              <property name="sizeConstraint">
               <enum>QLayout::SetNoConstraint</enum>
              </property>
@@ -732,73 +1130,75 @@
          <attribute name="title">
           <string>Staff Tab</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <layout class="QHBoxLayout" name="staffTabL">
           <item>
-           <layout class="QHBoxLayout" name="staffH1">
-            <item>
-             <widget class="QTableWidget" name="staffListTable">
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
-              </property>
-              <property name="showGrid">
-               <bool>true</bool>
-              </property>
-              <property name="gridStyle">
-               <enum>Qt::SolidLine</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-              <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>actions</string>
+           <widget class="QGroupBox" name="staffFormBox1">
+            <layout class="QHBoxLayout" name="staffFormLBox1">
+             <item>
+              <widget class="QTableWidget" name="staffListTable">
+               <property name="autoFillBackground">
+                <bool>false</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>firstname</string>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>lastname</string>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>hire_date</string>
+               <property name="showGrid">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>address_line</string>
+               <property name="gridStyle">
+                <enum>Qt::SolidLine</enum>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>postal_code</string>
+               <property name="sortingEnabled">
+                <bool>true</bool>
                </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>city</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
+               <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>actions</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>firstname</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>lastname</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>hire_date</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>address_line</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>postal_code</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>city</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="staffFormBox">
+           <widget class="QGroupBox" name="staffFormBox2">
             <property name="minimumSize">
              <size>
               <width>400</width>
@@ -811,7 +1211,7 @@
               <height>350</height>
              </size>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QVBoxLayout" name="staffFormLBox2">
              <property name="sizeConstraint">
               <enum>QLayout::SetNoConstraint</enum>
              </property>

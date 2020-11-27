@@ -3,7 +3,7 @@
 //
 
 #include "AddressModel.h"
-#include "../ihm/IHM.h"
+#include "ModelManager.h"
 
 struct AddressModel::Address address;
 
@@ -19,7 +19,7 @@ int AddressModel::insert(int type, string addressLine, string postalCode, string
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return id;
 }
 
@@ -61,7 +61,7 @@ AddressModel::Address AddressModel::getAddressByID(int id) {
         address.city = cmd.Field("city").asString().GetMultiByteChars();
         address.archived = cmd.Field("archived").asBool();
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return address;
 }
 

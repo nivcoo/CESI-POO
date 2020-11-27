@@ -3,7 +3,7 @@
 //
 
 #include "CustomerModel.h"
-#include "../ihm/IHM.h"
+#include "ModelManager.h"
 
 struct CustomerModel::Customer customer;
 
@@ -19,7 +19,7 @@ int CustomerModel::insert(string firstname, string lastname, SADateTime birthDat
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return id;
 }
 
@@ -63,7 +63,7 @@ CustomerModel::Customer CustomerModel::getCustomerByID(int id) {
         customer.lastname = cmd.Field("lastname").asString().GetMultiByteChars();
         customer.birthDate = cmd.Field("birth_date").asDateTime();
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return customer;
 }
 
@@ -83,7 +83,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomers() {
         customer.birthDate = cmd.Field("birth_date").asDateTime();
         customers.push_back(customer);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return customers;
 }
 
@@ -103,7 +103,7 @@ vector<CustomerModel::Customer> CustomerModel::getAllCustomersByFirstAndLastName
         customer.birthDate = cmd.Field("birth_date").asDateTime();
         customers.push_back(customer);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return customers;
 }
 

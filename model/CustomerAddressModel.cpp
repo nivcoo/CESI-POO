@@ -3,7 +3,7 @@
 //
 
 #include "CustomerAddressModel.h"
-#include "../ihm/IHM.h"
+#include "ModelManager.h"
 
 int CustomerAddressModel::insert(int idCustomer, int idAddress) {
     SACommand cmd;
@@ -13,7 +13,7 @@ int CustomerAddressModel::insert(int idCustomer, int idAddress) {
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return id;
 }
 
@@ -47,7 +47,7 @@ vector<AddressModel::Address> CustomerAddressModel::getAllActiveAddressOfCustome
         if (!address.archived)
             allAddress.push_back(address);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return allAddress;
 }
 

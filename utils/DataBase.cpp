@@ -3,7 +3,6 @@
 //
 
 #include "DataBase.h"
-#include "../ihm/IHM.h"
 
 DataBase::DataBase(SAString server, SAString db, SAString user, SAString pass) : _server(server), _db(db),
                                                                                  _user(user), _pass(pass) {

@@ -26,7 +26,9 @@ QSpinBox
     background: #393e46;
 }
 
-QSpinBox#customerFormID
+
+
+QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID
 {
 	width:0px;
     height:0px;
@@ -34,19 +36,7 @@ QSpinBox#customerFormID
     padding:0px;
 }
 
-QLabel#titleCustomer {
-    border: 2px solid #393e46;
-    padding:10px;
-    border-radius: 4px;
-}
-
-QPushButton#pushButtonAddCustomer
-{
-    margin-top:40px;
-}
-
-
-QSpinBox#staffFormID
+QLineEdit#itemFormREFSave, QLineEdit#orderFormCustomerID, QLineEdit#orderFormStaffID
 {
 	width:0px;
     height:0px;
@@ -54,35 +44,19 @@ QSpinBox#staffFormID
     padding:0px;
 }
 
-QLabel#titleStaff {
+QLabel#titleCustomer, QLabel#titleStaff, QLabel#titleItem, QLabel#titleOrder, QLabel#titleItemOrder, QLabel#titlePaymentOrder {
     border: 2px solid #393e46;
     padding:10px;
     border-radius: 4px;
 }
 
-QPushButton#pushButtonAddStaff
+QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#pushButtonAddItem, QPushButton#pushButtonAddOrder
 {
     margin-top:40px;
 }
 
-QSpinBox#itemFormID
-{
-	width:0px;
-    height:0px;
-    border:none;
-    padding:0px;
-}
 
-QLabel#titleItem {
-    border: 2px solid #393e46;
-    padding:10px;
-    border-radius: 4px;
-}
 
-QPushButton#pushButtonAddItem
-{
-    margin-top:40px;
-}
 
 
 
@@ -102,6 +76,19 @@ QLineEdit {
     color: #ececec;
     padding: 1px;
     background: #393e46;
+}
+
+QComboBox {
+    border: 2px solid #393e46;
+    border-radius: 4px;
+    color: #ececec;
+    padding: 1px;
+    background: #393e46;
+}
+
+QGroupBox{
+    background: #262C36;
+    border-radius: 4px;
 }
 
 /*QWidget {

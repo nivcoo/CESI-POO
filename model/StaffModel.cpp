@@ -3,8 +3,7 @@
 //
 
 #include "StaffModel.h"
-
-#include "../ihm/IHM.h"
+#include "ModelManager.h"
 
 struct StaffModel::Staff staff;
 
@@ -21,7 +20,7 @@ int StaffModel::insert(string firstname, string lastname, SADateTime hireDate, i
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return id;
 
 }
@@ -69,7 +68,7 @@ StaffModel::Staff StaffModel::getStaffByID(int id) {
         staff.idAddress = cmd.Field("id_address").asInt64();
         staff.idSuperior = cmd.Field("id_staff").asInt64();
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return staff;
 }
 
@@ -93,7 +92,7 @@ vector<StaffModel::Staff> StaffModel::getAllStaffs() {
         staff.idSuperior = cmd.Field("id_staff").asInt64();
         staffs.push_back(staff);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return staffs;
 }
 
@@ -118,7 +117,7 @@ vector<StaffModel::Staff> StaffModel::getAllStaffsByFirstAndLastName(string firs
         staff.idSuperior = cmd.Field("id_staff").asInt64();
         staffs.push_back(staff);
     }
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return staffs;
 }
 

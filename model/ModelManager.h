@@ -25,12 +25,17 @@ public:
 
     ~ModelManager();
 
+    DataBase *getDataBase();
+    static ModelManager *get();
+
 
     static void sendCMD(SACommand *cmd);
 
     static void sendCMD(SACommand *cmd, bool close);
 
 private:
+    static ModelManager *INSTANCE;
+    DataBase *_db;
     void initDB();
 
 };

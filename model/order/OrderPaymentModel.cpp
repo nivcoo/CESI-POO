@@ -3,7 +3,7 @@
 //
 
 #include "OrderPaymentModel.h"
-#include "../../ihm/IHM.h"
+#include "../ModelManager.h"
 
 int OrderPaymentModel::insert(int paymentMethod, double amount, string orderReference) {
     SACommand cmd;
@@ -16,7 +16,7 @@ int OrderPaymentModel::insert(int paymentMethod, double amount, string orderRefe
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
     int id = cmd[1].asInt64();
-    IHM::get()->getDataBase()->closeConnection();
+    ModelManager::get()->getDataBase()->closeConnection();
     return id;
 }
 
