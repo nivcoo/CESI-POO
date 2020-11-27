@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initCustomerTab();
     initStaffTab();
     initItemTab();
+    initOrderTab();
 }
 
 MainWindow::~MainWindow() {
@@ -583,3 +584,97 @@ void MainWindow::clearItemInput() {
     ui->itemFormVAT->clear();
 
 }
+
+
+
+
+void MainWindow::orderTabButtonClicked() {
+
+}
+
+void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
+
+}
+
+void MainWindow::orderTabDeleteButtonOnTableClicked(string orderREF, int row) {
+
+}
+
+void MainWindow::initOrderTab() {
+    clearCustomerInput();
+    auto orders = OrderService::getAllOrders();
+    for (auto order : orders) {
+        addOrderToTable(order);
+    }
+    //connect(ui->pushButtonAddOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonClicked()));
+
+}
+
+
+void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
+    QTableWidget *tableWidget = ui->orderListTable;
+    tableWidget->resizeColumnsToContents();
+    tableWidget->insertRow(tableWidget->rowCount());
+    auto btnEdit = new QPushButton("Edit");
+    auto btnDelete = new QPushButton("Delete");
+    string ref = order.reference;
+    int row = tableWidget->rowCount() - 1;
+    connect(btnEdit, &QPushButton::clicked, [this, ref, row] { orderTabEditButtonOnTableClicked(ref, row); });
+    connect(btnDelete, &QPushButton::clicked,
+            [this, ref, row] { orderTabDeleteButtonOnTableClicked(ref, row); });
+
+    auto actionWidget = new QWidget();
+    auto pLayout = new QHBoxLayout(actionWidget);
+    pLayout->addWidget(btnEdit);
+    pLayout->addWidget(btnDelete);
+    pLayout->setAlignment(Qt::AlignCenter);
+    pLayout->setContentsMargins(0, 0, 10, 0);
+    actionWidget->setLayout(pLayout);
+
+    tableWidget->setCellWidget(row, 0, actionWidget);
+    tableWidget->setItem(row, 1, new QTableWidgetItem(order.reference.c_str()));
+
+    auto customer = CustomerService::getCustomerByID(order.customerID);
+
+    tableWidget->setItem(row, 2, new QTableWidgetItem(customer.firstname.c_str()));
+    tableWidget->setItem(row, 3, new QTableWidgetItem(customer.lastname.c_str()));
+
+    auto orderItems = OrderService::getAllOrderItemByOrderREF(ref);
+
+    double total = 0;
+
+    double temp = 0;
+
+    for (auto orderItem :orderItems) {
+        temp += ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity));
+        temp -= temp * orderItem.commercialDiscount;
+        total+= temp;
+    }
+
+    tableWidget->setItem(row, 4, new QTableWidgetItem(to_string(total).c_str()));
+
+
+    string date =
+            to_string(order.estimatedDeliveryDate.GetDay()) + "-" +
+            to_string(order.estimatedDeliveryDate.GetMonth()) +
+            "-" +
+            to_string(order.estimatedDeliveryDate.GetYear());
+    tableWidget->setItem(row, 5, new QTableWidgetItem(date.c_str()));
+    date = to_string(order.createdAt.GetDay()) + "-" + to_string(order.createdAt.GetMonth()) + "-" +
+           to_string(order.createdAt.GetYear());
+    tableWidget->setItem(row, 6, new QTableWidgetItem(date.c_str()));
+
+
+}
+
+void MainWindow::orderTabCancelEdit() {
+
+}
+
+void MainWindow::clearOrderInput() {
+
+}
+
+
+
+

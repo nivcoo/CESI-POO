@@ -15,10 +15,10 @@ public:
     struct OrderItem {
         string reference, referenceItem;
         int quantity;
-        float price, vat;
+        float price, vat, commercialDiscount;
     };
 
-    static void insert(string orderReference, string itemReference, int quantity, double price, double vat);
+    static void insert(string orderReference, string itemReference, int quantity, double price, double vat, double commercialDiscount);
 
     static void deleteById(string orderReference, string itemReference);
 
@@ -27,6 +27,8 @@ public:
     static std::vector<OrderItem> getMostSellItem();
 
     static std::vector<OrderItem> getLeastSellItem();
+
+    static vector<OrderItem> getAllOrderItemByOrderREF(string orderReference);
 };
 
 

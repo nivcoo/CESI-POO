@@ -6,14 +6,15 @@
 #include "../ModelManager.h"
 
 struct OrderItemModel::OrderItem orderItem;
-void OrderItemModel::insert(string orderReference, string itemReference, int quantity, double price, double vat) {
+void OrderItemModel::insert(string orderReference, string itemReference, int quantity, double price, double vat, double commercialDiscount) {
     SACommand cmd;
-    cmd.setCommandText("INSERT INTO `order__item` VALUES (:1, :2, :3, :4, :5);");
+    cmd.setCommandText("INSERT INTO `order__item` VALUES (:1, :2, :3, :4, :5, :6);");
     cmd.Param(1).setAsString() = _TSA(orderReference).c_str();
     cmd.Param(2).setAsString() = _TSA(itemReference).c_str();
     cmd.Param(3).setAsInt64() = _TSA(quantity);
     cmd.Param(4).setAsDouble() = _TSA(price);
     cmd.Param(5).setAsDouble() = _TSA(vat);
+    cmd.Param(6).setAsDouble() = _TSA(commercialDiscount);
     ModelManager::sendCMD(&cmd);
 }
 
@@ -28,6 +29,27 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getAllOrderItem() {
         orderItem.quantity = cmd.Field("quantity").asInt64();
         orderItem.price = cmd.Field("price").asDouble();
         orderItem.vat = cmd.Field("vat").asDouble();
+        orderItem.commercialDiscount = cmd.Field("commercial_discount").asDouble();
+        orders.push_back(orderItem);
+    }
+    ModelManager::get()->getDataBase()->closeConnection();
+    return orders;
+}
+
+
+vector<OrderItemModel::OrderItem> OrderItemModel::getAllOrderItemByOrderREF(string orderReference) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__item` WHERE `reference` = :1;");
+    cmd.Param(1).setAsString() = _TSA(orderReference).c_str();
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderItemModel::OrderItem> orders;
+    while (cmd.FetchNext()) {
+        orderItem.reference = cmd.Field("reference").asString().GetMultiByteChars();
+        orderItem.referenceItem = cmd.Field("reference_item").asString().GetMultiByteChars();
+        orderItem.quantity = cmd.Field("quantity").asInt64();
+        orderItem.price = cmd.Field("price").asDouble();
+        orderItem.vat = cmd.Field("vat").asDouble();
+        orderItem.commercialDiscount = cmd.Field("commercial_discount").asDouble();
         orders.push_back(orderItem);
     }
     ModelManager::get()->getDataBase()->closeConnection();

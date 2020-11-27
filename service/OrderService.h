@@ -17,7 +17,7 @@ class OrderService {
 public:
     static string addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID);
 
-    static void addItemToOrderREF(string orderREF, string referenceItems, int quantity);
+    static void addItemToOrderREF(string orderREF, string referenceItems, int quantity, double commercialDiscount);
 
     static void addPaymentToOrderREF(string orderREF, int paymentMethod, double amount);
 
@@ -30,6 +30,11 @@ public:
     static std::vector<OrderItemModel::OrderItem> getAllOrderItem();
 
     static int getOrderCountByCustomerID(int customerID);
+
+    static vector<OrderHistoryModel::Order> getAllOrders();
+
+    static vector<OrderItemModel::OrderItem> getAllOrderItemByOrderREF(string orderReference);
+
 };
 
 

@@ -10,6 +10,7 @@
 #include "../../service/CustomerService.h"
 #include "../../service/StaffService.h"
 #include "../../service/ItemService.h"
+#include "../../service/OrderService.h"
 #include <QMessageBox>
 #include <sstream>
 #include <algorithm>
@@ -88,8 +89,24 @@ private slots:
 
     void itemTabCancelEdit();
 
-
     void clearItemInput();
+
+
+
+
+    void orderTabButtonClicked();
+
+    void orderTabEditButtonOnTableClicked(string orderREF, int row);
+
+    void orderTabDeleteButtonOnTableClicked(string orderREF, int row);
+
+    void initOrderTab();
+
+    void addOrderToTable(OrderHistoryModel::Order order);
+
+    void orderTabCancelEdit();
+
+    void clearOrderInput();
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

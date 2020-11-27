@@ -113,7 +113,8 @@ CREATE TABLE IF NOT EXISTS order__item(
         reference_item Varchar (50) NOT NULL ,
         quantity       Int NOT NULL ,
         price          Float NOT NULL ,
-        vat            Float NOT NULL
+        vat            Float NOT NULL,
+        commercial_discount Float NOT NULL
 	,CONSTRAINT order__item_PK PRIMARY KEY (reference,reference_item)
 )ENGINE=InnoDB;
 
