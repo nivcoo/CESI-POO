@@ -35,9 +35,9 @@ QLabel#titleCustomer, QLabel#titleStaff, QLabel#titleItem, QLabel#titleOrder, QL
     border-radius: 4px;
 }
 
-QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#pushButtonAddItem, QPushButton#pushButtonAddOrder, QPushButton#pushButtonResetOrder
+QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#pushButtonAddItem, QPushButton#pushButtonAddOrder, QPushButton#pushButtonResetOrder, QPushButton#pushButtonCalculOrder
 {
-    margin-top:40px;
+    margin-top:30px;
 }
 
 

@@ -611,14 +611,16 @@ void MainWindow::orderTabButtonClicked() {
     int staffID = ui->orderFormStaffID->value();
     bool quantityError = false;
     string itemNameError = "";
+    int realQuantity = 0;
     for (auto orderItemWidget : _orderItemWidgets) {
         string ref = orderItemWidget.itemSelect->itemData(
                 orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
         int quantity = orderItemWidget.quantity->value();
         double commercialDiscount = orderItemWidget.commercialDiscount->value();
         auto item = ItemService::getItemByREF(ref);
-        if (item.quantity < quantity || quantity == 0) {
+        if (item.quantity < quantity) {
             quantityError = true;
+            realQuantity = item.quantity;
             itemNameError = item.name;
         }
     }
@@ -633,7 +635,9 @@ void MainWindow::orderTabButtonClicked() {
         return;
     }
     if (quantityError) {
-        showPOPUpMessage(true, "Error with Item quantity !", "Please check quantity of item : " + itemNameError);
+        showPOPUpMessage(true, "Error with Item quantity !",
+                         "Please check quantity of item : " + itemNameError + ", you can only add " +
+                         to_string(realQuantity) + " items");
         return;
     }
 
@@ -647,13 +651,15 @@ void MainWindow::orderTabButtonClicked() {
                 orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
         int quantity = orderItemWidget.quantity->value();
         double commercialDiscount = orderItemWidget.commercialDiscount->value();
-        OrderService::addItemToOrderREF(orderREF, ref, quantity, commercialDiscount);
+        if (quantity > 0)
+            OrderService::addItemToOrderREF(orderREF, ref, quantity, commercialDiscount);
     }
 
     for (auto orderPaymentWidget : _orderPaymentWidgets) {
         int type = orderPaymentWidget.paymentSelect->itemData(orderPaymentWidget.paymentSelect->currentIndex()).toInt();
         double amount = orderPaymentWidget.amount->value();
-        OrderService::addPaymentToOrderREF(orderREF, type, amount);
+        if (amount > 0)
+            OrderService::addPaymentToOrderREF(orderREF, type, amount);
     }
 
     auto order = OrderService::getOrderByREF(orderREF);
@@ -664,6 +670,43 @@ void MainWindow::orderTabButtonClicked() {
 
 void MainWindow::orderTabButtonResetOrderClicked() {
     clearOrderInput();
+}
+
+void MainWindow::orderTabButtonCalculOrderClicked() {
+
+
+    double total = 0;
+    for (auto orderItemWidget : _orderItemWidgets) {
+
+        auto item = ItemService::getItemByREF(orderItemWidget.itemSelect->itemData(
+                orderItemWidget.itemSelect->currentIndex()).toString().toStdString());
+
+        int quantity = orderItemWidget.quantity->value();
+        double commercialDiscount = orderItemWidget.commercialDiscount->value();
+        double priceIT = ((1 + item.vat) * (item.priceHt * quantity));
+
+
+
+        priceIT -= priceIT * commercialDiscount;
+        cout << priceIT << endl;
+        orderItemWidget.priceIT->setValue(priceIT);
+        total += priceIT;
+
+    }
+
+    ui->orderFormTotalPriceCart->setValue(total);
+
+    double totalPayment = 0;
+
+
+    for (auto orderPaymentWidget : _orderPaymentWidgets) {
+        totalPayment += orderPaymentWidget.amount->value();
+    }
+
+    double leftToPay = total - totalPayment;
+    ui->orderFormTotalLeftToPay->setValue((leftToPay < 0) ? 0 : leftToPay);
+
+
 }
 
 void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
@@ -691,6 +734,7 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
         if (i == 0) {
             int index = ui->orderFormItemSelect->findData(item.referenceItem.c_str());
             ui->orderFormItemSelect->setCurrentIndex(index);
+            ui->orderFormItemSelect->setEnabled(false);
             ui->orderFormItemQuantity->setValue(item.quantity);
             ui->orderFormCormmercialDiscount->setValue(item.commercialDiscount);
             ui->orderFormTotalPrice->setValue(priceIT);
@@ -706,21 +750,26 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
     auto payments = OrderService::getAllPaymentByOrderREF(orderREF);
 
 
+    double totalPayment = 0;
     for (auto payment: payments) {
+        double amount = payment.amount;
         if (i == 0) {
             ui->orderFormPaymentID->setValue(payment.id);
             int index = ui->orderFormPaymentSelect->findData(payment.paymentMethod);
             ui->orderFormPaymentSelect->setCurrentIndex(index);
-            ui->orderFormPaymentAmount->setValue(payment.amount);
+            ui->orderFormPaymentAmount->setValue(amount);
 
         } else {
-            orderTabButtonAddPaymentToOrderClicked(payment.id, payment.paymentMethod, payment.amount);
-
+            orderTabButtonAddPaymentToOrderClicked(payment.id, payment.paymentMethod, amount);
         }
+
+        totalPayment += amount;
         i++;
 
     }
 
+    double leftToPay = total - totalPayment;
+    ui->orderFormTotalLeftToPay->setValue((leftToPay < 0) ? 0 : leftToPay);
     ui->orderFormCustomerID->setValue(order.customerID);
     ui->orderFormStaffID->setValue(order.staffID);
 
@@ -762,6 +811,7 @@ void MainWindow::initOrderTab() {
     orderItemWidget.itemSelect = ui->orderFormItemSelect;
     orderItemWidget.quantity = ui->orderFormItemQuantity;
     orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
+    orderItemWidget.priceIT = ui->orderFormTotalPrice;
     _orderItemWidgets.push_back(orderItemWidget);
 
     orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
@@ -774,6 +824,7 @@ void MainWindow::initOrderTab() {
 
     connect(ui->pushButtonAddItemToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddItemToOrderClicked()));
     connect(ui->pushButtonAddPaymentToOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonAddPaymentToOrderClicked()));
+    connect(ui->pushButtonCalculOrder, SIGNAL(clicked()), this, SLOT(orderTabButtonCalculOrderClicked()));
 
 }
 
@@ -831,6 +882,8 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     auto layout1 = new QHBoxLayout;
     layout1->addWidget(new QLabel("Item"));
     auto itemSelect = new QComboBox;
+    if (!empty(ref))
+        itemSelect->setEnabled(false);
     orderTabAddItemsToComboBox(itemSelect);
     int index = itemSelect->findData(ref.c_str());
     if (empty(ref))
@@ -969,6 +1022,7 @@ void MainWindow::clearOrderInput() {
     ui->titlePaymentOrder->setText("Add Payment to order");
     ui->titleItemOrder->setText("Add Item to order");
     ui->orderFormItemSelect->clear();
+    ui->orderFormItemSelect->setEnabled(true);
     ui->orderFormItemQuantity->setValue(0);
     ui->orderFormTotalPrice->setValue(0);
     ui->orderFormCormmercialDiscount->setValue(0);

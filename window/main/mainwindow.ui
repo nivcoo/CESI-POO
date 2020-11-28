@@ -204,7 +204,11 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QComboBox" name="orderFormItemSelect"/>
+                        <widget class="QComboBox" name="orderFormItemSelect">
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </item>
@@ -287,6 +291,9 @@
                       <layout class="QHBoxLayout" name="orderH20_2">
                        <item>
                         <widget class="QPushButton" name="pushButtonAddItemToOrder">
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
                          <property name="text">
                           <string>New Items</string>
                          </property>
@@ -377,7 +384,11 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QComboBox" name="orderFormPaymentSelect"/>
+                        <widget class="QComboBox" name="orderFormPaymentSelect">
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </item>
@@ -406,6 +417,9 @@
                       <layout class="QHBoxLayout" name="orderH20">
                        <item>
                         <widget class="QPushButton" name="pushButtonAddPaymentToOrder">
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
                          <property name="text">
                           <string>New Paiement</string>
                          </property>
@@ -424,14 +438,14 @@
                <widget class="QGroupBox" name="orderFormBox2">
                 <property name="minimumSize">
                  <size>
-                  <width>250</width>
-                  <height>250</height>
+                  <width>350</width>
+                  <height>300</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>250</width>
-                  <height>250</height>
+                  <width>350</width>
+                  <height>300</height>
                  </size>
                 </property>
                 <layout class="QVBoxLayout" name="orderFormLBox2">
@@ -536,7 +550,7 @@
                   </layout>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <layout class="QHBoxLayout" name="orderH25">
                    <item>
                     <widget class="QLabel" name="orderL12">
                      <property name="text">
@@ -560,11 +574,48 @@
                   </layout>
                  </item>
                  <item>
+                  <layout class="QHBoxLayout" name="orderH26">
+                   <item>
+                    <widget class="QLabel" name="orderL13">
+                     <property name="text">
+                      <string>Left To Pay</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="orderFormTotalLeftToPay">
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="buttonSymbols">
+                      <enum>QAbstractSpinBox::NoButtons</enum>
+                     </property>
+                     <property name="maximum">
+                      <double>999999.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
                   <layout class="QHBoxLayout" name="orderH16">
                    <item alignment="Qt::AlignVCenter">
                     <widget class="QPushButton" name="pushButtonResetOrder">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
                      <property name="text">
                       <string>Reset Order</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButtonCalculOrder">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="text">
+                      <string>Calcul Total</string>
                      </property>
                     </widget>
                    </item>

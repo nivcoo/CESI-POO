@@ -97,8 +97,6 @@ private slots:
 
     void itemTabButtonClicked();
 
-    void orderTabButtonResetOrderClicked();
-
     void itemTabEditButtonOnTableClicked(string itemREF, int row);
 
     void itemTabArchiveButtonOnTableClicked(string itemREF, int row);
@@ -113,6 +111,9 @@ private slots:
 
 
     void orderTabButtonClicked();
+
+    void orderTabButtonResetOrderClicked();
+    void orderTabButtonCalculOrderClicked();
 
     void orderTabButtonAddPaymentToOrderClicked(int idVal = 0, int type = 0, double amountVal = 0);
 
