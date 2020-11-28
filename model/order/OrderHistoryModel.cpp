@@ -23,6 +23,17 @@ string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryD
 
 }
 
+void OrderHistoryModel::updateEstimatedDeliveryDateByREF(string reference, SADateTime estimatedDeliveryDate) {
+    SACommand cmd;
+
+    cout << estimatedDeliveryDate.GetYear() << endl;
+    cmd.setCommandText(
+            "UPDATE `order__history` SET estimated_delivery_date = :1 WHERE reference = :2;");
+    cmd.Param(1).setAsDateTime() = _TSA(estimatedDeliveryDate);
+    cmd.Param(2).asString() = _TSA(reference).c_str();
+    ModelManager::sendCMD(&cmd);
+}
+
 void OrderHistoryModel::deleteByREF(string reference) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `order__history` WHERE `reference` = :1;");

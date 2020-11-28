@@ -109,6 +109,7 @@ private slots:
 
     void clearItemInput();
 
+    bool orderCheckItemQuantityError();
 
     void orderTabButtonClicked();
 

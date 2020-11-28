@@ -603,12 +603,8 @@ void MainWindow::clearItemInput() {
 
 }
 
+bool MainWindow::orderCheckItemQuantityError() {
 
-void MainWindow::orderTabButtonClicked() {
-
-    QDateEdit *orderFormEstimatedDeliveryDate = ui->orderFormEstimatedDeliveryDate;
-    int customerID = ui->orderFormCustomerID->value();
-    int staffID = ui->orderFormStaffID->value();
     bool quantityError = false;
     string itemNameError = "";
     int realQuantity = 0;
@@ -625,6 +621,29 @@ void MainWindow::orderTabButtonClicked() {
         }
     }
 
+    if (quantityError) {
+        showPOPUpMessage(true, "Error with Item quantity !",
+                         "Please check quantity of item : " + itemNameError + ", you can only add " +
+                         to_string(realQuantity) + " items");
+    }
+
+    return quantityError;
+}
+
+
+void MainWindow::orderTabButtonClicked() {
+
+    string orderREFEdit = ui->orderFormREF->text().toStdString();
+
+    bool editMode = !empty(orderREFEdit);
+
+    QDateEdit *orderFormEstimatedDeliveryDate = ui->orderFormEstimatedDeliveryDate;
+    int customerID = ui->orderFormCustomerID->value();
+    int staffID = ui->orderFormStaffID->value();
+    bool quantityError = false;
+    string itemNameError = "";
+    int realQuantity = 0;
+
     if (!customerID || !staffID) {
         showPOPUpMessage(true, "Error with fields !", "Please select Customer and Staff !");
         return;
@@ -634,37 +653,86 @@ void MainWindow::orderTabButtonClicked() {
         showPOPUpMessage(true, "Error with fields !", "Please fill in all fields !");
         return;
     }
-    if (quantityError) {
-        showPOPUpMessage(true, "Error with Item quantity !",
-                         "Please check quantity of item : " + itemNameError + ", you can only add " +
-                         to_string(realQuantity) + " items");
+    if (!editMode && orderCheckItemQuantityError())
         return;
-    }
 
-    //OrderService::add
-    string orderREF = OrderService::addOrder(SADateTime(orderFormEstimatedDeliveryDate->date().year(),
-                                                        orderFormEstimatedDeliveryDate->date().month(),
-                                                        orderFormEstimatedDeliveryDate->date().day()), customerID,
-                                             staffID);
-    for (auto orderItemWidget : _orderItemWidgets) {
-        string ref = orderItemWidget.itemSelect->itemData(
-                orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
-        int quantity = orderItemWidget.quantity->value();
-        double commercialDiscount = orderItemWidget.commercialDiscount->value();
-        if (quantity > 0)
-            OrderService::addItemToOrderREF(orderREF, ref, quantity, commercialDiscount);
-    }
+    SADateTime orderFormEstimatedDeliveryDateTime = SADateTime(orderFormEstimatedDeliveryDate->date().year(),
+                                                               orderFormEstimatedDeliveryDate->date().month(),
+                                                               orderFormEstimatedDeliveryDate->date().day());
 
-    for (auto orderPaymentWidget : _orderPaymentWidgets) {
-        int type = orderPaymentWidget.paymentSelect->itemData(orderPaymentWidget.paymentSelect->currentIndex()).toInt();
-        double amount = orderPaymentWidget.amount->value();
-        if (amount > 0)
-            OrderService::addPaymentToOrderREF(orderREF, type, amount);
-    }
+    if (!editMode) {
+        //OrderService::add
+        string orderREF = OrderService::addOrder(orderFormEstimatedDeliveryDateTime, customerID,
+                                                 staffID);
+        for (auto orderItemWidget : _orderItemWidgets) {
+            string ref = orderItemWidget.itemSelect->itemData(
+                    orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
+            int quantity = orderItemWidget.quantity->value();
+            double commercialDiscount = orderItemWidget.commercialDiscount->value();
+            if (quantity > 0)
+                OrderService::addItemToOrderREF(orderREF, ref, quantity, commercialDiscount);
+        }
 
-    auto order = OrderService::getOrderByREF(orderREF);
-    addOrderToTable(order);
-    showPOPUpMessage(false, "Success !", "Adding Order with success !");
+        for (auto orderPaymentWidget : _orderPaymentWidgets) {
+            int type = orderPaymentWidget.paymentSelect->itemData(
+                    orderPaymentWidget.paymentSelect->currentIndex()).toInt();
+            double amount = orderPaymentWidget.amount->value();
+            if (amount > 0)
+                OrderService::addPaymentToOrderREF(orderREF, type, amount);
+        }
+
+        auto order = OrderService::getOrderByREF(orderREF);
+        addOrderToTable(order);
+        showPOPUpMessage(false, "Success !", "Adding Order with success !");
+
+        clearOrderInput();
+    } else {
+        OrderService::editEstimatedDeliveryDateByOrderREF(orderREFEdit, orderFormEstimatedDeliveryDateTime);
+        auto items = OrderService::getAllOrderItemByOrderREF(orderREFEdit);
+        auto payments = OrderService::getAllPaymentByOrderREF(orderREFEdit);
+
+
+        for (auto orderItemWidget : _orderItemWidgets) {
+            string ref = orderItemWidget.itemSelect->itemData(
+                    orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
+            int quantity = orderItemWidget.quantity->value();
+            double commercialDiscount = orderItemWidget.commercialDiscount->value();
+            bool exist = false;
+            for (auto item : items) {
+                if (item.referenceItem == ref)
+                    exist = true;
+            }
+
+            if (quantity > 0 && !exist)
+                OrderService::addItemToOrderREF(orderREFEdit, ref, quantity, commercialDiscount);
+            else if (quantity == 0 && exist) {
+                OrderService::deleteItemFromOrderByREF(orderREFEdit, ref);
+            }
+        }
+
+
+        for (auto orderPaymentWidget : _orderPaymentWidgets) {
+            int id = orderPaymentWidget.id->value();
+            int type = orderPaymentWidget.paymentSelect->itemData(
+                    orderPaymentWidget.paymentSelect->currentIndex()).toInt();
+            double amount = orderPaymentWidget.amount->value();
+
+            bool exist = false;
+            for (auto payment : payments) {
+                if (payment.id == id)
+                    exist = true;
+            }
+
+            if (amount > 0 && !exist)
+                OrderService::addPaymentToOrderREF(orderREFEdit, type, amount);
+            else if (amount == 0 && exist) {
+                OrderService::deletePaymentFromOrderByID(id);
+            }
+        }
+
+        showPOPUpMessage(false, "Success !", "Editing Order with success !");
+
+    }
 
 }
 
@@ -674,8 +742,12 @@ void MainWindow::orderTabButtonResetOrderClicked() {
 
 void MainWindow::orderTabButtonCalculOrderClicked() {
 
+    string orderREFEdit = ui->orderFormREF->text().toStdString();
 
+    bool editMode = !empty(orderREFEdit);
     double total = 0;
+    if (!editMode)
+        orderCheckItemQuantityError();
     for (auto orderItemWidget : _orderItemWidgets) {
 
         auto item = ItemService::getItemByREF(orderItemWidget.itemSelect->itemData(
@@ -684,7 +756,6 @@ void MainWindow::orderTabButtonCalculOrderClicked() {
         int quantity = orderItemWidget.quantity->value();
         double commercialDiscount = orderItemWidget.commercialDiscount->value();
         double priceIT = ((1 + item.vat) * (item.priceHt * quantity));
-
 
 
         priceIT -= priceIT * commercialDiscount;
@@ -737,7 +808,9 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
             ui->orderFormItemSelect->setEnabled(false);
             ui->orderFormItemQuantity->setValue(item.quantity);
             ui->orderFormCormmercialDiscount->setValue(item.commercialDiscount);
+            ui->orderFormCormmercialDiscount->setReadOnly(true);
             ui->orderFormTotalPrice->setValue(priceIT);
+            ui->orderFormTotalPrice->setReadOnly(true);
         } else {
 
             orderTabButtonAddItemToOrderClicked(item.referenceItem, item.quantity, item.commercialDiscount, priceIT);
@@ -749,15 +822,18 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
     ui->orderFormTotalPriceCart->setValue(total);
     auto payments = OrderService::getAllPaymentByOrderREF(orderREF);
 
-
+    i = 0;
     double totalPayment = 0;
     for (auto payment: payments) {
         double amount = payment.amount;
         if (i == 0) {
             ui->orderFormPaymentID->setValue(payment.id);
+
             int index = ui->orderFormPaymentSelect->findData(payment.paymentMethod);
             ui->orderFormPaymentSelect->setCurrentIndex(index);
+            ui->orderFormPaymentSelect->setEnabled(false);
             ui->orderFormPaymentAmount->setValue(amount);
+
 
         } else {
             orderTabButtonAddPaymentToOrderClicked(payment.id, payment.paymentMethod, amount);
@@ -815,6 +891,7 @@ void MainWindow::initOrderTab() {
     _orderItemWidgets.push_back(orderItemWidget);
 
     orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
+    orderPaymentWidget.id = ui->orderFormPaymentID;
     orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
     orderPaymentWidget.amount = ui->orderFormPaymentAmount;
     _orderPaymentWidgets.push_back(orderPaymentWidget);
@@ -836,6 +913,7 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked(int idVal, int type, dou
     }
     QHBoxLayout *mainLayout = new QHBoxLayout;
 
+    bool editMode = idVal != 0;
     auto id = new QHBoxLayout;
     auto spinID = new QSpinBox;
     spinID->setValue(idVal);
@@ -850,6 +928,8 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked(int idVal, int type, dou
     if (!type)
         index = 0;
     paymentSelect->setCurrentIndex(index);
+    if(editMode)
+        paymentSelect->setEnabled(false);
     layout1->addWidget(paymentSelect);
 
     auto layout2 = new QHBoxLayout;
@@ -878,15 +958,17 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
         showPOPUpMessage(true, "You have reached the limit", "You can add only 10 items to an order !");
         return;
     }
+
+    bool editMode = !empty(ref);
     QHBoxLayout *mainLayout = new QHBoxLayout;
     auto layout1 = new QHBoxLayout;
     layout1->addWidget(new QLabel("Item"));
     auto itemSelect = new QComboBox;
-    if (!empty(ref))
+    if (editMode)
         itemSelect->setEnabled(false);
     orderTabAddItemsToComboBox(itemSelect);
     int index = itemSelect->findData(ref.c_str());
-    if (empty(ref))
+    if (!editMode)
         index = 0;
 
     itemSelect->setCurrentIndex(index);
@@ -902,6 +984,8 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     auto commercialDiscount = new QDoubleSpinBox;
     commercialDiscount->setValue(commercialDiscountVal);
     commercialDiscount->setMaximum(1);
+    if(editMode)
+        commercialDiscount->setReadOnly(true);
     layout3->addWidget(commercialDiscount);
     auto layout4 = new QHBoxLayout;
     layout4->addWidget(new QLabel("Price IT"));
@@ -1023,12 +1107,20 @@ void MainWindow::clearOrderInput() {
     ui->titleItemOrder->setText("Add Item to order");
     ui->orderFormItemSelect->clear();
     ui->orderFormItemSelect->setEnabled(true);
+
     ui->orderFormItemQuantity->setValue(0);
+    ui->orderFormItemQuantity->setReadOnly(false);
     ui->orderFormTotalPrice->setValue(0);
+    ui->orderFormTotalPrice->setReadOnly(false);
     ui->orderFormCormmercialDiscount->setValue(0);
+    ui->orderFormCormmercialDiscount->setReadOnly(false);
+
     ui->orderFormPaymentSelect->clear();
+    ui->orderFormPaymentSelect->setEnabled(true);
     ui->orderFormPaymentAmount->setValue(0);
+    ui->orderFormPaymentAmount->setReadOnly(false);
     ui->orderFormPaymentID->setValue(0);
+    ui->orderFormPaymentID->setReadOnly(false);
 
     int i = 0;
     auto beginI = _orderItemWidgets.begin();
@@ -1064,6 +1156,7 @@ void MainWindow::clearOrderInput() {
     orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
     _orderItemWidgets.push_back(orderItemWidget);
     orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
+    orderPaymentWidget.id = ui->orderFormPaymentID;
     orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
     orderPaymentWidget.amount = ui->orderFormPaymentAmount;
     _orderPaymentWidgets.push_back(orderPaymentWidget);

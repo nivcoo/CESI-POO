@@ -86,3 +86,15 @@ double OrderService::getPaymentAmountForOrderByREF(string orderREF) {
 vector<OrderPaymentModel::Payment> OrderService::getAllPaymentByOrderREF(string orderReference) {
     return OrderPaymentModel::getAllPaymentByOrderREF(orderReference);
 }
+
+void OrderService::editEstimatedDeliveryDateByOrderREF(string reference, SADateTime estimatedDeliveryDate) {
+    OrderHistoryModel::updateEstimatedDeliveryDateByREF(reference, estimatedDeliveryDate);
+}
+
+void OrderService::deleteItemFromOrderByREF(string orderReference, string itemReference) {
+    OrderItemModel::deleteByREF(orderReference, itemReference);
+}
+
+void OrderService::deletePaymentFromOrderByID(int itemReference) {
+    OrderPaymentModel::deleteByID(itemReference);
+}

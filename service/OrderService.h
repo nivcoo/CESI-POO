@@ -17,7 +17,13 @@ class OrderService {
 public:
     static string addOrder(SADateTime estimatedDeliveryDate, int customerID, int staffID);
 
+    static void editEstimatedDeliveryDateByOrderREF(string reference, SADateTime estimatedDeliveryDate);
+
     static void deleteOrderByREF(string orderREF);
+
+    static void deleteItemFromOrderByREF(string orderReference, string itemReference);
+
+    static void deletePaymentFromOrderByID(int paymentID);
 
     static double getPaymentAmountForOrderByREF(string orderREF);
 

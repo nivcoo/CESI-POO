@@ -56,7 +56,7 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getAllOrderItemByOrderREF(stri
     return orders;
 }
 
-void OrderItemModel::deleteById(string orderReference, string itemReference) {
+void OrderItemModel::deleteByREF(string orderReference, string itemReference) {
     SACommand cmd;
     cmd.setCommandText("DELETE FROM `order__item` WHERE `reference` = :1 AND `reference_item` = :2;");
     cmd.Param(1).setAsString() = _TSA(orderReference).c_str();

@@ -20,7 +20,7 @@ public:
 
     static void insert(string orderReference, string itemReference, int quantity, double price, double vat, double commercialDiscount);
 
-    static void deleteById(string orderReference, string itemReference);
+    static void deleteByREF(string orderReference, string itemReference);
 
     static std::vector<OrderItem> getAllOrderItem();
 
