@@ -28,21 +28,6 @@ QSpinBox
 
 
 
-QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID, QSpinBox#orderFormCustomerID, QSpinBox#orderFormStaffID
-{
-	width:0px;
-    height:0px;
-    border:none;
-    padding:0px;
-}
-
-QLineEdit#itemFormREFSave
-{
-	width:0px;
-    height:0px;
-    border:none;
-    padding:0px;
-}
 
 QLabel#titleCustomer, QLabel#titleStaff, QLabel#titleItem, QLabel#titleOrder, QLabel#titleItemOrder, QLabel#titlePaymentOrder {
     border: 2px solid #393e46;

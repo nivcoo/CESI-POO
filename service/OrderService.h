@@ -39,6 +39,8 @@ public:
 
     static vector<OrderItemModel::OrderItem> getAllOrderItemByOrderREF(string orderReference);
 
+    static vector<OrderPaymentModel::Payment> getAllPaymentByOrderREF(string orderReference);
+
 };
 
 

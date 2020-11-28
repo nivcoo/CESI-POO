@@ -355,6 +355,19 @@
                    <item>
                     <layout class="QHBoxLayout" name="orderH17">
                      <item>
+                      <widget class="QSpinBox" name="orderFormPaymentID">
+                       <property name="maximumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
                       <layout class="QHBoxLayout" name="orderH18">
                        <item>
                         <widget class="QLabel" name="orderL8">
@@ -426,24 +439,23 @@
                   <enum>QLayout::SetNoConstraint</enum>
                  </property>
                  <item>
+                  <widget class="QLineEdit" name="orderFormREF">
+                   <property name="styleSheet">
+                    <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QSpinBox" name="orderFormStaffID">
                    <property name="styleSheet">
-                    <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-
-                                                                </string>
+                    <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <widget class="QSpinBox" name="orderFormCustomerID">
                    <property name="styleSheet">
-                    <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-
-                                                                </string>
+                    <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
                    </property>
                   </widget>
                  </item>
@@ -703,11 +715,7 @@
              <item>
               <widget class="QLineEdit" name="itemFormREFSave">
                <property name="styleSheet">
-                <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-
-                                                                </string>
+                <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
                </property>
               </widget>
              </item>
@@ -990,10 +998,7 @@
                 <string>customerFormID</string>
                </property>
                <property name="styleSheet">
-                <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-                                                                </string>
+                <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
                </property>
               </widget>
              </item>
@@ -1381,10 +1386,7 @@
                 <string>staffFormID</string>
                </property>
                <property name="styleSheet">
-                <string notr="true">width:0px;
-                                                                    height:0px;
-                                                                    border:none;
-                                                                </string>
+                <string notr="true">width:0px;height:0px;border:none;padding:0px;</string>
                </property>
               </widget>
              </item>

@@ -473,6 +473,7 @@ void MainWindow::itemTabEditButtonOnTableClicked(string itemREF, int row) {
 
     auto item = ItemService::getItemByREF(itemREF);
     ui->itemFormREF->setText(item.reference.c_str());
+    ui->itemFormREF->setReadOnly(true);
     ui->itemFormName->setText(item.name.c_str());
     ui->itemFormResuplyThreshold->setValue(item.resuplyThreshold);
     ui->itemFormQuantity->setValue(item.quantity);
@@ -592,11 +593,13 @@ void MainWindow::addItemToTable(ItemModel::Item item) {
 void MainWindow::clearItemInput() {
     ui->itemFormREFSave->clear();
     ui->itemFormREF->clear();
+    ui->itemFormREF->setReadOnly(false);
     ui->itemFormName->clear();
     ui->itemFormResuplyThreshold->clear();
     ui->itemFormQuantity->clear();
     ui->itemFormPriceHT->clear();
     ui->itemFormVAT->clear();
+
 
 }
 
@@ -664,7 +667,76 @@ void MainWindow::orderTabButtonResetOrderClicked() {
 }
 
 void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
+    if (ui->orderFormREF->text() != "")
+        return;
 
+    clearOrderInput();
+
+    ui->orderFormREF->setText(orderREF.c_str());
+
+    ui->titleOrder->setText("Edit Order Form");
+    ui->pushButtonAddOrder->setText("Edit Order");
+    ui->titlePaymentOrder->setText("Edit Payments to order");
+    ui->titleItemOrder->setText("Edit Items to order");
+
+    auto order = OrderService::getOrderByREF(orderREF);
+    auto items = OrderService::getAllOrderItemByOrderREF(orderREF);
+    int i = 0;
+    double total = 0;
+    for (auto item: items) {
+
+        double priceIT = ((1 + item.vat) * (item.price * item.quantity));
+        priceIT -= priceIT * item.commercialDiscount;
+        total += priceIT;
+        if (i == 0) {
+            int index = ui->orderFormItemSelect->findData(item.referenceItem.c_str());
+            ui->orderFormItemSelect->setCurrentIndex(index);
+            ui->orderFormItemQuantity->setValue(item.quantity);
+            ui->orderFormCormmercialDiscount->setValue(item.commercialDiscount);
+            ui->orderFormTotalPrice->setValue(priceIT);
+        } else {
+
+            orderTabButtonAddItemToOrderClicked(item.referenceItem, item.quantity, item.commercialDiscount, priceIT);
+
+        }
+        i++;
+
+    }
+    ui->orderFormTotalPriceCart->setValue(total);
+    auto payments = OrderService::getAllPaymentByOrderREF(orderREF);
+
+
+    for (auto payment: payments) {
+        if (i == 0) {
+            ui->orderFormPaymentID->setValue(payment.id);
+            int index = ui->orderFormPaymentSelect->findData(payment.paymentMethod);
+            ui->orderFormPaymentSelect->setCurrentIndex(index);
+            ui->orderFormPaymentAmount->setValue(payment.amount);
+
+        } else {
+            orderTabButtonAddPaymentToOrderClicked(payment.id, payment.paymentMethod, payment.amount);
+
+        }
+        i++;
+
+    }
+
+    ui->orderFormCustomerID->setValue(order.customerID);
+    ui->orderFormStaffID->setValue(order.staffID);
+
+    auto customer = CustomerService::getCustomerByID(order.customerID);
+    string textCustomer = "Customer - " + customer.firstname + " " + customer.lastname;
+
+    auto staff = StaffService::getStaffByID(order.staffID);
+    string textStaff = "Staff - " + staff.firstname + " " + staff.lastname;
+
+
+    ui->orderL1->setText(textCustomer.c_str());
+    ui->orderL3->setText(textStaff.c_str());
+    QDate date;
+    date.setDate(order.estimatedDeliveryDate.GetYear(), order.estimatedDeliveryDate.GetMonth(),
+                 order.estimatedDeliveryDate.GetDay());
+    ui->orderFormEstimatedDeliveryDate->setDate(date);
 }
 
 void MainWindow::orderTabDeleteButtonOnTableClicked(string orderREF, int row) {
@@ -706,12 +778,19 @@ void MainWindow::initOrderTab() {
 }
 
 
-void MainWindow::orderTabButtonAddPaymentToOrderClicked(int type, double amountVal) {
+void MainWindow::orderTabButtonAddPaymentToOrderClicked(int idVal, int type, double amountVal) {
     if (_orderPaymentWidgets.size() >= 4) {
         showPOPUpMessage(true, "You have reached the limit", "You can add only 4 payments to an order !");
         return;
     }
     QHBoxLayout *mainLayout = new QHBoxLayout;
+
+    auto id = new QHBoxLayout;
+    auto spinID = new QSpinBox;
+    spinID->setValue(idVal);
+    spinID->setMaximumWidth(0);
+    spinID->setStyleSheet("width:0px;height:0px;border:none;padding:0px;");
+    id->addWidget(spinID);
     auto layout1 = new QHBoxLayout;
     layout1->addWidget(new QLabel("Type"));
     auto paymentSelect = new QComboBox;
@@ -728,17 +807,15 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked(int type, double amountV
     amount->setMaximum(999999);
     amount->setValue(amountVal);
     layout2->addWidget(amount);
-
+    mainLayout->addLayout(id);
     mainLayout->addLayout(layout1);
     mainLayout->addLayout(layout2);
-
     ui->orderPaymentsLayout->addLayout(mainLayout);
     ui->orderPaymentFormBox->setMinimumHeight(ui->orderPaymentFormBox->minimumHeight() + 28);
-
+    orderPaymentWidget.id = spinID;
     orderPaymentWidget.paymentSelect = paymentSelect;
     orderPaymentWidget.amount = amount;
     orderPaymentWidget.layout = mainLayout;
-
     _orderPaymentWidgets.push_back(orderPaymentWidget);
 
 }
@@ -790,6 +867,7 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     orderItemWidget.quantity = quantity;
     orderItemWidget.commercialDiscount = commercialDiscount;
     orderItemWidget.layout = mainLayout;
+    orderItemWidget.priceIT = priceIT;
     _orderItemWidgets.push_back(orderItemWidget);
 }
 
@@ -849,7 +927,7 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
     double temp = 0;
 
     for (auto orderItem :orderItems) {
-        temp += ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity));
+        temp = ((1 + orderItem.vat) * (orderItem.price * orderItem.quantity));
         temp -= temp * orderItem.commercialDiscount;
         total += temp;
     }
@@ -876,22 +954,28 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
 
 }
 
-void MainWindow::orderTabCancelEdit() {
-
-}
-
 void MainWindow::clearOrderInput() {
     ui->orderFormCustomerID->setValue(0);
     ui->orderFormStaffID->setValue(0);
+    ui->orderFormREF->clear();
     ui->orderFormEstimatedDeliveryDate->clear();
     ui->orderFormTotalPriceCart->clear();
     ui->orderL1->setText("Please Select Customer from Customer Tab");
     ui->orderL3->setText("Please Select Staff from Staff Tab");
-    ui->orderFormItemSelect->setCurrentIndex(0);
+
+
+    ui->titleOrder->setText("Add Order Form");
+    ui->pushButtonAddOrder->setText("Add Order");
+    ui->titlePaymentOrder->setText("Add Payment to order");
+    ui->titleItemOrder->setText("Add Item to order");
+    ui->orderFormItemSelect->clear();
     ui->orderFormItemQuantity->setValue(0);
+    ui->orderFormTotalPrice->setValue(0);
     ui->orderFormCormmercialDiscount->setValue(0);
-    ui->orderFormPaymentSelect->setCurrentIndex(0);
+    ui->orderFormPaymentSelect->clear();
     ui->orderFormPaymentAmount->setValue(0);
+    ui->orderFormPaymentID->setValue(0);
+
     int i = 0;
     auto beginI = _orderItemWidgets.begin();
     for (auto orderItemWidget : _orderItemWidgets) {
@@ -900,9 +984,7 @@ void MainWindow::clearOrderInput() {
             delete orderItemWidget.itemSelect;
             delete orderItemWidget.quantity;
             delete orderItemWidget.commercialDiscount;
-
-            _orderItemWidgets.erase(beginI + i);
-
+            delete orderItemWidget.priceIT;
             ui->orderItemFormBox->setMinimumHeight(ui->orderItemFormBox->minimumHeight() - 28);
         }
         i++;
@@ -911,15 +993,26 @@ void MainWindow::clearOrderInput() {
     auto beginP = _orderPaymentWidgets.begin();
     for (auto orderPaymentWidget : _orderPaymentWidgets) {
         if (i > 0) {
+            delete orderPaymentWidget.id;
             delete orderPaymentWidget.layout;
             delete orderPaymentWidget.paymentSelect;
             delete orderPaymentWidget.amount;
-            _orderPaymentWidgets.erase(beginP + i);
-
             ui->orderPaymentFormBox->setMinimumHeight(ui->orderPaymentFormBox->minimumHeight() - 28);
         }
         i++;
     }
+
+    _orderItemWidgets.clear();
+    _orderPaymentWidgets.clear();
+    orderTabAddItemsToComboBox(ui->orderFormItemSelect);
+    orderItemWidget.itemSelect = ui->orderFormItemSelect;
+    orderItemWidget.quantity = ui->orderFormItemQuantity;
+    orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
+    _orderItemWidgets.push_back(orderItemWidget);
+    orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
+    orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
+    orderPaymentWidget.amount = ui->orderFormPaymentAmount;
+    _orderPaymentWidgets.push_back(orderPaymentWidget);
 }
 
 

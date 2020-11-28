@@ -29,16 +29,18 @@ Q_OBJECT
 public:
 
     struct OrderItemWidget {
-        QLayout * layout;
-        QComboBox * itemSelect;
-        QSpinBox * quantity;
-        QDoubleSpinBox * commercialDiscount;
+        QLayout *layout;
+        QComboBox *itemSelect;
+        QSpinBox *quantity;
+        QDoubleSpinBox *commercialDiscount;
+        QDoubleSpinBox *priceIT;
     };
 
     struct OrderPaymentWidget {
-        QLayout * layout;
-        QComboBox * paymentSelect;
-        QDoubleSpinBox * amount;
+        QSpinBox *id;
+        QLayout *layout;
+        QComboBox *paymentSelect;
+        QDoubleSpinBox *amount;
     };
 
     MainWindow(QWidget *parent = nullptr);
@@ -93,8 +95,6 @@ private slots:
     void clearStaffInput();
 
 
-
-
     void itemTabButtonClicked();
 
     void orderTabButtonResetOrderClicked();
@@ -112,19 +112,17 @@ private slots:
     void clearItemInput();
 
 
-
-
     void orderTabButtonClicked();
 
-    void orderTabButtonAddPaymentToOrderClicked(int type = 0, double amountVal = 0);
+    void orderTabButtonAddPaymentToOrderClicked(int idVal = 0, int type = 0, double amountVal = 0);
 
     void orderTabButtonAddItemToOrderClicked(string ref = "", int quantityVal = 0, double commercialDiscountVal = 0,
                                              double priceIT = 0);
 
 
-    void orderTabAddItemsToComboBox(QComboBox * itemSelect);
+    void orderTabAddItemsToComboBox(QComboBox *itemSelect);
 
-    void orderTabAddPaymentsToComboBox(QComboBox * itemSelect);
+    void orderTabAddPaymentsToComboBox(QComboBox *itemSelect);
 
     void orderTabEditButtonOnTableClicked(string orderREF, int row);
 
@@ -133,8 +131,6 @@ private slots:
     void initOrderTab();
 
     void addOrderToTable(OrderHistoryModel::Order order);
-
-    void orderTabCancelEdit();
 
     void clearOrderInput();
 };

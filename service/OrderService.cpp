@@ -82,3 +82,7 @@ void OrderService::deleteOrderByREF(string orderREF) {
 double OrderService::getPaymentAmountForOrderByREF(string orderREF) {
     return OrderPaymentModel::getAmountForOrderByREF(orderREF);
 }
+
+vector<OrderPaymentModel::Payment> OrderService::getAllPaymentByOrderREF(string orderReference) {
+    return OrderPaymentModel::getAllPaymentByOrderREF(orderReference);
+}

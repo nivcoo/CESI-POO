@@ -5,6 +5,8 @@
 #include "OrderPaymentModel.h"
 #include "../ModelManager.h"
 
+struct OrderPaymentModel::Payment payment;
+
 int OrderPaymentModel::insert(int paymentMethod, double amount, string orderReference) {
     SACommand cmd;
     cmd.setCommandText("INSERT INTO `order__payment` VALUES (:1, :2, :3, :4, :5); SELECT LAST_INSERT_ID();");
@@ -37,4 +39,23 @@ double OrderPaymentModel::getAmountForOrderByREF(string ref) {
     int id = cmd[1].asDouble();
     ModelManager::get()->getDataBase()->closeConnection();
     return id;
+}
+
+vector<OrderPaymentModel::Payment> OrderPaymentModel::getAllPaymentByOrderREF(string orderReference) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT * FROM `order__payment` WHERE `reference` = :1;");
+    cmd.Param(1).setAsString() = _TSA(orderReference).c_str();
+    ModelManager::sendCMD(&cmd, false);
+    vector<OrderPaymentModel::Payment> payments;
+    while (cmd.FetchNext()) {
+        payment.id = cmd.Field("id").asInt64();
+        payment.paymentMethod = cmd.Field("payment_method").asInt64();
+        payment.amount = cmd.Field("amount").asDouble();
+        payment.soldAt = cmd.Field("sold_at").asDateTime();
+        payment.reference = cmd.Field("reference").asString().GetMultiByteChars();
+
+        payments.push_back(payment);
+    }
+    ModelManager::get()->getDataBase()->closeConnection();
+    return payments;
 }
