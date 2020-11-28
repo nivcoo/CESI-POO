@@ -26,7 +26,7 @@ void DataBase::connectIfNot() {
     if (!_con.isConnected()) {
         try {
             _con.Connect(_server + "@" + _db, _user, _pass, SA_MySQL_Client);
-            cout << "We are connected!" << endl;
+            //cout << "We are connected!" << endl;
         }
         catch (SAException &x) {
             displayDBError(x);
@@ -39,7 +39,7 @@ void DataBase::connectIfNot() {
 void DataBase::closeConnection() {
     if (_con.isConnected()) {
         _con.Disconnect();
-        cout << "We are disconnected!" << endl;
+        //cout << "We are disconnected!" << endl;
     }
 }
 
