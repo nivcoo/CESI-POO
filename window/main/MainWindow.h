@@ -114,6 +114,7 @@ private slots:
     void orderTabButtonClicked();
 
     void orderTabButtonResetOrderClicked();
+
     void orderTabButtonCalculOrderClicked();
 
     void orderTabButtonAddPaymentToOrderClicked(int idVal = 0, int type = 0, double amountVal = 0);

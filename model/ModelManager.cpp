@@ -89,7 +89,9 @@ void ModelManager::sendCMD(SACommand *cmd, bool close) {
 }
 
 ModelManager::~ModelManager() {
+    _db->closeConnection();
     delete _db;
+    delete INSTANCE;
 }
 
 DataBase *ModelManager::getDataBase() {
