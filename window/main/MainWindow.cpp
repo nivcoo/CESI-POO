@@ -164,10 +164,28 @@ void MainWindow::customerTabButtonClicked() {
                                                      customerFormBirthDate->date().month(),
                                                      customerFormBirthDate->date().day()));
     }
-    CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1, customerFormPostalCode1,
-                                            customerFormCity1);
-    CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2, customerFormPostalCode2,
-                                            customerFormCity2);
+
+    for (auto address : CustomerService::getAllActiveAddressOfCustomerID(customerID)) {
+
+
+        bool edited = false;
+        if (address.type == 1) {
+            edited = customerFormAddressLine1 != address.addressLine || customerFormPostalCode1 != address.postalCode ||
+                     customerFormCity1 != address.city;
+            if (edited)
+                CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1,
+                                                        customerFormPostalCode1,
+                                                        customerFormCity1);
+        } else if (address.type == 2) {
+            edited = customerFormAddressLine2 != address.addressLine || customerFormPostalCode2 != address.postalCode ||
+                     customerFormCity2 != address.city;
+            if (edited)
+                CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2,
+                                                        customerFormPostalCode2,
+                                                        customerFormCity2);
+        }
+
+    }
 
 
     if (!editMode) {
@@ -369,8 +387,10 @@ void MainWindow::staffTabButtonClicked() {
                                       SADateTime(staffFormHireDate->date().year(),
                                                  staffFormHireDate->date().month(),
                                                  staffFormHireDate->date().day()), 1);
-
-        StaffService::updateStaffAddress(staffID, staffFormAddressLine, staffFormPostalCode, staffFormCity);
+        auto staff = StaffService::getStaffByID(staffID);
+        if (staff.addressLine != staffFormAddressLine || staff.postalCode != staffFormPostalCode ||
+            staff.city != staffFormCity)
+            StaffService::updateStaffAddress(staffID, staffFormAddressLine, staffFormPostalCode, staffFormCity);
     }
 
 
@@ -928,7 +948,7 @@ void MainWindow::orderTabButtonAddPaymentToOrderClicked(int idVal, int type, dou
     if (!type)
         index = 0;
     paymentSelect->setCurrentIndex(index);
-    if(editMode)
+    if (editMode)
         paymentSelect->setEnabled(false);
     layout1->addWidget(paymentSelect);
 
@@ -984,7 +1004,7 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     auto commercialDiscount = new QDoubleSpinBox;
     commercialDiscount->setValue(commercialDiscountVal);
     commercialDiscount->setMaximum(1);
-    if(editMode)
+    if (editMode)
         commercialDiscount->setReadOnly(true);
     layout3->addWidget(commercialDiscount);
     auto layout4 = new QHBoxLayout;
