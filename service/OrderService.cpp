@@ -102,3 +102,7 @@ void OrderService::deletePaymentFromOrderByID(int itemReference) {
 void OrderService::editPaymentAmountByID(int paymentID, double amount) {
     OrderPaymentModel::updateAmountBuID(paymentID, amount);
 }
+
+void OrderService::editCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount) {
+    OrderItemModel::updateCommercialDiscountFromOrderByREF(orderReference, itemReference, commercialDiscount);
+}

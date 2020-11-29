@@ -727,6 +727,8 @@ void MainWindow::orderTabButtonClicked() {
                 OrderService::addItemToOrderREF(orderREFEdit, ref, quantity, commercialDiscount);
             else if (quantity == 0 && exist) {
                 OrderService::deleteItemFromOrderByREF(orderREFEdit, ref);
+            } else if (quantity >= 0 && exist) {
+                OrderService::editCommercialDiscountFromOrderByREF(orderREFEdit, ref, commercialDiscount);
             }
         }
 
@@ -781,7 +783,6 @@ void MainWindow::orderTabButtonCalculOrderClicked() {
 
 
         priceIT -= priceIT * commercialDiscount;
-        cout << priceIT << endl;
         orderItemWidget.priceIT->setValue(priceIT);
         total += priceIT;
 
@@ -830,7 +831,7 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
             ui->orderFormItemSelect->setEnabled(false);
             ui->orderFormItemQuantity->setValue(item.quantity);
             ui->orderFormCormmercialDiscount->setValue(item.commercialDiscount);
-            ui->orderFormCormmercialDiscount->setReadOnly(true);
+            //ui->orderFormCormmercialDiscount->setReadOnly(true);
             ui->orderFormTotalPrice->setValue(priceIT);
             ui->orderFormTotalPrice->setReadOnly(true);
         } else {

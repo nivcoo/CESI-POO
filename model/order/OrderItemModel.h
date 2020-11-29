@@ -29,6 +29,8 @@ public:
     static std::vector<OrderItem> getLeastSellItem();
 
     static vector<OrderItem> getAllOrderItemByOrderREF(string orderReference);
+
+    static void updateCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount);
 };
 
 

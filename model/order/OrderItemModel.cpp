@@ -100,3 +100,16 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getLeastSellItem() {
     ModelManager::get()->getDataBase()->closeConnection();
     return orders;
 }
+
+void
+OrderItemModel::updateCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount) {
+
+    SACommand cmd;
+    cmd.setCommandText(
+            "UPDATE `order__item` SET commercial_discount = :1 WHERE reference = :2 AND reference_item = :3;");
+    cmd.Param(1).setAsDouble() = _TSA(commercialDiscount);
+    cmd.Param(2).setAsString() = _TSA(orderReference.c_str());
+    cmd.Param(3).setAsString() = _TSA(itemReference.c_str());
+    ModelManager::sendCMD(&cmd);
+
+}

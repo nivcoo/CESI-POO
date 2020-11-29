@@ -49,6 +49,8 @@ public:
 
     static void editPaymentAmountByID(int paymentID, double amount);
 
+    static void editCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount);
+
 };
 
 
