@@ -25,9 +25,9 @@ public:
 
     static double getTotalPurchasesOfCustomerByID(int customerID);
 
-    static std::vector<OrderItemModel::OrderItem> getBestSeller();
+    static std::vector<OrderItemModel::OrderItem> getItemsBestSelled();
 
-    static vector<OrderItemModel::OrderItem> getLeastSeller();
+    static vector<OrderItemModel::OrderItem> getItemsLeastSelled();
 
 };
 

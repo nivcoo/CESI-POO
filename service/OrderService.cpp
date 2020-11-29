@@ -108,5 +108,5 @@ void OrderService::editCommercialDiscountFromOrderByREF(string orderReference, s
 }
 
 double OrderService::getTotalPurchasesOfCustomerByID(int customerID) {
-    return OrderHistoryModel::getAmountOfAllOrdersOfCustomerByID(customerID);
+    return OrderHistoryModel::getTotalPurchasesOfCustomerByID(customerID);
 }
