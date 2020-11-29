@@ -47,6 +47,8 @@ public:
 
     static vector<OrderPaymentModel::Payment> getAllPaymentByOrderREF(string orderReference);
 
+    static void editPaymentAmountByID(int paymentID, double amount);
+
 };
 
 

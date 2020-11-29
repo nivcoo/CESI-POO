@@ -747,6 +747,8 @@ void MainWindow::orderTabButtonClicked() {
                 OrderService::addPaymentToOrderREF(orderREFEdit, type, amount);
             else if (amount == 0 && exist) {
                 OrderService::deletePaymentFromOrderByID(id);
+            } else if (amount >= 0 && exist) {
+                OrderService::editPaymentAmountByID(id, amount);
             }
         }
 

@@ -25,8 +25,6 @@ string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryD
 
 void OrderHistoryModel::updateEstimatedDeliveryDateByREF(string reference, SADateTime estimatedDeliveryDate) {
     SACommand cmd;
-
-    cout << estimatedDeliveryDate.GetYear() << endl;
     cmd.setCommandText(
             "UPDATE `order__history` SET estimated_delivery_date = :1 WHERE reference = :2;");
     cmd.Param(1).setAsDateTime() = _TSA(estimatedDeliveryDate);

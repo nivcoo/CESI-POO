@@ -27,8 +27,9 @@ public:
 
     static double getAmountForOrderByREF(string ref);
 
-
     static vector<Payment> getAllPaymentByOrderREF(string orderReference);
+
+    static void updateAmountBuID(int id, double amount);
 
 };
 

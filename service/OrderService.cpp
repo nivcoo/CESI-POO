@@ -98,3 +98,7 @@ void OrderService::deleteItemFromOrderByREF(string orderReference, string itemRe
 void OrderService::deletePaymentFromOrderByID(int itemReference) {
     OrderPaymentModel::deleteByID(itemReference);
 }
+
+void OrderService::editPaymentAmountByID(int paymentID, double amount) {
+    OrderPaymentModel::updateAmountBuID(paymentID, amount);
+}

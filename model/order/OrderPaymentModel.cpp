@@ -59,3 +59,14 @@ vector<OrderPaymentModel::Payment> OrderPaymentModel::getAllPaymentByOrderREF(st
     ModelManager::get()->getDataBase()->closeConnection();
     return payments;
 }
+
+void OrderPaymentModel::updateAmountBuID(int id, double amount) {
+
+    SACommand cmd;
+    cmd.setCommandText(
+            "UPDATE `order__payment` SET amount = :1 WHERE id = :2;");
+    cmd.Param(1).setAsDouble() = _TSA(amount);
+    cmd.Param(2).setAsInt64() = _TSA(id);
+    ModelManager::sendCMD(&cmd);
+
+}
