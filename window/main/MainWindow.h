@@ -7,6 +7,7 @@
 
 
 #include <QMainWindow>
+#include "../../model/ModelManager.h"
 #include "../../service/CustomerService.h"
 #include "../../service/StaffService.h"
 #include "../../service/ItemService.h"
@@ -50,6 +51,7 @@ public:
     Ui::mainwindow *ui;
 
 private:
+    ModelManager * _modelManager;
     QPushButton *_customerBtnBack;
     QPushButton *_staffBtnBack;
     QPushButton *_itemBtnBack;

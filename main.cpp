@@ -1,6 +1,5 @@
 #include <QtWidgets/QApplication>
 #include "window/main/MainWindow.h"
-#include "model/ModelManager.h"
 
 
 int main(int argc, char *argv[]) {
@@ -13,7 +12,6 @@ int main(int argc, char *argv[]) {
         QString StyleSheet = QLatin1String(file.readAll());
         a.setStyleSheet(StyleSheet);
     }
-    new ModelManager();
     MainWindow w;
     w.show();
     return a.exec();

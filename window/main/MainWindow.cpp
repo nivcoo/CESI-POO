@@ -7,7 +7,10 @@ struct MainWindow::OrderPaymentWidget orderPaymentWidget;
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
+        _modelManager(new ModelManager()),
         ui(new Ui::mainwindow) {
+
+
     ui->setupUi(this);
 
     initCustomerTab();
@@ -17,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 MainWindow::~MainWindow() {
+    delete _modelManager;
     delete ui;
     delete _customerBtnBack;
     delete _staffBtnBack;
