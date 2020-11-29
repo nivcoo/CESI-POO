@@ -43,14 +43,6 @@ void ItemModel::archiveByREF(string reference) {
 
 }
 
-void ItemModel::deleteByREF(string reference) {
-    SACommand cmd;
-    cmd.setCommandText("DELETE FROM `item` WHERE `reference` = :1;");
-    cmd.Param(1).setAsString() = _TSA(reference).c_str();
-    ModelManager::sendCMD(&cmd);
-
-}
-
 vector<ItemModel::Item> ItemModel::getAllItems(){
     SACommand cmd;
     cmd.setCommandText("SELECT * FROM `item` WHERE `archived` = :1;");

@@ -29,8 +29,6 @@ public:
 
     static vector<Item> getLowStockItems();
 
-    static void deleteByREF(string reference);
-
     static void updateQuantityOfItemREF(string reference, int newQuantity);
 
     static void updateByREF(string reference, string name, int resuplyThreshold, int quantity, double priceHt, double vat);

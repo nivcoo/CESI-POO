@@ -14,8 +14,6 @@ public:
 
     static int insert(int idCustomer, int idAddress);
 
-    static void deleteByID(int idCustomer, int idAddress);
-
     static vector<AddressModel::Address> getAllActiveAddressOfCustomerID(int customerID);
 
     static void archiveAddressOfCustomerIDByType(int customerID, int type);

@@ -17,17 +17,6 @@ int CustomerAddressModel::insert(int idCustomer, int idAddress) {
     return id;
 }
 
-void CustomerAddressModel::deleteByID(int idCustomer, int idAddress) {
-
-    SACommand cmd;
-    cmd.setCommandText("DELETE FROM `customer_address` WHERE `id_customer` = :1 AND `id_address` = :2;");
-    cmd.Param(1).setAsInt64() = _TSA(idCustomer);
-    cmd.Param(2).setAsInt64() = _TSA(idAddress);
-    ModelManager::sendCMD(&cmd);
-
-}
-
-
 vector<AddressModel::Address> CustomerAddressModel::getAllActiveAddressOfCustomerID(int customerID) {
     SACommand cmd;
     cmd.setCommandText(

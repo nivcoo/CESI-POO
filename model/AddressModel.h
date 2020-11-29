@@ -19,13 +19,8 @@ public:
 
     static int insert(int type, string addressLine, string postalCode, string city);
 
-    static void updateByID(int id, int type, string addressLine, string postalCode, string city, bool archived);
-
-    static void deleteByID(int id);
-
     static void archiveByID(int id);
 
-    static Address getAddressByID(int id);
 };
 
 

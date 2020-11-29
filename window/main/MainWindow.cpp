@@ -9,8 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         _modelManager(new ModelManager()),
         ui(new Ui::mainwindow) {
-
-
     ui->setupUi(this);
 
     initCustomerTab();
