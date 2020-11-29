@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initStaffTab();
     initItemTab();
     initOrderTab();
+    initStatTab();
 }
 
 MainWindow::~MainWindow() {
@@ -654,7 +655,6 @@ bool MainWindow::orderCheckItemQuantityError() {
     return quantityError;
 }
 
-
 void MainWindow::orderTabButtonClicked() {
 
     string orderREFEdit = ui->orderFormREF->text().toStdString();
@@ -1187,6 +1187,180 @@ void MainWindow::clearOrderInput() {
     orderPaymentWidget.paymentSelect = ui->orderFormPaymentSelect;
     orderPaymentWidget.amount = ui->orderFormPaymentAmount;
     _orderPaymentWidgets.push_back(orderPaymentWidget);
+}
+
+void MainWindow::initStatTab() {
+    statInitSelectValue();
+    auto customers = CustomerService::getAllCustomers();
+    int index = 0;
+    for (auto customer : customers) {
+        ui->statFormCustomerSelect->addItem((customer.firstname + " " + customer.lastname).c_str());
+        ui->statFormCustomerSelect->setItemData(index, customer.id);
+        index++;
+    }
+    auto itemsLowStock = StatsService::getLowStockItems();
+    for (auto item : itemsLowStock) {
+        statAddItemToTable(item, ui->statFormTableLowStock);
+    }
+    auto itemsBestSelled = StatsService::getItemsBestSelled();
+    for (auto orderItem : itemsBestSelled) {
+        auto item = ItemService::getItemByREF(orderItem.referenceItem);
+        statAddItemToTable(item, ui->statFormTableBestSelled);
+    }
+    auto itemsLeastSelled = StatsService::getItemsLeastSelled();
+    for (auto orderItem : itemsLeastSelled) {
+        auto item = ItemService::getItemByREF(orderItem.referenceItem);
+        statAddItemToTable(item, ui->statFormTableLeastSelled);
+    }
+
+    connect(ui->statPushButtonAverageCart, SIGNAL(clicked()), this, SLOT(statTabButtonAverageCartClicked()));
+
+    connect(ui->statPushButtonMonthlyEarning, SIGNAL(clicked()), this, SLOT(statTabButtonMonthlyEarningClicked()));
+    connect(ui->statPushButtonCustomerTotalPurschases, SIGNAL(clicked()), this,
+            SLOT(statTabButtonCustomerTotalPurschasesClicked()));
+    connect(ui->statPushButtonCommercialValue, SIGNAL(clicked()), this, SLOT(statTabButtonCommercialValueClicked()));
+    connect(ui->statPushButtonPurchaseValue, SIGNAL(clicked()), this, SLOT(statTabButtonPurchaseValueClicked()));
+    connect(ui->statPushButtonSimulateVariation, SIGNAL(clicked()), this,
+            SLOT(statTabButtonSimulateVariationClicked()));
+}
+
+void MainWindow::statTabButtonAverageCartClicked() {
+    ui->statFormAverageCart->setValue(StatsService::getAverageCartValue());
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statTabButtonMonthlyEarningClicked() {
+
+    int month = ui->statFormMonthlyEarningSelect->currentIndex() + 1;
+    ui->statFormMonthlyEarning->setValue(
+            StatsService::getMonthlyEarning(SADateTime(SADateTime::currentDateTime().GetYear(), month, 0)));
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statTabButtonCustomerTotalPurschasesClicked() {
+    int customerID = ui->statFormCustomerSelect->itemData(ui->statFormCustomerSelect->currentIndex()).toInt();
+    ui->statFormCustomerValue->setValue(StatsService::getTotalPurchasesOfCustomerByID(customerID));
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statTabButtonCommercialValueClicked() {
+    ui->statFormCommercialValue->setValue(StatsService::getValueStock(true));
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statTabButtonPurchaseValueClicked() {
+    ui->statFormPurschaseValue->setValue(StatsService::getValueStock());
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statTabButtonSimulateVariationClicked() {
+
+    double vat = ui->statFormSimulateTVASelect->itemData(ui->statFormSimulateTVASelect->currentIndex()).toDouble();
+    double commercialMargin = ui->statFormSimulateCommercialM->itemData(
+            ui->statFormSimulateCommercialM->currentIndex()).toDouble();
+    double commercialDiscount = ui->statFormSimulateCommercialD->itemData(
+            ui->statFormSimulateCommercialD->currentIndex()).toDouble();
+    double unknownMargin = ui->statFormSimulateOtherM->itemData(ui->statFormSimulateOtherM->currentIndex()).toDouble();
+    ui->statFormSimulateValue->setValue(
+            StatsService::getValueStock(false, vat * commercialMargin * commercialDiscount * unknownMargin));
+    showPOPUpMessage(false, "Success !", "The value has been calculated successfully!");
+}
+
+void MainWindow::statInitSelectValue() {
+
+    ui->statFormMonthlyEarningSelect->addItem("January");
+    ui->statFormMonthlyEarningSelect->addItem("February");
+    ui->statFormMonthlyEarningSelect->addItem("March");
+    ui->statFormMonthlyEarningSelect->addItem("April");
+    ui->statFormMonthlyEarningSelect->addItem("May");
+    ui->statFormMonthlyEarningSelect->addItem("June");
+    ui->statFormMonthlyEarningSelect->addItem("July");
+    ui->statFormMonthlyEarningSelect->addItem("August");
+    ui->statFormMonthlyEarningSelect->addItem("September");
+    ui->statFormMonthlyEarningSelect->addItem("October");
+    ui->statFormMonthlyEarningSelect->addItem("November");
+    ui->statFormMonthlyEarningSelect->addItem("December");
+
+
+    double value = 1;
+    ui->statFormSimulateTVASelect->addItem("No Vat");
+    ui->statFormSimulateTVASelect->setItemData(0, value);
+    value = 1.05;
+    ui->statFormSimulateTVASelect->addItem("VAT 1 (5%)");
+    ui->statFormSimulateTVASelect->setItemData(1, value);
+    value = 1.10;
+    ui->statFormSimulateTVASelect->addItem("VAT 2 (10%)");
+    ui->statFormSimulateTVASelect->setItemData(2, value);
+    value = 1.20;
+    ui->statFormSimulateTVASelect->addItem("VAT 3 (20%)");
+    ui->statFormSimulateTVASelect->setItemData(3, value);
+
+    value = 1;
+    ui->statFormSimulateCommercialM->addItem("No Commercial Margin");
+    ui->statFormSimulateCommercialM->setItemData(0, value);
+    value = 1.05;
+    ui->statFormSimulateCommercialM->addItem("Commercial Margin (5%)");
+    ui->statFormSimulateCommercialM->setItemData(1, value);
+    value = 1.10;
+    ui->statFormSimulateCommercialM->addItem("Commercial Margin (10%)");
+    ui->statFormSimulateCommercialM->setItemData(2, value);
+    value = 1.20;
+    ui->statFormSimulateCommercialM->addItem("Commercial Margin (15%)");
+    ui->statFormSimulateCommercialM->setItemData(3, value);
+
+    value = 1;
+    ui->statFormSimulateCommercialD->addItem("No Commercial Discount");
+    ui->statFormSimulateCommercialD->setItemData(0, value);
+    value = 0.95;
+    ui->statFormSimulateCommercialD->addItem("Commercial Discount (5%)");
+    ui->statFormSimulateCommercialD->setItemData(1, value);
+    value = 0.96;
+    ui->statFormSimulateCommercialD->addItem("Commercial Discount (6%)");
+    ui->statFormSimulateCommercialD->setItemData(2, value);
+
+    value = 1;
+    ui->statFormSimulateOtherM->addItem("No Unknown Discount");
+    ui->statFormSimulateOtherM->setItemData(0, value);
+    value = 1.02;
+    ui->statFormSimulateOtherM->addItem("Unknown Discount (2%)");
+    ui->statFormSimulateOtherM->setItemData(1, value);
+    value = 1.03;
+    ui->statFormSimulateOtherM->addItem("Unknown Discount (3%)");
+    ui->statFormSimulateOtherM->setItemData(2, value);
+    value = 1.05;
+    ui->statFormSimulateOtherM->addItem("Unknown Discount (5%)");
+    ui->statFormSimulateOtherM->setItemData(3, value);
+
+
+}
+
+
+void MainWindow::statAddItemToTable(ItemModel::Item item, QTableWidget *tableWidget) {
+    tableWidget->resizeColumnsToContents();
+    tableWidget->insertRow(tableWidget->rowCount());
+    int row = tableWidget->rowCount() - 1;
+    tableWidget->setItem(row,
+                         0,
+                         new QTableWidgetItem(item.reference.c_str()));
+    tableWidget->setItem(row,
+                         1,
+                         new QTableWidgetItem(item.name.c_str()));
+    tableWidget->setItem(row,
+                         2,
+                         new QTableWidgetItem(to_string(item.resuplyThreshold).c_str()));
+
+
+    tableWidget->setItem(row,
+                         3,
+                         new QTableWidgetItem(to_string(item.quantity).c_str()));
+    tableWidget->setItem(row,
+                         4,
+                         new QTableWidgetItem(to_string(item.priceHt).c_str()));
+    tableWidget->setItem(row,
+                         5,
+                         new QTableWidgetItem(to_string(item.vat).c_str()));
+
+
 }
 
 

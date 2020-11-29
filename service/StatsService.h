@@ -19,11 +19,11 @@ public:
 
     static double getMonthlyEarning(SADateTime dateTime);
 
-    static double getCustomerTotalPurchases(int customerID);
-
     static double getValueStock(bool commercial = false, double exValue = 1);
 
     static double getTotalPurchasesOfCustomerByID(int customerID);
+
+    static vector<ItemModel::Item> getLowStockItems();
 
     static std::vector<OrderItemModel::OrderItem> getItemsBestSelled();
 

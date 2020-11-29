@@ -12,9 +12,11 @@
 #include "../../service/StaffService.h"
 #include "../../service/ItemService.h"
 #include "../../service/OrderService.h"
+#include "../../service/StatsService.h"
 #include <QMessageBox>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QTableWidget>
 #include <sstream>
 #include <algorithm>
 #include <iterator>
@@ -62,6 +64,7 @@ private:
 
 
 private slots:
+
 
     void customerTabButtonClicked();
 
@@ -138,6 +141,19 @@ private slots:
     void addOrderToTable(OrderHistoryModel::Order order);
 
     void clearOrderInput();
+
+
+    void initStatTab();
+
+    void statTabButtonAverageCartClicked();
+    void statTabButtonMonthlyEarningClicked();
+    void statTabButtonCustomerTotalPurschasesClicked();
+    void statTabButtonCommercialValueClicked();
+    void statTabButtonPurchaseValueClicked();
+    void statTabButtonSimulateVariationClicked();
+
+    void statInitSelectValue();
+    void statAddItemToTable(ItemModel::Item item, QTableWidget * tableWidget);
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

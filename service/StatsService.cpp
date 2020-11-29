@@ -24,20 +24,11 @@ double StatsService::getMonthlyEarning(SADateTime dateTime) {
         OrderHistoryModel::Order order = OrderService::getOrderByREF(ref);
         int orderYear = order.createdAt.GetYear();
         int orderMonth = order.createdAt.GetMonth();
-        int currentYear = SADateTime::currentDateTime().GetYear();
-        int currentMonth = SADateTime::currentDateTime().GetMonth();
-        if (orderYear != currentYear && orderMonth != currentMonth)
+        int selectedYear = dateTime.GetYear();
+        int selectedMonth = dateTime.GetMonth();
+        if (orderYear != selectedYear || orderMonth != selectedMonth)
             continue;
         total += (1 + orderItem.vat) * (orderItem.price * orderItem.quantity);
-    }
-    return total;
-}
-
-double StatsService::getCustomerTotalPurchases(int customerID) {
-    vector<OrderHistoryModel::Order> Orders = OrderHistoryModel::getAllOrdersByCustomerID(customerID);
-    double total = 0.0;
-    for (auto order : Orders) {
-        //  order.
     }
     return total;
 }
@@ -45,14 +36,12 @@ double StatsService::getCustomerTotalPurchases(int customerID) {
 double StatsService::getValueStock(bool commercial, double exValue) {
     auto items = ItemService::getAllItems();
     double total = 0;
-
     for (auto item : items) {
         if (commercial)
             total += (item.priceHt * item.quantity) * (1 + item.vat);
         else
             total += (item.priceHt * item.quantity) * exValue;
     }
-
     return total;
 }
 
@@ -68,4 +57,8 @@ std::vector<OrderItemModel::OrderItem> StatsService::getItemsLeastSelled() {
 
 double StatsService::getTotalPurchasesOfCustomerByID(int customerID) {
     return OrderService::getTotalPurchasesOfCustomerByID(customerID);
+}
+
+vector<ItemModel::Item> StatsService::getLowStockItems() {
+    return ItemService::getLowStockItems();
 }

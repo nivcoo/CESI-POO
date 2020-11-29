@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1210</width>
-    <height>663</height>
+    <width>1459</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1210</width>
-    <height>663</height>
+    <width>1459</width>
+    <height>687</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -1631,13 +1631,13 @@
                    <widget class="QGroupBox" name="statB5">
                     <property name="minimumSize">
                      <size>
-                      <width>800</width>
+                      <width>650</width>
                       <height>250</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>800</width>
+                      <width>650</width>
                       <height>250</height>
                      </size>
                     </property>
@@ -1686,6 +1686,9 @@
                         </widget>
                        </item>
                        <item>
+                        <widget class="QComboBox" name="statFormMonthlyEarningSelect"/>
+                       </item>
+                       <item>
                         <widget class="QDoubleSpinBox" name="statFormMonthlyEarning">
                          <property name="readOnly">
                           <bool>true</bool>
@@ -1721,7 +1724,41 @@
                          </widget>
                         </item>
                         <item>
-                         <widget class="QTableWidget" name="statFormTableLowStock"/>
+                         <widget class="QTableWidget" name="statFormTableLowStock">
+                          <property name="editTriggers">
+                           <set>QAbstractItemView::NoEditTriggers</set>
+                          </property>
+                          <column>
+                           <property name="text">
+                            <string>reference</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>name</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>resuply_threshold</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>quantity</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>price_ht</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>vat</string>
+                           </property>
+                          </column>
+                         </widget>
                         </item>
                        </layout>
                       </widget>
@@ -1737,6 +1774,19 @@
                        </item>
                        <item>
                         <widget class="QComboBox" name="statFormCustomerSelect"/>
+                       </item>
+                       <item>
+                        <widget class="QDoubleSpinBox" name="statFormCustomerValue">
+                         <property name="readOnly">
+                          <bool>true</bool>
+                         </property>
+                         <property name="buttonSymbols">
+                          <enum>QAbstractSpinBox::NoButtons</enum>
+                         </property>
+                         <property name="maximum">
+                          <double>999999.000000000000000</double>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QPushButton" name="statPushButtonCustomerTotalPurschases">
@@ -1757,13 +1807,13 @@
                    <widget class="QGroupBox" name="statB4">
                     <property name="minimumSize">
                      <size>
-                      <width>250</width>
+                      <width>620</width>
                       <height>250</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>250</width>
+                      <width>620</width>
                       <height>250</height>
                      </size>
                     </property>
@@ -1776,7 +1826,41 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="statFormTableBestSelled"/>
+                      <widget class="QTableWidget" name="statFormTableBestSelled">
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                       <column>
+                        <property name="text">
+                         <string>reference</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>name</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>resuply_threshold</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>quantity</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>price_ht</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>vat</string>
+                        </property>
+                       </column>
+                      </widget>
                      </item>
                     </layout>
                    </widget>
@@ -1789,13 +1873,13 @@
                    <widget class="QGroupBox" name="statB1">
                     <property name="minimumSize">
                      <size>
-                      <width>800</width>
+                      <width>650</width>
                       <height>250</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>800</width>
+                      <width>650</width>
                       <height>250</height>
                      </size>
                     </property>
@@ -1871,46 +1955,62 @@
                      <item>
                       <layout class="QHBoxLayout" name="statH4">
                        <item>
-                        <widget class="QLabel" name="statL2">
-                         <property name="text">
-                          <string>Simulate Variation</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="statFormSimulateTVASelect"/>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="statFormSimulateCommercialM"/>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="statFormSimulateCommercialD"/>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="statFormSimulateOtherM"/>
-                       </item>
-                       <item>
-                        <widget class="QDoubleSpinBox" name="statFormSimulateValue">
-                         <property name="readOnly">
-                          <bool>true</bool>
-                         </property>
-                         <property name="buttonSymbols">
-                          <enum>QAbstractSpinBox::NoButtons</enum>
-                         </property>
-                         <property name="maximum">
-                          <double>999999.000000000000000</double>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="statPushButtonSimulateVariation">
-                         <property name="cursor">
-                          <cursorShape>PointingHandCursor</cursorShape>
-                         </property>
-                         <property name="text">
-                          <string>Calcul the Value</string>
-                         </property>
-                        </widget>
+                        <layout class="QVBoxLayout" name="statV2">
+                         <item>
+                          <layout class="QHBoxLayout" name="statH12">
+                           <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                            <widget class="QLabel" name="statL2">
+                             <property name="text">
+                              <string>Simulate Variation</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="statH11">
+                           <item>
+                            <widget class="QComboBox" name="statFormSimulateTVASelect"/>
+                           </item>
+                           <item>
+                            <widget class="QComboBox" name="statFormSimulateCommercialM"/>
+                           </item>
+                           <item>
+                            <widget class="QComboBox" name="statFormSimulateCommercialD"/>
+                           </item>
+                           <item>
+                            <widget class="QComboBox" name="statFormSimulateOtherM"/>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="statH10">
+                           <item>
+                            <widget class="QDoubleSpinBox" name="statFormSimulateValue">
+                             <property name="readOnly">
+                              <bool>true</bool>
+                             </property>
+                             <property name="buttonSymbols">
+                              <enum>QAbstractSpinBox::NoButtons</enum>
+                             </property>
+                             <property name="maximum">
+                              <double>999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="statPushButtonSimulateVariation">
+                             <property name="cursor">
+                              <cursorShape>PointingHandCursor</cursorShape>
+                             </property>
+                             <property name="text">
+                              <string>Calcul the Value</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
                        </item>
                       </layout>
                      </item>
@@ -1921,13 +2021,13 @@
                    <widget class="QGroupBox" name="statB3">
                     <property name="minimumSize">
                      <size>
-                      <width>250</width>
+                      <width>620</width>
                       <height>250</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>250</width>
+                      <width>620</width>
                       <height>250</height>
                      </size>
                     </property>
@@ -1940,7 +2040,41 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="statFormTableLeastSelled"/>
+                      <widget class="QTableWidget" name="statFormTableLeastSelled">
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                       <column>
+                        <property name="text">
+                         <string>reference</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>name</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>resuply_threshold</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>quantity</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>price_ht</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>vat</string>
+                        </property>
+                       </column>
+                      </widget>
                      </item>
                     </layout>
                    </widget>
