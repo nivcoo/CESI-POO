@@ -528,7 +528,6 @@ void MainWindow::itemTabArchiveButtonOnTableClicked(string itemREF, int row) {
 }
 
 void MainWindow::itemTabButtonClicked() {
-
     string itemFormREF = ui->itemFormREF->text().toStdString();
     string itemFormName = ui->itemFormName->text().toStdString();
     int itemFormResuplyThreshold = ui->itemFormResuplyThreshold->value();
@@ -542,30 +541,26 @@ void MainWindow::itemTabButtonClicked() {
         return;
     }
 
-
     string itemREF = ui->itemFormREFSave->text().toStdString();
     int editMode = itemREF != "";
-
     if (!editMode) {
-        clearItemInput();
-        itemREF = ItemService::addItem(itemFormREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity,
-                                       itemFormPriceHT, itemFormVAT);
+        auto item = ItemService::getItemByREF(itemFormREF);
+        if(item.reference != itemFormREF) {
+            clearItemInput();
+            itemREF = ItemService::addItem(itemFormREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity,
+                                           itemFormPriceHT, itemFormVAT);
+            addItemToTable(item);
+            showPOPUpMessage(false, "Success !", "Adding the item with success !");
+        }
+        else
+            showPOPUpMessage(true, "Error !", "This reference already exist !");
+
+
     } else {
         ItemService::updateItemByREF(itemREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity, itemFormPriceHT,
                                      itemFormVAT);
+        showPOPUpMessage(false, "Success !", "Editing the item with success !");
     }
-
-
-    if (!editMode) {
-        auto item = ItemService::getItemByREF(itemREF);
-        addItemToTable(item);
-        showPOPUpMessage(false, "Success !", "Adding the item with success !");
-        return;
-    }
-
-    showPOPUpMessage(false, "Success !", "Editing the item with success !");
-
-
 }
 
 void MainWindow::addItemToTable(ItemModel::Item item) {
