@@ -133,3 +133,18 @@ int OrderHistoryModel::getOrderCountByCustomerID(int customerID) {
     ModelManager::get()->getDataBase()->closeConnection();
     return count;
 }
+
+double OrderHistoryModel::getTotalPurchasesOfCustomerByID(int customerID) {
+    SACommand cmd;
+    cmd.setCommandText("SELECT SUM((oi.quantity * oi.price * (1 - oi.commercial_discount)) * (1 + i.vat))\n"
+                       "FROM `order__history`\n"
+                       "         INNER JOIN order__item oi on order__history.reference = oi.reference\n"
+                       "         INNER JOIN item i on oi.reference_item = i.reference\n"
+                       "WHERE id = :1;");
+    cmd.Param(1).setAsInt64() = _TSA(customerID);
+    ModelManager::sendCMD(&cmd, false);
+    cmd.FetchNext();
+    double amount = cmd[1].asInt64();
+    ModelManager::get()->getDataBase()->closeConnection();
+    return amount;
+}

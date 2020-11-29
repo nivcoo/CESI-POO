@@ -33,6 +33,8 @@ public:
 
     static int getOrderCountByCustomerID(int customerID);
 
+    static double getTotalPurchasesOfCustomerByID(int customerID);
+
     static vector<Order> getAllOrders();
 };
 

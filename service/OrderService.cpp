@@ -106,3 +106,7 @@ void OrderService::editPaymentAmountByID(int paymentID, double amount) {
 void OrderService::editCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount) {
     OrderItemModel::updateCommercialDiscountFromOrderByREF(orderReference, itemReference, commercialDiscount);
 }
+
+double OrderService::getTotalPurchasesOfCustomerByID(int customerID) {
+    return OrderHistoryModel::getAmountOfAllOrdersOfCustomerByID(customerID);
+}

@@ -42,23 +42,15 @@ double StatsService::getCustomerTotalPurchases(int customerID) {
     return total;
 }
 
-double StatsService::getCommercialValueStock() {
+double StatsService::getValueStock(bool commercial, double exValue) {
     auto items = ItemService::getAllItems();
     double total = 0;
 
     for (auto item : items) {
-        total += (item.priceHt * item.quantity) * (1 + item.vat);
-    }
-
-    return total;
-}
-
-double StatsService::getBuyValueStock() {
-    auto items = ItemService::getAllItems();
-    double total = 0;
-
-    for (auto item : items) {
-        total += item.priceHt * item.quantity;
+        if (commercial)
+            total += (item.priceHt * item.quantity) * (1 + item.vat);
+        else
+            total += (item.priceHt * item.quantity) * exValue;
     }
 
     return total;
@@ -72,4 +64,8 @@ std::vector<OrderItemModel::OrderItem> StatsService::getBestSeller() {
 std::vector<OrderItemModel::OrderItem> StatsService::getLeastSeller() {
     auto item = OrderItemModel::getLeastSellItem();
     return item;
+}
+
+double StatsService::getTotalPurchasesOfCustomerByID(int customerID) {
+    return OrderService::getTotalPurchasesOfCustomerByID(customerID);
 }

@@ -21,9 +21,9 @@ public:
 
     static double getCustomerTotalPurchases(int customerID);
 
-    static double getCommercialValueStock();
+    static double getValueStock(bool commercial = false, double exValue = 1);
 
-    static double getBuyValueStock();
+    static double getTotalPurchasesOfCustomerByID(int customerID);
 
     static std::vector<OrderItemModel::OrderItem> getBestSeller();
 
