@@ -17,7 +17,6 @@ public:
         int customerID, staffID, deliveryAddressID, billingAddressID;
     };
 
-
     static string insert(string reference, SADateTime estimatedDeliveryDate, int customerID, int staffID,
                          int deliveryAddressID, int billingAddressID);
 

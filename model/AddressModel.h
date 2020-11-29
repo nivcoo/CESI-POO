@@ -9,7 +9,6 @@
 
 class AddressModel {
 
-
 public:
 
     struct Address {

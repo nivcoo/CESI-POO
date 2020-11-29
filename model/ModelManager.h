@@ -26,8 +26,8 @@ public:
     ~ModelManager();
 
     DataBase *getDataBase();
-    static ModelManager *get();
 
+    static ModelManager *get();
 
     static void sendCMD(SACommand *cmd);
 
