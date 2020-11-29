@@ -25,10 +25,12 @@ string OrderHistoryModel::insert(string reference, SADateTime estimatedDeliveryD
 
 void OrderHistoryModel::updateEstimatedDeliveryDateByREF(string reference, SADateTime estimatedDeliveryDate) {
     SACommand cmd;
+
+    cout << estimatedDeliveryDate.GetMinute() << " " << estimatedDeliveryDate.GetMonth() << " " << estimatedDeliveryDate.GetDay() << endl;
     cmd.setCommandText(
-            "UPDATE `order__history` SET estimated_delivery_date = :1 WHERE reference = :2;");
-    cmd.Param(1).setAsDateTime() = _TSA(estimatedDeliveryDate);
-    cmd.Param(2).asString() = _TSA(reference).c_str();
+            "UPDATE `order__history` SET estimated_delivery_date=:1 WHERE `reference`=:2;");
+    //here we use "<<" because the other method not work correctly with date
+    cmd << _TSA(estimatedDeliveryDate) << _TSA(reference).c_str();
     ModelManager::sendCMD(&cmd);
 }
 
