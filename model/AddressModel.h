@@ -17,9 +17,21 @@ public:
         bool archived;
     };
 
+/**
+ * iInsert a row in the model table
+ * @param type
+ * @param addressLine
+ * @param postalCode
+ * @param city
+ * @return id of the inserted address
+ */
     static int insert(int type, string addressLine, string postalCode, string city);
 
-    static void archiveByID(int id);
+/**
+ * Instead of deleting address, archive it to not lose it in previous orders
+ * @param id
+ */
+static void archiveByID(int id);
 
 };
 

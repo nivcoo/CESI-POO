@@ -19,16 +19,45 @@ public:
         SADateTime birthDate;
     };
 
+/**
+ * Insert row in the customer table
+ * @param firstname
+ * @param lastname
+ * @param birthDate
+ * @return Insert row in the customer table
+ */
     static int insert(string firstname, string lastname, SADateTime birthDate);
 
+/**
+ * Update row in the customer table
+ * @param id
+ * @param firstname
+ * @param lastname
+ * @param birthDate
+ */
     static void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
 
+/**
+ * Get a customer by it's reference
+ * @param id
+ * @return CustomerModel::Customer struct that contain all data about a customer
+ */
     static Customer getCustomerByID(int id);
 
-    static std::vector<Customer> getAllCustomers();
+    static vector<Customer> getAllCustomers();
 
+/**
+ * Get all customers matching firstname & lastname
+ * @param firstname
+ * @param lastname
+ * @return vector of CustomerModel::Customer struct that contain all data about a customer
+ */
     static vector<Customer> getAllCustomersByFirstAndLastName(string firstname, string lastname);
 
+/**
+ * Instead of deleting customer, archive it to not lose it in previous orders
+ * @param id
+ */
     static void archivedByID(int id);
 };
 

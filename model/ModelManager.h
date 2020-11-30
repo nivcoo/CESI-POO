@@ -29,8 +29,17 @@ public:
 
     static ModelManager *get();
 
+/**
+ * Send query to the database and the connection to the db
+ * @param cmd contains the query
+ */
     static void sendCMD(SACommand *cmd);
 
+/**
+ * Send query to the database
+ * @param cmd contains the query
+ * @param close optinal : close or not the connection to the db (default true)
+ */
     static void sendCMD(SACommand *cmd, bool close);
 
 private:
