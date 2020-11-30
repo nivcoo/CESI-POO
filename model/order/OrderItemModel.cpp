@@ -65,7 +65,7 @@ void OrderItemModel::deleteByREF(string orderReference, string itemReference) {
 
 }
 
-vector<OrderItemModel::OrderItem> OrderItemModel::getMostSellItem() {
+vector<OrderItemModel::OrderItem> OrderItemModel::getMostSoldItem() {
     SACommand cmd;
     cmd.setCommandText("SELECT i.reference, i.name, SUM(order__item.quantity) as sum\n"
                        "    FROM order__item INNER JOIN item i on order__item.reference_item = i.reference\n"
@@ -83,7 +83,7 @@ vector<OrderItemModel::OrderItem> OrderItemModel::getMostSellItem() {
     return orders;
 }
 
-vector<OrderItemModel::OrderItem> OrderItemModel::getLeastSellItem() {
+vector<OrderItemModel::OrderItem> OrderItemModel::getLeastSoldItem() {
     SACommand cmd;
     cmd.setCommandText("SELECT i.reference, i.name, SUM(order__item.quantity) as sum\n"
                        "    FROM order__item INNER JOIN item i on order__item.reference_item = i.reference\n"
