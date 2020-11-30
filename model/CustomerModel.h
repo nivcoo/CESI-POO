@@ -24,7 +24,7 @@ public:
  * @param firstname
  * @param lastname
  * @param birthDate
- * @return Insert row in the customer table
+ * @return id of the customer
  */
     static int insert(string firstname, string lastname, SADateTime birthDate);
 
@@ -38,7 +38,7 @@ public:
     static void updateByID(int id, string firstname, string lastname, SADateTime birthDate);
 
 /**
- * Get a customer by it's reference
+ * Get a customer by it's id
  * @param id
  * @return CustomerModel::Customer struct that contain all data about a customer
  */
