@@ -46,7 +46,7 @@ public:
 /**
  * Get an order by it's reference
  * @param reference Order reference
- * @return vector of OrderHistoryModel::Order struct
+ * @return OrderHistoryModel::Order struct
  */
     static Order getOrderByREF(string reference);
 

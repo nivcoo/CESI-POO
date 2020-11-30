@@ -15,19 +15,52 @@
 
 class StatsService {
 public:
+
+/**
+ * Get average price of the order
+ * @return
+ */
     static double getAverageCartValue();
 
+/**
+ * Get earning for a month
+ * @param dateTime
+ * @return earnings
+ */
     static double getMonthlyEarning(SADateTime dateTime);
 
+/**
+ * Get the value of the stock
+ * @param commercial set it true to count VAT (default : false -> so exValue is used)
+ * @param exValue modifying coefficient (default : 1)
+ * @return stock value
+ */
     static double getValueStock(bool commercial = false, double exValue = 1);
 
+/**
+ * Get the amount spent by a customer
+ * @param customerID
+ * @return spent amount
+ */
     static double getTotalPurchasesOfCustomerByID(int customerID);
 
+/**
+ * Get items that are bellow their resupply threshold
+ * @return vector of ItemModel::Item containing all infos about item
+ */
     static vector<ItemModel::Item> getLowStockItems();
 
-    static std::vector<OrderItemModel::OrderItem> getItemsBestSelled();
+/**
+ * Get 10 most sold items
+ * @return vector of OrderItemModel::OrderItem
+ */
+    static vector<OrderItemModel::OrderItem> getItemsBestSold();
 
-    static vector<OrderItemModel::OrderItem> getItemsLeastSelled();
+/**
+ * Get 10 least sold items
+ * @return vector of OrderItemModel::OrderItem
+ */
+    static vector<OrderItemModel::OrderItem> getItemsLeastSold();
 
 };
 

@@ -55,7 +55,7 @@ public:
  * @param id
  * @param amount
  */
-    static void updateAmountBuID(int id, double amount);
+    static void updateAmountByID(int id, double amount);
 
 };
 
