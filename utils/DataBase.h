@@ -14,6 +14,14 @@ using namespace std;
 class DataBase {
 
 public:
+
+/**
+ * Init database object
+ * @param server Hostname
+ * @param db Database name
+ * @param user DB Username
+ * @param pass DB Password
+ */
     DataBase(SAString server, SAString db, SAString user, SAString pass);
 
     ~DataBase();
@@ -22,6 +30,10 @@ public:
 
     void closeConnection();
 
+/**
+ * Send a command to the DB
+ * @param saCommand
+ */
     void connectAndExecuteCommand(SACommand *saCommand);
 
     SAConnection _con;
