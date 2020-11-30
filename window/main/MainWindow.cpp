@@ -1203,12 +1203,12 @@ void MainWindow::initStatTab() {
     for (auto item : itemsLowStock) {
         statAddItemToTable(item, ui->statFormTableLowStock);
     }
-    auto itemsBestSelled = StatsService::getItemsBestSelled();
+    auto itemsBestSelled = StatsService::getItemsBestSold();
     for (auto orderItem : itemsBestSelled) {
         auto item = ItemService::getItemByREF(orderItem.referenceItem);
         statAddItemToTable(item, ui->statFormTableBestSelled);
     }
-    auto itemsLeastSelled = StatsService::getItemsLeastSelled();
+    auto itemsLeastSelled = StatsService::getItemsLeastSold();
     for (auto orderItem : itemsLeastSelled) {
         auto item = ItemService::getItemByREF(orderItem.referenceItem);
         statAddItemToTable(item, ui->statFormTableLeastSelled);

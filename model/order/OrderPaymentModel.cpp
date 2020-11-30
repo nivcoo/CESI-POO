@@ -60,7 +60,7 @@ vector<OrderPaymentModel::Payment> OrderPaymentModel::getAllPaymentByOrderREF(st
     return payments;
 }
 
-void OrderPaymentModel::updateAmountBuID(int id, double amount) {
+void OrderPaymentModel::updateAmountByID(int id, double amount) {
 
     SACommand cmd;
     cmd.setCommandText(

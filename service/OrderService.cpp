@@ -62,7 +62,7 @@ int OrderService::getOrderCountByCustomerID(int customerID) {
     return OrderHistoryModel::getOrderCountByCustomerID(customerID);
 }
 
-std::vector<OrderItemModel::OrderItem> OrderService::getAllOrderItem() {
+vector<OrderItemModel::OrderItem> OrderService::getAllOrderItem() {
     return OrderItemModel::getAllOrderItem();
 }
 
@@ -95,12 +95,12 @@ void OrderService::deleteItemFromOrderByREF(string orderReference, string itemRe
     OrderItemModel::deleteByREF(orderReference, itemReference);
 }
 
-void OrderService::deletePaymentFromOrderByID(int itemReference) {
-    OrderPaymentModel::deleteByID(itemReference);
+void OrderService::deletePaymentFromOrderByID(int paymentId) {
+    OrderPaymentModel::deleteByID(paymentId);
 }
 
 void OrderService::editPaymentAmountByID(int paymentID, double amount) {
-    OrderPaymentModel::updateAmountBuID(paymentID, amount);
+    OrderPaymentModel::updateAmountByID(paymentID, amount);
 }
 
 void OrderService::editCommercialDiscountFromOrderByREF(string orderReference, string itemReference, double commercialDiscount) {
