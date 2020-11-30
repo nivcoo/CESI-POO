@@ -1181,6 +1181,7 @@ void MainWindow::clearOrderInput() {
     orderItemWidget.itemSelect = ui->orderFormItemSelect;
     orderItemWidget.quantity = ui->orderFormItemQuantity;
     orderItemWidget.commercialDiscount = ui->orderFormCormmercialDiscount;
+    orderItemWidget.priceIT = ui->orderFormTotalPrice;
     _orderItemWidgets.push_back(orderItemWidget);
     orderTabAddPaymentsToComboBox(ui->orderFormPaymentSelect);
     orderPaymentWidget.id = ui->orderFormPaymentID;
