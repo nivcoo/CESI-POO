@@ -53,7 +53,7 @@ public:
     Ui::mainwindow *ui;
 
 private:
-    ModelManager * _modelManager;
+    ModelManager *_modelManager;
     QPushButton *_customerBtnBack;
     QPushButton *_staffBtnBack;
     QPushButton *_itemBtnBack;
@@ -61,6 +61,42 @@ private:
     vector<OrderPaymentWidget> _orderPaymentWidgets;
 
     static void showPOPUpMessage(bool error, string title, string message);
+
+    void initCustomerTab();
+
+    void initStaffTab();
+
+    void initStatTab();
+
+    void initItemTab();
+
+    void initOrderTab();
+
+    void statInitSelectValue();
+
+    void clearCustomerInput();
+
+    void clearStaffInput();
+
+    void clearItemInput();
+
+    void clearOrderInput();
+
+    void addCustomerToTable(CustomerModel::Customer customer);
+
+    void addStaffToTable(StaffModel::Staff staff);
+
+    void addItemToTable(ItemModel::Item item);
+
+    void addOrderToTable(OrderHistoryModel::Order order);
+
+    void statAddItemToTable(ItemModel::Item item, QTableWidget *tableWidget);
+
+    void orderTabAddItemsToComboBox(QComboBox *itemSelect);
+
+    void orderTabAddPaymentsToComboBox(QComboBox *itemSelect);
+
+    bool orderCheckItemQuantityError();
 
 
 private slots:
@@ -74,14 +110,7 @@ private slots:
 
     void customerTabArchiveButtonOnTableClicked(int customerID, int row);
 
-    void initCustomerTab();
-
-    void addCustomerToTable(CustomerModel::Customer customer);
-
-    void customerTabCancelEdit();
-
-    void clearCustomerInput();
-
+    void customerTabCancelEditClicked();
 
     void staffTabButtonClicked();
 
@@ -91,14 +120,7 @@ private slots:
 
     void staffTabDeleteButtonOnTableClicked(int staffID, int row);
 
-    void initStaffTab();
-
-    void addStaffToTable(StaffModel::Staff staff);
-
-    void staffTabCancelEdit();
-
-    void clearStaffInput();
-
+    void staffTabCancelEditClicked();
 
     void itemTabButtonClicked();
 
@@ -106,15 +128,7 @@ private slots:
 
     void itemTabArchiveButtonOnTableClicked(string itemREF, int row);
 
-    void initItemTab();
-
-    void addItemToTable(ItemModel::Item item);
-
-    void itemTabCancelEdit();
-
-    void clearItemInput();
-
-    bool orderCheckItemQuantityError();
+    void itemTabCancelEditClicked();
 
     void orderTabButtonClicked();
 
@@ -127,33 +141,22 @@ private slots:
     void orderTabButtonAddItemToOrderClicked(string ref = "", int quantityVal = 0, double commercialDiscountVal = 0,
                                              double priceIT = 0);
 
-
-    void orderTabAddItemsToComboBox(QComboBox *itemSelect);
-
-    void orderTabAddPaymentsToComboBox(QComboBox *itemSelect);
-
     void orderTabEditButtonOnTableClicked(string orderREF, int row);
 
     void orderTabDeleteButtonOnTableClicked(string orderREF, int row);
 
-    void initOrderTab();
-
-    void addOrderToTable(OrderHistoryModel::Order order);
-
-    void clearOrderInput();
-
-
-    void initStatTab();
-
     void statTabButtonAverageCartClicked();
+
     void statTabButtonMonthlyEarningClicked();
+
     void statTabButtonCustomerTotalPurschasesClicked();
+
     void statTabButtonCommercialValueClicked();
+
     void statTabButtonPurchaseValueClicked();
+
     void statTabButtonSimulateVariationClicked();
 
-    void statInitSelectValue();
-    void statAddItemToTable(ItemModel::Item item, QTableWidget * tableWidget);
 };
 
 #endif //MAIN_CPP_MAINWINDOW_H

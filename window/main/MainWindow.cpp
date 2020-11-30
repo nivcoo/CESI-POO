@@ -103,10 +103,10 @@ void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
 
     }
 
-    connect(_customerBtnBack, SIGNAL(clicked()), this, SLOT(customerTabCancelEdit()));
+    connect(_customerBtnBack, SIGNAL(clicked()), this, SLOT(customerTabCancelEditClicked()));
 }
 
-void MainWindow::customerTabCancelEdit() {
+void MainWindow::customerTabCancelEditClicked() {
     delete _customerBtnBack;
     ui->titleCustomer->setText("Add Customer Form");
     ui->pushButtonAddCustomer->setText("Add Customer");
@@ -331,10 +331,10 @@ void MainWindow::staffTabEditButtonOnTableClicked(int staffID, int row) {
     ui->staffFormCity->setText(staff.city.c_str());
     ui->staffFormPostalCode->setValue(postalCode);
 
-    connect(_staffBtnBack, SIGNAL(clicked()), this, SLOT(staffTabCancelEdit()));
+    connect(_staffBtnBack, SIGNAL(clicked()), this, SLOT(staffTabCancelEditClicked()));
 }
 
-void MainWindow::staffTabCancelEdit() {
+void MainWindow::staffTabCancelEditClicked() {
     delete _staffBtnBack;
     ui->titleStaff->setText("Add Staff Form");
     ui->pushButtonAddStaff->setText("Add Staff");
@@ -503,10 +503,10 @@ void MainWindow::itemTabEditButtonOnTableClicked(string itemREF, int row) {
     ui->itemFormPriceHT->setValue(item.priceHt);
     ui->itemFormVAT->setValue(item.vat);
 
-    connect(_itemBtnBack, SIGNAL(clicked()), this, SLOT(itemTabCancelEdit()));
+    connect(_itemBtnBack, SIGNAL(clicked()), this, SLOT(itemTabCancelEditClicked()));
 }
 
-void MainWindow::itemTabCancelEdit() {
+void MainWindow::itemTabCancelEditClicked() {
     delete _itemBtnBack;
     ui->titleItem->setText("Add Item Form");
     ui->pushButtonAddItem->setText("Add Item");
