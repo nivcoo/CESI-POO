@@ -60,7 +60,7 @@ private:
     vector<OrderItemWidget> _orderItemWidgets;
     vector<OrderPaymentWidget> _orderPaymentWidgets;
 
-    void showPOPUpMessage(bool error, string title, string message);
+    static void showPOPUpMessage(bool error, string title, string message);
 
 
 private slots:
