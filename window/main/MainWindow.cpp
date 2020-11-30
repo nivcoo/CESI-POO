@@ -545,14 +545,13 @@ void MainWindow::itemTabButtonClicked() {
     int editMode = itemREF != "";
     if (!editMode) {
         auto item = ItemService::getItemByREF(itemFormREF);
-        if(item.reference != itemFormREF) {
+        if (item.reference != itemFormREF) {
             clearItemInput();
             itemREF = ItemService::addItem(itemFormREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity,
                                            itemFormPriceHT, itemFormVAT);
             addItemToTable(item);
             showPOPUpMessage(false, "Success !", "Adding the item with success !");
-        }
-        else
+        } else
             showPOPUpMessage(true, "Error !", "This reference already exist !");
 
 
@@ -681,12 +680,20 @@ void MainWindow::orderTabButtonClicked() {
         //OrderService::add
         string orderREF = OrderService::addOrder(orderFormEstimatedDeliveryDateTime, customerID,
                                                  staffID);
+        auto items = OrderService::getAllOrderItemByOrderREF(orderREF);
         for (auto orderItemWidget : _orderItemWidgets) {
+
+
             string ref = orderItemWidget.itemSelect->itemData(
                     orderItemWidget.itemSelect->currentIndex()).toString().toStdString();
+            bool exist = false;
+            for (auto item : items) {
+                if (item.referenceItem == ref)
+                    exist = true;
+            }
             int quantity = orderItemWidget.quantity->value();
             double commercialDiscount = orderItemWidget.commercialDiscount->value();
-            if (quantity > 0)
+            if (quantity > 0 && !exist)
                 OrderService::addItemToOrderREF(orderREF, ref, quantity, commercialDiscount);
         }
 
@@ -720,9 +727,9 @@ void MainWindow::orderTabButtonClicked() {
                     exist = true;
             }
 
-            if (quantity > 0 && !exist)
+            if (quantity > 0 && !exist) {
                 OrderService::addItemToOrderREF(orderREFEdit, ref, quantity, commercialDiscount);
-            else if (quantity == 0 && exist) {
+            } else if (quantity == 0 && exist) {
                 OrderService::deleteItemFromOrderByREF(orderREFEdit, ref);
             } else if (quantity >= 0 && exist) {
                 OrderService::editCommercialDiscountFromOrderByREF(orderREFEdit, ref, commercialDiscount);
