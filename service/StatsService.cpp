@@ -46,13 +46,11 @@ double StatsService::getValueStock(bool commercial, double exValue) {
 }
 
 std::vector<OrderItemModel::OrderItem> StatsService::getItemsBestSold() {
-    auto item = OrderItemModel::getMostSoldItem();
-    return item;
+    return OrderItemModel::getMostSoldItem();
 }
 
 std::vector<OrderItemModel::OrderItem> StatsService::getItemsLeastSold() {
-    auto item = OrderItemModel::getLeastSoldItem();
-    return item;
+    return OrderItemModel::getLeastSoldItem();
 }
 
 double StatsService::getTotalPurchasesOfCustomerByID(int customerID) {
