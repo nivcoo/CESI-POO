@@ -80,3 +80,20 @@ INSERT INTO poo.item (reference, name, resuply_threshold, quantity, price_ht, va
 INSERT INTO poo.item (reference, name, resuply_threshold, quantity, price_ht, vat, archived) VALUES ('RS53000FU', 'Résistance 53kOhm', 50, 645, 0.03, 0.2, 0);
 INSERT INTO poo.item (reference, name, resuply_threshold, quantity, price_ht, vat, archived) VALUES ('TR78155AC', 'Transistor NPN', 40, 600, 0.5, 0.2, 0);
 INSERT INTO poo.item (reference, name, resuply_threshold, quantity, price_ht, vat, archived) VALUES ('TR78595GC', 'Transistor PNP', 30, 250, 0.42, 0.2, 0);
+
+
+INSERT INTO poo.order__history (reference, estimated_delivery_date, created_at, id, id_staff, id_address, id_address_bill) VALUES ('OLOR2020IGO1', '2000-01-01', '2020-12-01 14:54:47', 2, 1, 4, 5);
+INSERT INTO poo.order__history (reference, estimated_delivery_date, created_at, id, id_staff, id_address, id_address_bill) VALUES ('OLOR2020IGO2', '2000-01-01', '2020-12-01 14:56:39', 2, 1, 4, 5);
+
+
+INSERT INTO poo.order__item (reference, reference_item, quantity, price, vat, commercial_discount) VALUES ('OLOR2020IGO1', 'DI87321OI', 100, 2.14, 0.2, 0);
+INSERT INTO poo.order__item (reference, reference_item, quantity, price, vat, commercial_discount) VALUES ('OLOR2020IGO1', 'TR78155AC', 10, 0.5, 0.2, 0);
+INSERT INTO poo.order__item (reference, reference_item, quantity, price, vat, commercial_discount) VALUES ('OLOR2020IGO2', 'RS00470UU', 150, 0.03, 0.2, 0);
+INSERT INTO poo.order__item (reference, reference_item, quantity, price, vat, commercial_discount) VALUES ('OLOR2020IGO2', 'RS53000FU', 200, 0.03, 0.2, 0.3);
+INSERT INTO poo.order__item (reference, reference_item, quantity, price, vat, commercial_discount) VALUES ('OLOR2020IGO2', 'TR78155AC', 200, 0.5, 0.2, 0);
+
+
+INSERT INTO poo.order__payment (id, payment_method, amount, sold_at, reference) VALUES (1, 0, 256.8, '2020-12-01 14:54:48', 'OLOR2020IGO1');
+INSERT INTO poo.order__payment (id, payment_method, amount, sold_at, reference) VALUES (2, 1, 130, '2020-12-01 14:56:41', 'OLOR2020IGO2');
+INSERT INTO poo.order__payment (id, payment_method, amount, sold_at, reference) VALUES (3, 0, 0.44, '2020-12-01 14:56:41', 'OLOR2020IGO2');
+INSERT INTO poo.order__payment (id, payment_method, amount, sold_at, reference) VALUES (4, 1, 6, '2020-12-01 15:07:47', 'OLOR2020IGO1');
