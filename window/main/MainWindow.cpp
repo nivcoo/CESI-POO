@@ -610,12 +610,19 @@ void MainWindow::addItemToTable(ItemModel::Item item) {
     tableWidget->setItem(row,
                          4,
                          new QTableWidgetItem(to_string(item.quantity).c_str()));
+
+    stringstream tmp;
+    tmp << setprecision(2) << fixed << item.priceHt;
+
     tableWidget->setItem(row,
                          5,
-                         new QTableWidgetItem(to_string(item.priceHt).c_str()));
+                         new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
+    tmp << setprecision(2) << fixed << item.vat;
     tableWidget->setItem(row,
                          6,
-                         new QTableWidgetItem(to_string(item.vat).c_str()));
+                         new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
 
 
 }
@@ -1109,14 +1116,19 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
         total += temp;
     }
 
-    tableWidget->setItem(row, 4, new QTableWidgetItem(to_string(total).c_str()));
+    stringstream tmp;
+    tmp << setprecision(2) << fixed << total;
+
+
+    tableWidget->setItem(row, 4, new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
 
     double paid = OrderService::getPaymentAmountForOrderByREF(order.reference);
 
     total -= paid;
-
-    tableWidget->setItem(row, 5, new QTableWidgetItem(to_string(total < 0 ? 0 : total).c_str()));
-
+    tmp << setprecision(2) << fixed << (total < 0 ? 0 : total);
+    tableWidget->setItem(row, 5, new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
 
     string date =
             to_string(order.estimatedDeliveryDate.GetDay()) + "-" +
@@ -1367,12 +1379,21 @@ void MainWindow::statAddItemToTable(ItemModel::Item item, QTableWidget *tableWid
     tableWidget->setItem(row,
                          3,
                          new QTableWidgetItem(to_string(item.quantity).c_str()));
+
+
+    stringstream tmp;
+    tmp << setprecision(2) << fixed << item.priceHt;
+
+
     tableWidget->setItem(row,
                          4,
-                         new QTableWidgetItem(to_string(item.priceHt).c_str()));
+                         new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
+    tmp << setprecision(2) << fixed << item.vat;
     tableWidget->setItem(row,
                          5,
-                         new QTableWidgetItem(to_string(item.vat).c_str()));
+                         new QTableWidgetItem(tmp.str().c_str()));
+    tmp.str(string());
 
 
 }

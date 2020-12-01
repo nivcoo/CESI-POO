@@ -20,6 +20,8 @@
 #include <sstream>
 #include <algorithm>
 #include <iterator>
+#include <iomanip>
+#include <sstream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class mainwindow; }
