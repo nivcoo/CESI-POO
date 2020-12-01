@@ -36,9 +36,9 @@ double OrderPaymentModel::getAmountForOrderByREF(string ref) {
     cmd.Param(1).setAsString() = _TSA(ref).c_str();
     ModelManager::sendCMD(&cmd, false);
     cmd.FetchNext();
-    int id = cmd[1].asDouble();
+    double amount = cmd[1].asDouble();
     ModelManager::get()->getDataBase()->closeConnection();
-    return id;
+    return amount;
 }
 
 vector<OrderPaymentModel::Payment> OrderPaymentModel::getAllPaymentByOrderREF(string orderReference) {

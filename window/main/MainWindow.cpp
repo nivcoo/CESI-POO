@@ -859,9 +859,7 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
             ui->orderFormTotalPrice->setValue(priceIT);
             ui->orderFormTotalPrice->setReadOnly(true);
         } else {
-
             orderTabButtonAddItemToOrderClicked(item.referenceItem, item.quantity, item.commercialDiscount, priceIT);
-
         }
         i++;
 
@@ -1023,23 +1021,23 @@ void MainWindow::orderTabButtonAddItemToOrderClicked(string ref, int quantityVal
     auto layout2 = new QHBoxLayout;
     layout2->addWidget(new QLabel("Quantity"));
     auto quantity = new QSpinBox;
-    quantity->setValue(quantityVal);
     quantity->setMaximum(999999);
+    quantity->setValue(quantityVal);
     layout2->addWidget(quantity);
     auto layout3 = new QHBoxLayout;
     layout3->addWidget(new QLabel("Commercial Discount"));
     auto commercialDiscount = new QDoubleSpinBox;
-    commercialDiscount->setValue(commercialDiscountVal);
     commercialDiscount->setMaximum(1);
+    commercialDiscount->setValue(commercialDiscountVal);
     if (editMode)
         commercialDiscount->setReadOnly(true);
     layout3->addWidget(commercialDiscount);
     auto layout4 = new QHBoxLayout;
     layout4->addWidget(new QLabel("Price IT"));
     auto priceIT = new QDoubleSpinBox;
-    priceIT->setValue(priceITVal);
     priceIT->setReadOnly(true);
     priceIT->setMaximum(999999);
+    priceIT->setValue(priceITVal);
     layout4->addWidget(priceIT);
     mainLayout->addLayout(layout1);
     mainLayout->addLayout(layout2);
@@ -1118,8 +1116,6 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
 
     stringstream tmp;
     tmp << setprecision(2) << fixed << total;
-
-
     tableWidget->setItem(row, 4, new QTableWidgetItem(tmp.str().c_str()));
     tmp.str(string());
 
