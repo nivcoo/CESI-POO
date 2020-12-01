@@ -168,27 +168,40 @@ void MainWindow::customerTabButtonClicked() {
                                                      customerFormBirthDate->date().day()));
     }
 
-    for (auto address : CustomerService::getAllActiveAddressOfCustomerID(customerID)) {
+    auto allAddress = CustomerService::getAllActiveAddressOfCustomerID(customerID);
+
+    if (allAddress.size() < 2) {
+        CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1,
+                                                customerFormPostalCode1,
+                                                customerFormCity1);
+        CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2,
+                                                customerFormPostalCode2,
+                                                customerFormCity2);
+
+    } else
+        for (auto address : allAddress) {
 
 
-        bool edited = false;
-        if (address.type == 1) {
-            edited = customerFormAddressLine1 != address.addressLine || customerFormPostalCode1 != address.postalCode ||
-                     customerFormCity1 != address.city;
-            if (edited)
-                CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1,
-                                                        customerFormPostalCode1,
-                                                        customerFormCity1);
-        } else if (address.type == 2) {
-            edited = customerFormAddressLine2 != address.addressLine || customerFormPostalCode2 != address.postalCode ||
-                     customerFormCity2 != address.city;
-            if (edited)
-                CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2,
-                                                        customerFormPostalCode2,
-                                                        customerFormCity2);
+            bool edited = false;
+            if (address.type == 1) {
+                edited = customerFormAddressLine1 != address.addressLine ||
+                         customerFormPostalCode1 != address.postalCode ||
+                         customerFormCity1 != address.city;
+                if (edited)
+                    CustomerService::addAddressToCustomerID(customerID, 1, customerFormAddressLine1,
+                                                            customerFormPostalCode1,
+                                                            customerFormCity1);
+            } else if (address.type == 2) {
+                edited = customerFormAddressLine2 != address.addressLine ||
+                         customerFormPostalCode2 != address.postalCode ||
+                         customerFormCity2 != address.city;
+                if (edited)
+                    CustomerService::addAddressToCustomerID(customerID, 2, customerFormAddressLine2,
+                                                            customerFormPostalCode2,
+                                                            customerFormCity2);
+            }
+
         }
-
-    }
 
 
     if (!editMode) {
