@@ -562,7 +562,7 @@ void MainWindow::itemTabButtonClicked() {
             clearItemInput();
             itemREF = ItemService::addItem(itemFormREF, itemFormName, itemFormResuplyThreshold, itemFormQuantity,
                                            itemFormPriceHT, itemFormVAT);
-            addItemToTable(item);
+            addItemToTable(ItemService::getItemByREF(itemREF));
             showPOPUpMessage(false, "Success !", "Adding the item with success !");
         } else
             showPOPUpMessage(true, "Error !", "This reference already exist !");
