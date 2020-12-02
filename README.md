@@ -44,10 +44,10 @@ Dans ce test fonctionnel nous allons démontrer les fonctionnalités du logiciel
   - Hire date : 15/09/2015
 
   - Address
-    - Address line : 18 chemin Cousteau
-    - City : Bosdarros
+    - Address line : 24 chemin de la paine
+    - City : Idron
 
-    - Postal code : 64720
+    - Postal code : 64320
 
 - Valider la saisie avec le bouton « Add Staff »
 - Le personnel apparaît ensuite dans le tableau à gauche avec les données saisies
