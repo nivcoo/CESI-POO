@@ -62,7 +62,7 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="orderTab">
          <attribute name="title">
@@ -915,7 +915,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="text">
-                  <string>Add item</string>
+                  <string>Add Item</string>
                  </property>
                 </widget>
                </item>
@@ -1609,7 +1609,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="text">
-                  <string>Add staff</string>
+                  <string>Add Staff</string>
                  </property>
                 </widget>
                </item>
