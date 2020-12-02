@@ -1341,16 +1341,16 @@ void MainWindow::statInitSelectValue() {
     ui->statFormSimulateCommercialD->setItemData(2, value);
 
     value = 1;
-    ui->statFormSimulateOtherM->addItem("No Unknown Discount");
+    ui->statFormSimulateOtherM->addItem("No Other Discount");
     ui->statFormSimulateOtherM->setItemData(0, value);
-    value = 1.02;
-    ui->statFormSimulateOtherM->addItem("Unknown Discount (2%)");
+    value = 0.98;
+    ui->statFormSimulateOtherM->addItem("Other Discount (2%)");
     ui->statFormSimulateOtherM->setItemData(1, value);
-    value = 1.03;
-    ui->statFormSimulateOtherM->addItem("Unknown Discount (3%)");
+    value = 0.97;
+    ui->statFormSimulateOtherM->addItem("Other Discount (3%)");
     ui->statFormSimulateOtherM->setItemData(2, value);
-    value = 1.05;
-    ui->statFormSimulateOtherM->addItem("Unknown Discount (5%)");
+    value = 0.95;
+    ui->statFormSimulateOtherM->addItem("Other Discount (5%)");
     ui->statFormSimulateOtherM->setItemData(3, value);
 
 
