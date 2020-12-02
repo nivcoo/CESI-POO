@@ -62,11 +62,11 @@
          <string/>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="orderTab">
          <attribute name="title">
-          <string>Order Tab</string>
+          <string>Order</string>
          </attribute>
          <layout class="QHBoxLayout" name="orderTabL">
           <item>
@@ -648,7 +648,7 @@
         </widget>
         <widget class="QWidget" name="itemTab">
          <attribute name="title">
-          <string>Item Tab</string>
+          <string>Item</string>
          </attribute>
          <layout class="QHBoxLayout" name="itemTabL">
           <item>
@@ -931,7 +931,7 @@
           <string notr="true"/>
          </property>
          <attribute name="title">
-          <string>Customer Tab</string>
+          <string>Customer</string>
          </attribute>
          <layout class="QHBoxLayout" name="customerTabL">
           <item>
@@ -1319,7 +1319,7 @@
         </widget>
         <widget class="QWidget" name="staffTab">
          <attribute name="title">
-          <string>Staff Tab</string>
+          <string>Staff</string>
          </attribute>
          <layout class="QHBoxLayout" name="staffTabL">
           <item>
@@ -1622,7 +1622,7 @@
         </widget>
         <widget class="QWidget" name="statTab">
          <attribute name="title">
-          <string>Stat Tab</string>
+          <string>Stat</string>
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item alignment="Qt::AlignVCenter">
