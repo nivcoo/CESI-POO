@@ -9,14 +9,6 @@
 #include "../utils/DataBase.h"
 #include <QtCore/qfile.h>
 #include <QtCore/qtextstream.h>
-#include "CustomerModel.h"
-#include "AddressModel.h"
-#include "order/OrderItemModel.h"
-#include "order/OrderHistoryModel.h"
-#include "order/OrderPaymentModel.h"
-#include "ItemModel.h"
-#include "CustomerAddressModel.h"
-#include "StaffModel.h"
 
 class ModelManager {
 

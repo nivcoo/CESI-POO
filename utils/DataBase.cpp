@@ -4,28 +4,16 @@
 
 #include "DataBase.h"
 
-DataBase::DataBase(SAString server, SAString db, SAString user, SAString pass) : _server(server), _db(db),
+DataBase::DataBase(string server, string db, string user, string pass) : _server(server), _db(db),
                                                                                  _user(user), _pass(pass) {
 
-    /**
-     *
-     * This is an example
-    SACommand cmd;
-
-    cmd.setCommandText("SELECT cuntest FROM test WHERE cuntest = :1");
-    cmd << 10L;
-    connectAndExecuteCommand(&cmd);
-
-    while(cmd.FetchNext())
-        cout << cmd.Field(_TSA("cuntest")).asString().GetMultiByteChars() << endl;
-    closeConnection();**/
 }
 
 void DataBase::connectIfNot() {
-
     if (!_con.isConnected()) {
         try {
-            _con.Connect(_server + "@" + _db, _user, _pass, SA_MySQL_Client);
+            string host = _server + "@" + _db;
+            _con.Connect(host.c_str(), _user.c_str(), _pass.c_str(), SA_MySQL_Client);
             //cout << "We are connected!" << endl;
         }
         catch (SAException &x) {
@@ -37,7 +25,7 @@ void DataBase::connectIfNot() {
 }
 
 void DataBase::closeConnection() {
-    if (_con.isConnected()) {
+    if (_con.isConnected() || _con.isAlive()) {
         _con.Disconnect();
         //cout << "We are disconnected!" << endl;
     }

@@ -22,7 +22,7 @@ public:
  * @param user DB Username
  * @param pass DB Password
  */
-    DataBase(SAString server, SAString db, SAString user, SAString pass);
+    DataBase(string server, string db, string user, string pass);
 
     ~DataBase();
 
@@ -39,10 +39,10 @@ public:
     SAConnection _con;
 private:
 
-    SAString _server;
-    SAString _db;
-    SAString _user;
-    SAString _pass;
+    string _server;
+    string _db;
+    string _user;
+    string _pass;
     void displayDBError(SAException &error);
 };
 

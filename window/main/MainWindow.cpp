@@ -8,6 +8,7 @@ struct MainWindow::OrderPaymentWidget orderPaymentWidget;
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         _modelManager(new ModelManager()),
+
         ui(new Ui::mainwindow) {
     ui->setupUi(this);
 
@@ -21,9 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow() {
     delete _modelManager;
     delete ui;
+    /**
+    error code with this so maybe UI delete that before.
+
     delete _customerBtnBack;
     delete _staffBtnBack;
-    delete _itemBtnBack;
+    delete _itemBtnBack;**/
 }
 
 void MainWindow::showPOPUpMessage(bool error, string title, string message) {
