@@ -61,16 +61,16 @@ void MainWindow::initCustomerTab() {
 
 void MainWindow::customerTabOrderButtonOnTableClicked(int customerID, const int i) {
     auto customer = CustomerService::getCustomerByID(customerID);
-    ui->orderFormCustomerID->setValue(customerID);
+    orderFormCustomerID = customerID;
     string text = "Customer - " + customer.firstname + " " + customer.lastname;
     ui->orderL1->setText(text.c_str());
     showPOPUpMessage(false, "Success !", "The customer was added to the order with success !");
 }
 
 void MainWindow::customerTabEditButtonOnTableClicked(int customerID, int row) {
-    if (ui->customerFormID->value())
+    if (customerFormID)
         return;
-    ui->customerFormID->setValue(customerID);
+    customerFormID = customerID;
     _customerBtnBack = new QPushButton("Back To Add new Customer");
     ui->customerFormTitleLayout->addWidget(_customerBtnBack);
     ui->titleCustomer->setText("Edit Customer Form");
@@ -154,7 +154,7 @@ void MainWindow::customerTabButtonClicked() {
     }
 
 
-    int customerID = ui->customerFormID->value();
+    int customerID = customerFormID;
 
     int editMode = customerID;
 
@@ -283,8 +283,7 @@ void MainWindow::addCustomerToTable(CustomerModel::Customer customer) {
 }
 
 void MainWindow::clearCustomerInput() {
-
-    ui->customerFormID->setValue(0);
+    customerFormID = 0;
 
     ui->customerFormFirstName->clear();
     ui->customerFormLastName->clear();
@@ -314,7 +313,7 @@ void MainWindow::initStaffTab() {
 
 void MainWindow::staffTabOrderButtonOnTableClicked(int staffID, const int i) {
     auto staff = StaffService::getStaffByID(staffID);
-    ui->orderFormStaffID->setValue(staffID);
+    orderFormStaffID = staffID;
     string text = "Staff - " + staff.firstname + " " + staff.lastname;
     ui->orderL3->setText(text.c_str());
     showPOPUpMessage(false, "Success !", "The Staff was added to the order with success !");
@@ -322,9 +321,9 @@ void MainWindow::staffTabOrderButtonOnTableClicked(int staffID, const int i) {
 }
 
 void MainWindow::staffTabEditButtonOnTableClicked(int staffID, int row) {
-    if (ui->staffFormID->value())
+    if (staffFormID)
         return;
-    ui->staffFormID->setValue(staffID);
+    staffFormID = staffID;
     _staffBtnBack = new QPushButton("Back To Add new Staff");
     ui->staffFormTitleLayout->addWidget(_staffBtnBack);
     ui->titleStaff->setText("Edit Staff Form");
@@ -391,7 +390,7 @@ void MainWindow::staffTabButtonClicked() {
     }
 
 
-    int staffID = ui->staffFormID->value();
+    int staffID = staffFormID;
     int editMode = staffID;
 
     if (!editMode) {
@@ -478,7 +477,7 @@ void MainWindow::addStaffToTable(StaffModel::Staff staff) {
 
 void MainWindow::clearStaffInput() {
 
-    ui->staffFormID->setValue(0);
+    staffFormID = 0;
 
     ui->staffFormFirstName->clear();
     ui->staffFormLastName->clear();
@@ -503,9 +502,9 @@ void MainWindow::initItemTab() {
 }
 
 void MainWindow::itemTabEditButtonOnTableClicked(string itemREF, int row) {
-    if (ui->itemFormREFSave->text() != "")
+    if (itemFormREFSave != "")
         return;
-    ui->itemFormREFSave->setText(itemREF.c_str());
+    itemFormREFSave = itemREF;
     _itemBtnBack = new QPushButton("Back To Add new Item");
     ui->itemFormTitleLayout->addWidget(_itemBtnBack);
     ui->titleItem->setText("Edit Item Form");
@@ -558,7 +557,7 @@ void MainWindow::itemTabButtonClicked() {
         return;
     }
 
-    string itemREF = ui->itemFormREFSave->text().toStdString();
+    string itemREF = itemFormREFSave;
     int editMode = itemREF != "";
     if (!editMode) {
         auto item = ItemService::getItemByREF(itemFormREF);
@@ -632,7 +631,7 @@ void MainWindow::addItemToTable(ItemModel::Item item) {
 }
 
 void MainWindow::clearItemInput() {
-    ui->itemFormREFSave->clear();
+    itemFormREFSave = "";
     ui->itemFormREF->clear();
     ui->itemFormREF->setReadOnly(false);
     ui->itemFormName->clear();
@@ -673,13 +672,13 @@ bool MainWindow::orderCheckItemQuantityError() {
 
 void MainWindow::orderTabButtonClicked() {
 
-    string orderREFEdit = ui->orderFormREF->text().toStdString();
+    string orderREFEdit = orderFormREF;
 
     bool editMode = !empty(orderREFEdit);
 
     QDateEdit *orderFormEstimatedDeliveryDate = ui->orderFormEstimatedDeliveryDate;
-    int customerID = ui->orderFormCustomerID->value();
-    int staffID = ui->orderFormStaffID->value();
+    int customerID = orderFormCustomerID;
+    int staffID = orderFormStaffID;
     bool quantityError = false;
     string itemNameError = "";
     int realQuantity = 0;
@@ -794,7 +793,7 @@ void MainWindow::orderTabButtonResetOrderClicked() {
 
 void MainWindow::orderTabButtonCalculOrderClicked() {
 
-    string orderREFEdit = ui->orderFormREF->text().toStdString();
+    string orderREFEdit = orderFormREF;
 
     bool editMode = !empty(orderREFEdit);
     double total = 0;
@@ -832,12 +831,11 @@ void MainWindow::orderTabButtonCalculOrderClicked() {
 }
 
 void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
-    if (ui->orderFormREF->text() != "")
+    if (orderFormREF != "")
         return;
 
     clearOrderInput();
-
-    ui->orderFormREF->setText(orderREF.c_str());
+    orderFormREF = orderREF;
 
     ui->titleOrder->setText("Edit Order Form");
     ui->pushButtonAddOrder->setText("Edit Order");
@@ -895,8 +893,8 @@ void MainWindow::orderTabEditButtonOnTableClicked(string orderREF, int row) {
 
     double leftToPay = total - totalPayment;
     ui->orderFormTotalLeftToPay->setValue((leftToPay < 0) ? 0 : leftToPay);
-    ui->orderFormCustomerID->setValue(order.customerID);
-    ui->orderFormStaffID->setValue(order.staffID);
+    orderFormCustomerID = order.customerID;
+    orderFormStaffID = order.staffID;
 
     auto customer = CustomerService::getCustomerByID(order.customerID);
     string textCustomer = "Customer - " + customer.firstname + " " + customer.lastname;
@@ -1144,9 +1142,9 @@ void MainWindow::addOrderToTable(OrderHistoryModel::Order order) {
 }
 
 void MainWindow::clearOrderInput() {
-    ui->orderFormCustomerID->setValue(0);
-    ui->orderFormStaffID->setValue(0);
-    ui->orderFormREF->clear();
+    orderFormCustomerID = 0;
+    orderFormStaffID = 0;
+    orderFormREF = "";
     ui->orderFormEstimatedDeliveryDate->clear();
     ui->orderFormTotalPriceCart->clear();
     ui->orderL1->setText("Please Select Customer from Customer Tab");

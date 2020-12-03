@@ -55,6 +55,13 @@ public:
     Ui::mainwindow *ui;
 
 private:
+
+    int orderFormCustomerID = 0;
+    int orderFormStaffID = 0;
+    int customerFormID = 0;
+    int staffFormID = 0;
+    string orderFormREF;
+    string itemFormREFSave;
     ModelManager *_modelManager;
     QPushButton *_customerBtnBack;
     QPushButton *_staffBtnBack;
