@@ -5,7 +5,7 @@
 #ifndef CESI_POO_CUSTOMERTEST_H
 #define CESI_POO_CUSTOMERTEST_H
 
-#include "../model/ModelManager.h"
+#include "../model/CustomerModel.h"
 
 class CustomerTest {
 private:

@@ -1,10 +1,14 @@
 #include "CustomerTest.h"
+#include "../model/ModelManager.h"
 
 int main() {
 
-    new ModelManager();
+    ModelManager *modelManager = new ModelManager();
+
     CustomerTest test = CustomerTest();
     test.exec();
+
+    delete modelManager;
 
     return EXIT_SUCCESS;
 }

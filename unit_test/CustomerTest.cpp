@@ -2,7 +2,7 @@
 // Created by antoine on 27/11/2020.
 //
 
-#include "../model/ModelManager.h"
+#include "../model/CustomerModel.h"
 #include "CustomerTest.h"
 
 CustomerTest::CustomerTest(){}
