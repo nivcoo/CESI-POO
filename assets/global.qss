@@ -41,6 +41,22 @@ QPushButton#pushButtonAddCustomer, QPushButton#pushButtonAddStaff, QPushButton#p
 }
 
 
+QSpinBox#customerFormID, QSpinBox#staffFormID, QSpinBox#itemFormID, QSpinBox#orderFormCustomerID, QSpinBox#orderFormStaffID
+{
+	width:0px;
+    height:0px;
+    border:none;
+    padding:0px;
+}
+
+QLineEdit#itemFormREFSave, QLineEdit#orderFormREF
+{
+	width:0px;
+    height:0px;
+    border:none;
+    padding:0px;
+}
+
 
 
 
